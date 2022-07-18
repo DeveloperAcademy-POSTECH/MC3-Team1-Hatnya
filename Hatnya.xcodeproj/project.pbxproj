@@ -22,6 +22,7 @@
 		A28DEFA1288552CC004014DE /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA0288552CC004014DE /* StudyGroup.swift */; };
 		A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA428855325004014DE /* ImageLiteral.swift */; };
 		A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA728855354004014DE /* UIColor+Extension.swift */; };
+		AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AEC29DA428858DE700DA24B8 /* .swiftlint.yml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		A28DEFA0288552CC004014DE /* StudyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
 		A28DEFA428855325004014DE /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
 		A28DEFA728855354004014DE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		AEC29DA428858DE700DA24B8 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		A28DEF6628854EEF004014DE = {
 			isa = PBXGroup;
 			children = (
+				AEC29DA428858DE700DA24B8 /* .swiftlint.yml */,
 				A28DEF7128854EEF004014DE /* Hatnya */,
 				A28DEF7028854EEF004014DE /* Products */,
 			);
@@ -216,6 +219,7 @@
 				A28DEF6B28854EEF004014DE /* Sources */,
 				A28DEF6C28854EEF004014DE /* Frameworks */,
 				A28DEF6D28854EEF004014DE /* Resources */,
+				AEC29DA328858DDC00DA24B8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -264,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */,
 				A28DEF7F28854EF1004014DE /* LaunchScreen.storyboard in Resources */,
 				A28DEF7C28854EF1004014DE /* Assets.xcassets in Resources */,
 				A28DEF7A28854EEF004014DE /* Main.storyboard in Resources */,
@@ -271,6 +276,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AEC29DA328858DDC00DA24B8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A28DEF6B28854EEF004014DE /* Sources */ = {
