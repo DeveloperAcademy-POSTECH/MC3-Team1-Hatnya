@@ -72,7 +72,7 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 disabled_rules:
-#  - trailing_whitespace
+  - trailing_whitespace
 
 identifier_name:
   excluded:
