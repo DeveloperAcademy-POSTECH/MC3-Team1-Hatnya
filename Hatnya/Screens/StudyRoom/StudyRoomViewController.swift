@@ -29,6 +29,12 @@ class StudyRoomViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
+    private let dDayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "D-5"
+        label.font = UIFont.boldSystemFont(ofSize: 34)
+        return label
+    }()
 
     // MARK: - life cycle
 
@@ -55,8 +61,15 @@ class StudyRoomViewController: UIViewController {
         deadLineLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             deadLineLabel.topAnchor.constraint(equalTo: everyTaskLabel.bottomAnchor, constant: 4),
-            deadLineLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
-        ])
+            deadLineLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)]
+        )
+        
+        view.addSubview(dDayLabel)
+        dDayLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dDayLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 39),
+            dDayLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
+        )
     }
 
     // MARK: - func
