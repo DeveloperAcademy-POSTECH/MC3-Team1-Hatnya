@@ -48,8 +48,8 @@ class StudyRoomViewController: UIViewController {
         everyTaskLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             everyTaskLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 38),
-            everyTaskLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)
-            ])
+            everyTaskLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)]
+        )
         
         view.addSubview(deadLineLabel)
         deadLineLabel.translatesAutoresizingMaskIntoConstraints = false
