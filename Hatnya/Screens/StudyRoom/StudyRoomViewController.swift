@@ -36,6 +36,16 @@ class StudyRoomViewController: UIViewController {
         return label
     }()
     private let chartView = StudyChartView()
+    private lazy var codeCopyButton: UIButton = {
+        let button = UIButton(type: .system)
+        let action = UIAction { _ in
+            UIPasteboard.general.string = "초대코드"
+        }
+        button.setTitle("초대 코드 복사", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.addAction(action, for: .touchUpInside)
+        return button
+    }()
 
     // MARK: - life cycle
 
@@ -79,6 +89,13 @@ class StudyRoomViewController: UIViewController {
             chartView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             chartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chartView.heightAnchor.constraint(equalToConstant: 237)]
+        )
+        
+        view.addSubview(codeCopyButton)
+        codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            codeCopyButton.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 21),
+            codeCopyButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
     }
 
