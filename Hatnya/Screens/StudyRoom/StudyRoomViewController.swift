@@ -36,7 +36,7 @@ class StudyRoomViewController: UIViewController {
         return label
     }()
     private let chartView = StudyChartView()
-    private lazy var codeCopyButton: UIButton = {
+    private let codeCopyButton: UIButton = {
         let button = UIButton(type: .system)
         let action = UIAction { _ in
             UIPasteboard.general.string = "초대코드"
