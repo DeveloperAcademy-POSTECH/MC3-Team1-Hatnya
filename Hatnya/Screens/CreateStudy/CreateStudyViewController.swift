@@ -7,6 +7,17 @@
 
 import UIKit
 
+extension UITextField {
+    func underlined(viewSize: CGFloat, color: UIColor) {
+        let border = CALayer()
+        let width = CGFloat(1)
+        border.borderColor = color.cgColor
+        border.frame = CGRect(x: 0, y: self.frame.size.height + 10, width: viewSize - 48, height: width)
+        border.borderWidth = width
+        self.layer.addSublayer(border)
+    }
+}
+
 class CreateStudyViewController: UIViewController {
     private let studyNameLabel: UILabel = {
         let label = UILabel()
@@ -17,8 +28,6 @@ class CreateStudyViewController: UIViewController {
     
     private let studyNameTextField: UITextField = {
         let textField = UITextField()
-        //textField.backgroundColor = UIColor.brown
-        //textField.underlined(viewSize: CGFloat(100), color: UIColor.blue)
         textField.placeholder = "스터디 이름을 입력해주세요."
         textField.clearButtonMode = .always
         return textField
@@ -50,8 +59,8 @@ class CreateStudyViewController: UIViewController {
     
     private func render() {
         let safeArea = view.safeAreaLayoutGuide
-//        studyNameTextField.delegate = self
-//        studyInfoTextField.delegate = self
+        studyNameTextField.delegate = self
+        studyInfoTextField.delegate = self
         
         view.addSubview(studyNameLabel)
         studyNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +89,16 @@ class CreateStudyViewController: UIViewController {
             studyInfoTextField.topAnchor.constraint(equalTo: studyInfoLabel.bottomAnchor, constant: 20),
             studyInfoTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
         ])
+    }
+}
+
+extension CreateStudyViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: view.bounds.width, color: UIColor.blue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: view.bounds.width, color: UIColor.gray)
     }
 }
 
