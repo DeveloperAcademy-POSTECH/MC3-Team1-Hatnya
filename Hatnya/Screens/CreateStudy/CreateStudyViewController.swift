@@ -10,47 +10,49 @@ import UIKit
 extension UITextField {
     func underlined(viewSize: CGFloat, color: UIColor) {
         let border = CALayer()
-        let width = CGFloat(1)
+        let width = CGFloat(0.5)
         border.borderColor = color.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height + 10, width: viewSize - 48, height: width)
+        border.frame = CGRect(x: 0, y: self.frame.size.height + 11, width: viewSize, height: width)
         border.borderWidth = width
         self.layer.addSublayer(border)
     }
 }
 
 class CreateStudyViewController: UIViewController {
-    private let studyNameLabel: UILabel = {
+    private let getStudyNameView = GetInfoView()
+    private let getStudyDescriptView = GetInfoView()
+    
+    private let studyCycleLabel: UILabel = {
         let label = UILabel()
-        label.text = "스터디 이름"
+        label.text = "스터디 주기"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
     
-    private let studyNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "스터디 이름을 입력해주세요."
-        textField.clearButtonMode = .always
-        return textField
-    }()
-    
-    private let studyInfoLabel: UILabel = {
+    private let selectedCycleLabel: UILabel = {
         let label = UILabel()
-        label.text = "스터디 설명"
+        let border = CALayer()
+        let width = CGFloat(1)
+        border.borderColor = UIColor.lightGray.cgColor
+        border.frame = CGRect(x: 0, y: 10, width: 500, height: 40)
+        border.borderWidth = width
+        label.layer.addSublayer(border)
+        label.text = "1주"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
-    }()
-    
-    private let studyInfoTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "스터디 한 줄 소개를 입력해주세요."
-        textField.clearButtonMode = .always
-        return textField
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
         render()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        getStudyNameView.valueTextField.underlined(viewSize: getStudyNameView.valueTextField.bounds.width, color: UIColor.gray)
+        getStudyDescriptView.valueTextField.underlined(viewSize: getStudyDescriptView.valueTextField.bounds.width, color: UIColor.gray)
     }
     
     private func configUI() {
@@ -59,46 +61,38 @@ class CreateStudyViewController: UIViewController {
     
     private func render() {
         let safeArea = view.safeAreaLayoutGuide
-        studyNameTextField.delegate = self
-        studyInfoTextField.delegate = self
         
-        view.addSubview(studyNameLabel)
-        studyNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        getStudyNameView.update(title: "스터디 이름", placeHolder: "스터디 이름을 입력해주세요.")
+        view.addSubview(getStudyNameView)
+        getStudyNameView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            studyNameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 75),
-            studyNameLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
+            getStudyNameView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 50),
+            getStudyNameView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            getStudyNameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
         
-        view.addSubview(studyNameTextField)
-        studyNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        getStudyDescriptView.update(title: "스터디 설명", placeHolder: "스터디 한 줄 소개를 입력해주세요.")
+        view.addSubview(getStudyDescriptView)
+        getStudyDescriptView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            studyNameTextField.topAnchor.constraint(equalTo: studyNameLabel.bottomAnchor, constant: 20),
-            studyNameTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
+            getStudyDescriptView.topAnchor.constraint(equalTo: getStudyNameView.bottomAnchor, constant: 50),
+            getStudyDescriptView.leadingAnchor.constraint(equalTo: getStudyNameView.leadingAnchor),
+            getStudyDescriptView.centerXAnchor.constraint(equalTo: getStudyNameView.centerXAnchor)
         ])
         
-        view.addSubview(studyInfoLabel)
-        studyInfoLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(studyCycleLabel)
+        studyCycleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            studyInfoLabel.topAnchor.constraint(equalTo: studyNameTextField.bottomAnchor, constant: 50),
-            studyInfoLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
+            studyCycleLabel.topAnchor.constraint(equalTo: getStudyDescriptView.bottomAnchor, constant: 50),
+            studyCycleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
         ])
         
-        view.addSubview(studyInfoTextField)
-        studyInfoTextField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(selectedCycleLabel)
+        selectedCycleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            studyInfoTextField.topAnchor.constraint(equalTo: studyInfoLabel.bottomAnchor, constant: 20),
-            studyInfoTextField.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
+            selectedCycleLabel.topAnchor.constraint(equalTo: studyCycleLabel.bottomAnchor, constant: 50),
+            selectedCycleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
         ])
-    }
-}
-
-extension CreateStudyViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: view.bounds.width, color: UIColor.blue)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: view.bounds.width, color: UIColor.gray)
     }
 }
 
