@@ -9,10 +9,33 @@ import UIKit
 
 class StudyListViewController: UIViewController {
 
+    @IBAction private func showASBtn(_ sender: Any) {
+        showActionSheet()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    func showActionSheet() {
+        let actionSheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
+        
+        let first = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
+            print("첫번째")
+        }
+        let second = UIAlertAction(title: "스터디 생성하기", style: .default) { _ in
+            print("두번째")
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
+            print("취소")
+        }
+        
+        actionSheet.addAction(first)
+        actionSheet.addAction(second)
+        actionSheet.addAction(cancel)
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
 }
 
 extension StudyListViewController: UITableViewDataSource {
