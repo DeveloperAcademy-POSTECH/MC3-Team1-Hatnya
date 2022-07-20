@@ -138,4 +138,14 @@ extension WriteNicknameViewController: UITextFieldDelegate {
         inputTextField.underlined(viewSize: UIScreen.main.bounds.width, color: .systemGray)
     }
     
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text == nil || textField.text == "" {
+            nextButton.backgroundColor = .lightGray
+            nextButton.isUserInteractionEnabled = false
+        } else {
+            nextButton.backgroundColor = .blue
+            nextButton.isUserInteractionEnabled = true
+        }
+    }
+    
 }
