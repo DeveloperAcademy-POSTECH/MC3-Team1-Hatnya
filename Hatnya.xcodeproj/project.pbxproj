@@ -30,6 +30,7 @@
 		A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA428855325004014DE /* ImageLiteral.swift */; };
 		A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA728855354004014DE /* UIColor+Extension.swift */; };
 		AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AEC29DA428858DE700DA24B8 /* .swiftlint.yml */; };
+		AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		A28DEFA428855325004014DE /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
 		A28DEFA728855354004014DE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AEC29DA428858DE700DA24B8 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Preview.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				A28DEFA728855354004014DE /* UIColor+Extension.swift */,
+				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
 				3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */,
 			);
 			path = Extension;
@@ -339,6 +342,7 @@
 				3DA86DFA288793A900F34D69 /* StudyCycle.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,
+				AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */,
 				3DA86DFC288793F200F34D69 /* Member.swift in Sources */,
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
 				A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */,
