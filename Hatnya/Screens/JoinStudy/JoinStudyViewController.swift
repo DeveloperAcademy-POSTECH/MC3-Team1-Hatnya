@@ -17,7 +17,7 @@ class JoinStudyViewController: UIViewController, UITextFieldDelegate {
     
     func searchStudyGroup() {
         for studyGroup in StudyGroup.sampleData {
-            if(codeTextField.text == studyGroup.code) {
+            if codeTextField.text == studyGroup.code {
                 searchResultView.backgroundColor = .systemGray6
                 studyGroupName.text = studyGroup.studyName
                 studyGroupDescription.text = studyGroup.description
@@ -29,10 +29,10 @@ class JoinStudyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkMaxLength(textField: UITextField!, maxLength: Int) {
-        if(textField.text?.count ?? 0 == maxLength) {
+        if textField.text?.count ?? 0 == maxLength {
             searchStudyGroup()
             nextButton.isEnabled = true
-        } else if (textField.text?.count ?? 0 > maxLength) {
+        } else if textField.text?.count ?? 0 > maxLength {
             textField.deleteBackward()
         } else {
             nextButton.isEnabled = false
