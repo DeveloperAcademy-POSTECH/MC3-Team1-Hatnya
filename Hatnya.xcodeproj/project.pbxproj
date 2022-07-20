@@ -28,6 +28,7 @@
 		AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */; };
 		AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */; };
 		AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */; };
+		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Preview.swift"; sourceTree = "<group>"; };
 		AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListTitleView.swift; sourceTree = "<group>"; };
 		AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListCell.swift; sourceTree = "<group>"; };
+		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				A28DEFA0288552CC004014DE /* StudyGroup.swift */,
+				AED2E1B828880EDC00B32FF7 /* Homework.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
 				A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */,
 				A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */,
+				AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */,
 				A28DEFA1288552CC004014DE /* StudyGroup.swift in Sources */,
 				AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */,
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,

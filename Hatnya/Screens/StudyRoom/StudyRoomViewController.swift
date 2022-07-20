@@ -55,10 +55,6 @@ class StudyRoomViewController: UIViewController {
     enum HomeworkSection {
         case main
     }
-    
-    struct Homework: Hashable {
-        let id = UUID()
-    }
 
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
@@ -193,7 +189,7 @@ extension StudyRoomViewController: UICollectionViewDelegate {
     
     private func applySnapShot() {
         snapshot.appendSections([.main])
-        snapshot.appendItems([Homework(), Homework(), Homework()], toSection: .main)
+        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
         datasource.apply(snapshot)
     }
     
