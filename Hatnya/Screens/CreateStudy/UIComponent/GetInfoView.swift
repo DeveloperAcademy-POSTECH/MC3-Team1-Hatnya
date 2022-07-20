@@ -57,14 +57,3 @@ class GetInfoView: UIView {
         self.valueTextField.placeholder = placeHolder
     }
 }
-
-extension GetInfoView: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: self.valueTextField.bounds.width, color: UIColor.blue)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: self.valueTextField.bounds.width, color: UIColor.gray)
-    }
-}
