@@ -139,16 +139,17 @@ extension StudyRoomViewController {
 extension StudyRoomViewController: UICollectionViewDelegate {
     
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: sectionHeaderElementKind,
             alignment: .top)
+        sectionHeader.pinToVisibleBounds = true
         section.boundarySupplementaryItems = [sectionHeader]
         
         let layout = UICollectionViewCompositionalLayout(section: section)
@@ -161,7 +162,6 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createHomeworkListViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
-        collectionView.backgroundColor = .red
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
@@ -193,7 +193,7 @@ extension StudyRoomViewController: UICollectionViewDelegate {
     
     private func applySnapShot() {
         snapshot.appendSections([.main])
-        snapshot.appendItems([Homework()], toSection: .main)
+        snapshot.appendItems([Homework(), Homework(), Homework()], toSection: .main)
         datasource.apply(snapshot)
     }
     

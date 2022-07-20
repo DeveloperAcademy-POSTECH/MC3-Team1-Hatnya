@@ -25,11 +25,13 @@ class HomeworkListTitleView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
+        backgroundColor = .systemBackground
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureSubviews()
+        backgroundColor = .systemBackground
     }
     
 }
