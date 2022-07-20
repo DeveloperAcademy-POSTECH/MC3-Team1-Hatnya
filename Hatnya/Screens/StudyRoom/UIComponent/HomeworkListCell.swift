@@ -10,12 +10,88 @@ import UIKit
 
 class HomeworkListCell: UICollectionViewCell {
     
+    private lazy var checkButton: UIButton = {
+        let emptyCheckImage = UIImage(systemName: "square")
+        $0.setImage(emptyCheckImage, for: .normal)
+        $0.tintColor = .gray
+        $0.addTarget(self, action: #selector(checkButtonTouched), for: .touchUpInside)
+        return $0
+    }(UIButton())
+    
+    private lazy var textLabel: UILabel = {
+        $0.text = "알고리즘 1091번"
+        return $0
+    }(UILabel())
+    
+    private lazy var tagView: UIView = {
+        $0.backgroundColor = .blue
+        $0.frame.size = CGSize(width: self.tagSize, height: self.tagSize)
+        $0.layer.cornerRadius = $0.frame.size.width / 2
+        return $0
+    }(UIView())
+    
+    var isComplished = false
+    private let tagSize: CGFloat = 20
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureSubviews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        configureSubviews()
+    }
+    
+}
+
+extension HomeworkListCell {
+    
+    private func configureSubviews() {
+        let margin: CGFloat = 15
+        
+        addSubview(checkButton)
+        checkButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
+            checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkButton.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
+            checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
+        ])
+        
+        addSubview(textLabel)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textLabel.leadingAnchor.constraint(equalTo: checkButton.trailingAnchor, constant: margin),
+            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            textLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
+            textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
+        ])
+        
+        addSubview(tagView)
+        tagView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tagView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
+            tagView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            tagView.widthAnchor.constraint(equalToConstant: tagSize),
+            tagView.heightAnchor.constraint(equalToConstant: tagSize)
+        ])
+    }
+    
+    @objc
+    func checkButtonTouched() {
+        let checkedImage = UIImage(systemName: "checkmark.square.fill")
+        let emptyImage = UIImage(systemName: "square")
+        
+        if isComplished {
+            checkButton.setImage(emptyImage, for: .normal)
+            textLabel.textColor = .label
+        } else {
+            checkButton.setImage(checkedImage, for: .normal)
+            textLabel.textColor = .gray
+        }
+        
+        isComplished.toggle()
     }
     
 }
