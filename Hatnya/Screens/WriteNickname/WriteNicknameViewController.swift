@@ -135,6 +135,7 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     }
     
     private func setTextField() {
+        inputTextField.clearButtonMode = .whileEditing
         inputTextField.underlined(viewSize: UIScreen.main.bounds.width, color: .systemGray)
     }
     
