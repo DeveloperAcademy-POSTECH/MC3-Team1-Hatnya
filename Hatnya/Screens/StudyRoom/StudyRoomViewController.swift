@@ -206,11 +206,3 @@ struct StudyRoomViewControllerPreview: PreviewProvider {
     }
 
 }
-
-class HomeworkListTitleView: UICollectionReusableView {
-    
-}
-
-class HomeworkListCell: UICollectionViewCell {
-    
-}
