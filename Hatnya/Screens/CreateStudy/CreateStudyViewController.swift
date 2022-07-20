@@ -40,7 +40,7 @@ class CreateStudyViewController: UIViewController {
     }
     
     private func configUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     private func render() {
@@ -81,6 +81,8 @@ class CreateStudyViewController: UIViewController {
             studyCycleLabel.centerXAnchor.constraint(equalTo: getStudyDescriptView.centerXAnchor)
         ])
         
+        cyclePickerView.backgroundColor = .systemGray5
+        cyclePickerView.layer.cornerRadius = 10
         view.addSubview(cyclePickerView)
         cyclePickerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

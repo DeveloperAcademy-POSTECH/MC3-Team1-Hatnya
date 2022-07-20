@@ -8,25 +8,45 @@
 import UIKit
 
 class CyclePickerView: UIView {
+    var isShown = false
     let cycles = ["1", "2", "3", "4"]
     
-    private let selectedCycleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        let border = CALayer()
-        let width = CGFloat(1)
-        border.borderColor = UIColor.lightGray.cgColor
-        border.borderWidth = width
-        label.layer.addSublayer(border)
-        label.text = "1주"
-        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.text = "반복"
+        label.font = UIFont.systemFont(ofSize: 17)
         return label
     }()
     
-    private let pickerView: UIPickerView = {
+    var selectedCycleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "1주"
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.textColor = .systemBlue
+        return label
+    }()
+    
+    let pickerView: UIPickerView = {
         let picker = UIPickerView()
-        picker.backgroundColor = UIColor.lightGray
-        picker.layer.cornerRadius = 10
         return picker
+    }()
+    
+    private let hStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 1
+        return stackView
+    }()
+    
+    private let vStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 1
+        return stackView
     }()
     
     override init(frame: CGRect) {
@@ -40,16 +60,46 @@ class CyclePickerView: UIView {
     }
     
     private func render() {
-        pickerView.delegate = self
-        addSubview(pickerView)
+        addSubview(vStackView)
+        
+        [titleLabel, selectedCycleLabel].map {
+            hStackView.addArrangedSubview($0)
+        }
+        
+        [hStackView, pickerView].map {
+            vStackView.addArrangedSubview($0)
+        }
+        
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
+        tapGesture.delegate = self
+        hStackView.addGestureRecognizer(tapGesture)
+        
+        vStackView.translatesAutoresizingMaskIntoConstraints = false
+        hStackView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        selectedCycleLabel.translatesAutoresizingMaskIntoConstraints = false
         pickerView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            pickerView.topAnchor.constraint(equalTo: self.topAnchor),
+            vStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            vStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            vStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            vStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            pickerView.heightAnchor.constraint(equalToConstant: 130),
             pickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             pickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            pickerView.heightAnchor.constraint(equalToConstant: 130),
-            pickerView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            hStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            hStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+        ])
+        
+        pickerView.delegate = self
+        pickerView.isHidden = true
     }
 
 }
