@@ -22,10 +22,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="60D-hu-6lD">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ex. GVX3T1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="60D-hu-6lD">
                                 <rect key="frame" x="20" y="165" width="350" height="34"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="textDidChanged:" destination="Y6W-OH-hqX" eventType="editingChanged" id="eAM-qY-nmk"/>
+                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5n-3w-A89">
                                 <rect key="frame" x="20" y="760" width="350" height="50"/>
@@ -35,7 +38,11 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="다음">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="baseBackgroundColor" systemColor="systemBlueColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="touchUpNextButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="SY6-Pn-hK5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHS-aN-4o6">
                                 <rect key="frame" x="15" y="44" width="31" height="31"/>
@@ -46,6 +53,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system">
                                     <attributedString key="attributedTitle"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="touchUpDismissButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="RSD-9J-ifC"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gQq-zu-eqY">
                                 <rect key="frame" x="20" y="227" width="350" height="72"/>
@@ -64,6 +74,7 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="tintColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstItem="EI6-Eq-voS" firstAttribute="leading" secondItem="gQq-zu-eqY" secondAttribute="leading" constant="16" id="Aos-wd-wPc"/>
                                     <constraint firstItem="fmf-OA-bdT" firstAttribute="top" secondItem="gQq-zu-eqY" secondAttribute="top" constant="16" id="E2I-6A-LRt"/>
@@ -92,11 +103,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="codeTextField" destination="60D-hu-6lD" id="44s-pe-w3Y"/>
                         <outlet property="nextButton" destination="z5n-3w-A89" id="oCe-x2-B2d"/>
                         <outlet property="searchResultView" destination="gQq-zu-eqY" id="ihc-AD-n06"/>
                         <outlet property="studyGroupDescription" destination="EI6-Eq-voS" id="a5Y-xc-NOv"/>
                         <outlet property="studyGroupName" destination="fmf-OA-bdT" id="BBO-VV-Y4e"/>
-                        <outlet property="textField" destination="60D-hu-6lD" id="g5l-V9-Fdy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -108,6 +119,9 @@
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
