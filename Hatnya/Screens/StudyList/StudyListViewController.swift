@@ -15,8 +15,6 @@ class StudyListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     
     func showActionSheet() {
@@ -54,7 +52,6 @@ extension StudyListViewController: UITableViewDataSource {
         
         cell.studyName.text = StudyGroup.sampleData[indexPath.row].studyName
         cell.studyDesc.text = StudyGroup.sampleData[indexPath.row].description
-        
         cell.layer.cornerRadius = 13
         
         return cell
