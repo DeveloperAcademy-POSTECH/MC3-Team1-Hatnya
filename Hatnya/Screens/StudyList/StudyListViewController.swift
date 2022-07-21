@@ -21,13 +21,13 @@ class StudyListViewController: UIViewController {
         let actionSheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         
         let first = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
-            print("첫번째")
+            print("스터디 코드 입력 view로 연결")
         }
         let second = UIAlertAction(title: "스터디 생성하기", style: .default) { _ in
-            print("두번째")
+            print("스터디 생성 view로 연결")
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
-            print("취소")
+            
         }
         
         actionSheet.addAction(first)
@@ -50,10 +50,11 @@ extension StudyListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.studyName.text = StudyGroup.sampleData[indexPath.row].studyName
-        cell.studyDesc.text = StudyGroup.sampleData[indexPath.row].description
-        cell.layer.cornerRadius = 13
+        let dataSource = StudyInfo(name: StudyGroup.sampleData[indexPath.row].studyName,
+                                   desc: StudyGroup.sampleData[indexPath.row].description)
+        cell.configure(with: dataSource)
         
         return cell
     }
+    
 }
