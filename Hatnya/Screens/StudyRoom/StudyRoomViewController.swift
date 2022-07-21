@@ -5,6 +5,7 @@
 //  Created by kelly on 2022/07/18.
 //
 
+import SwiftUI
 import UIKit
 
 class StudyRoomViewController: UIViewController {
@@ -91,6 +92,7 @@ class StudyRoomViewController: UIViewController {
             chartView.heightAnchor.constraint(equalToConstant: 237)]
         )
         
+        
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -104,5 +106,11 @@ class StudyRoomViewController: UIViewController {
     private func setupNavigationBar() {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
+    }
+}
+
+struct StudyRoomViewControllerPreview: PreviewProvider {
+    static var previews: some View {
+        StudyRoomViewController().toPreview()
     }
 }

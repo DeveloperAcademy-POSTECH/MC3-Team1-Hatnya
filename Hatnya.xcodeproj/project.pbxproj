@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3982366C2886EF0400F6B004 /* ColorLiteral.swift */; };
 		39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F3F8E52886778900256D56 /* StudyChartView.swift */; };
+		3D231C7D2888EF11009B96A3 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D231C7C2888EF11009B96A3 /* Member.swift */; };
+		3D231C7F2888EF50009B96A3 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D231C7E2888EF50009B96A3 /* Homework.swift */; };
+		3D231C812888EFAB009B96A3 /* StudyCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D231C802888EFAB009B96A3 /* StudyCycle.swift */; };
 		A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7228854EEF004014DE /* AppDelegate.swift */; };
 		A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7428854EEF004014DE /* SceneDelegate.swift */; };
 		A28DEF7728854EEF004014DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7628854EEF004014DE /* ViewController.swift */; };
@@ -31,6 +34,9 @@
 /* Begin PBXFileReference section */
 		3982366C2886EF0400F6B004 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
 		39F3F8E52886778900256D56 /* StudyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyChartView.swift; sourceTree = "<group>"; };
+		3D231C7C2888EF11009B96A3 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
+		3D231C7E2888EF50009B96A3 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
+		3D231C802888EFAB009B96A3 /* StudyCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCycle.swift; sourceTree = "<group>"; };
 		A28DEF6F28854EEF004014DE /* Hatnya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatnya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A28DEF7228854EEF004014DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A28DEF7428854EEF004014DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +116,9 @@
 			isa = PBXGroup;
 			children = (
 				A28DEFA0288552CC004014DE /* StudyGroup.swift */,
+				3D231C7C2888EF11009B96A3 /* Member.swift */,
+				3D231C7E2888EF50009B96A3 /* Homework.swift */,
+				3D231C802888EFAB009B96A3 /* StudyCycle.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -325,7 +334,9 @@
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,
+				3D231C812888EFAB009B96A3 /* StudyCycle.swift in Sources */,
 				AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */,
+				3D231C7F2888EF50009B96A3 /* Homework.swift in Sources */,
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
 				A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */,
 				A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */,
@@ -334,6 +345,7 @@
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
 				A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */,
 				A28DEF9928855239004014DE /* StudyRoomViewController.swift in Sources */,
+				3D231C7D2888EF11009B96A3 /* Member.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
