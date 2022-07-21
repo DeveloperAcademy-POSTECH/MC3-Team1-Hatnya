@@ -18,6 +18,7 @@ class EditTaskViewController: UIViewController {
         super.viewDidLoad()
         configureLayout()
         configureDatasource()
+        tableView.isEditing = true
         applySnapshot()
     }
     
@@ -29,10 +30,36 @@ private enum EditTaskSection {
 
 private class EditTaskDatasource: UITableViewDiffableDataSource<EditTaskSection, Homework> {
     
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard let sourceIdentifier = itemIdentifier(for: sourceIndexPath) else { return }
+        guard let destinationIdentifier = itemIdentifier(for: destinationIndexPath) else { return }
+        guard sourceIndexPath != destinationIndexPath else { return }
+        
+        var snapshot = snapshot()
+        
+        if let sourceIndex = snapshot.indexOfItem(sourceIdentifier),
+           let destinationIndex = snapshot.indexOfItem(destinationIdentifier) {
+            snapshot.deleteItems([sourceIdentifier])
+            let isAfter = destinationIndex > sourceIndex
+            
+            if isAfter {
+                snapshot.insertItems([sourceIdentifier], afterItem: destinationIdentifier)
+            } else {
+                snapshot.insertItems([sourceIdentifier], beforeItem: destinationIdentifier)
+            }
+        }
+        
+        apply(snapshot, animatingDifferences: true)
+    }
+    
 }
 
 extension EditTaskViewController {
-    
+
     private func configureLayout() {
         tableView = UITableView(frame: .zero, style: .plain)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.description())
@@ -59,7 +86,7 @@ extension EditTaskViewController {
     
     private func applySnapshot() {
         snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
+        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
         taskDataSource.apply(snapshot)
     }
     
