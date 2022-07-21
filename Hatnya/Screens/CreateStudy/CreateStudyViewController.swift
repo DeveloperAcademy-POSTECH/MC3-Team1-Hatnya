@@ -11,6 +11,7 @@ class CreateStudyViewController: UIViewController {
     private let getStudyNameView = GetInfoView()
     private let getStudyDescriptView = GetInfoView()
     private let cyclePickerView = CyclePickerView()
+    private let dayButtonStackView = DayButtonStackView()
     
     private let backButton: UIButton = {
         let button = UIButton()
@@ -86,17 +87,18 @@ class CreateStudyViewController: UIViewController {
         view.addSubview(cyclePickerView)
         cyclePickerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cyclePickerView.topAnchor.constraint(equalTo: studyCycleLabel.bottomAnchor, constant: 30),
+            cyclePickerView.topAnchor.constraint(equalTo: studyCycleLabel.bottomAnchor, constant: 20),
             cyclePickerView.leadingAnchor.constraint(equalTo: studyCycleLabel.leadingAnchor),
             cyclePickerView.centerXAnchor.constraint(equalTo: studyCycleLabel.centerXAnchor)
         ])
         
-        //        view.addSubview(selectedCycleLabel)
-        //        selectedCycleLabel.translatesAutoresizingMaskIntoConstraints = false
-        //        NSLayoutConstraint.activate([
-        //            selectedCycleLabel.topAnchor.constraint(equalTo: studyCycleLabel.bottomAnchor, constant: 50),
-        //            selectedCycleLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20)
-        //        ])
+        view.addSubview(dayButtonStackView)
+        dayButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dayButtonStackView.topAnchor.constraint(equalTo: cyclePickerView.bottomAnchor, constant: 20),
+            dayButtonStackView.leadingAnchor.constraint(equalTo: cyclePickerView.leadingAnchor),
+            dayButtonStackView.centerXAnchor.constraint(equalTo: cyclePickerView.centerXAnchor)
+        ])
     }
 }
 

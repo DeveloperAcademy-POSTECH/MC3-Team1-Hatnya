@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9E42887A04900A84BCC /* GetInfoView.swift */; };
 		A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */; };
+		A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */; };
+		A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */; };
 		A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7228854EEF004014DE /* AppDelegate.swift */; };
 		A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7428854EEF004014DE /* SceneDelegate.swift */; };
 		A28DEF7728854EEF004014DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7628854EEF004014DE /* ViewController.swift */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		A22BA9E42887A04900A84BCC /* GetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfoView.swift; sourceTree = "<group>"; };
 		A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclePickerView.swift; sourceTree = "<group>"; };
+		A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonView.swift; sourceTree = "<group>"; };
+		A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonStackView.swift; sourceTree = "<group>"; };
 		A28DEF6F28854EEF004014DE /* Hatnya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatnya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A28DEF7228854EEF004014DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A28DEF7428854EEF004014DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,8 @@
 			children = (
 				A22BA9E42887A04900A84BCC /* GetInfoView.swift */,
 				A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */,
+				A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */,
+				A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -318,6 +324,7 @@
 			files = (
 				A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
+				A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */,
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
 				A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
@@ -329,6 +336,7 @@
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
 				A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */,
+				A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */,
 				A28DEF9928855239004014DE /* StudyRoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
