@@ -65,6 +65,7 @@ extension HomeworkListCell {
         }
         
         isComplished.toggle()
+        textLabel.strikeThrough(isComplished)
     }
     
     private func configureSubviews() {

@@ -30,6 +30,7 @@
 		AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */; };
 		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
 		AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */; };
+		AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListCell.swift; sourceTree = "<group>"; };
 		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
 		AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
+		AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StrikeThrough.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				A28DEFA728855354004014DE /* UIColor+Extension.swift */,
+				AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */,
 				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
 			);
 			path = Extension;
@@ -345,6 +348,7 @@
 				AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */,
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
+				AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */,
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,
 				AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */,
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
