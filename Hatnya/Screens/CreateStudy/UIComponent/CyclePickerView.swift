@@ -62,13 +62,13 @@ class CyclePickerView: UIView {
     private func render() {
         addSubview(vStackView)
         
-        [titleLabel, selectedCycleLabel].map {
-            hStackView.addArrangedSubview($0)
+        [titleLabel, selectedCycleLabel].forEach { subview in
+            hStackView.addArrangedSubview(subview)
         }
 
-        vStackView.addArrangedSubview(hStackView)
-        vStackView.addSeparator(of: 0.5)
-        vStackView.addArrangedSubview(pickerView)
+        [hStackView, pickerView].forEach { subview in
+            vStackView.addArrangedSubview(subview)
+        }
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
         tapGesture.delegate = self

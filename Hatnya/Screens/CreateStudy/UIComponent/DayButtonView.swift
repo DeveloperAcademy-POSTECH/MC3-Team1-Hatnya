@@ -44,6 +44,7 @@ class DayButtonView: UIButton {
             self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         }
         isClicked.toggle()
+        print(self.title(for: .selected) ?? "")
     }
     
     func setName(title: String) {

@@ -12,8 +12,7 @@ class CreateStudyViewController: UIViewController {
     
     private let getStudyNameView = GetInfoView()
     private let getStudyDescriptView = GetInfoView()
-    private let cyclePickerView = CyclePickerView()
-    private let dayButtonStackView = DayButtonStackView()
+    private let selectCycleDayView = SelectCycleDaysView()
     
     private let backButton: UIButton = {
         let button = UIButton()
@@ -91,22 +90,12 @@ class CreateStudyViewController: UIViewController {
             studyCycleLabel.centerXAnchor.constraint(equalTo: getStudyDescriptView.centerXAnchor)
         ])
         
-        cyclePickerView.backgroundColor = .systemGray6
-        cyclePickerView.layer.cornerRadius = 10
-        view.addSubview(cyclePickerView)
-        cyclePickerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(selectCycleDayView)
+        selectCycleDayView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cyclePickerView.topAnchor.constraint(equalTo: studyCycleLabel.bottomAnchor, constant: 20),
-            cyclePickerView.leadingAnchor.constraint(equalTo: studyCycleLabel.leadingAnchor),
-            cyclePickerView.centerXAnchor.constraint(equalTo: studyCycleLabel.centerXAnchor)
-        ])
-        
-        view.addSubview(dayButtonStackView)
-        dayButtonStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            dayButtonStackView.topAnchor.constraint(equalTo: cyclePickerView.bottomAnchor, constant: 20),
-            dayButtonStackView.leadingAnchor.constraint(equalTo: cyclePickerView.leadingAnchor),
-            dayButtonStackView.centerXAnchor.constraint(equalTo: cyclePickerView.centerXAnchor)
+            selectCycleDayView.topAnchor.constraint(equalTo: studyCycleLabel.bottomAnchor, constant: 20),
+            selectCycleDayView.leadingAnchor.constraint(equalTo: studyCycleLabel.leadingAnchor),
+            selectCycleDayView.centerXAnchor.constraint(equalTo: studyCycleLabel.centerXAnchor)
         ])
         
         view.addSubview(nextButton)
@@ -118,12 +107,6 @@ class CreateStudyViewController: UIViewController {
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
-    //    private func selectedDayUpdate() {
-    //        if dayButtonStackView.mondayButton.isSelected {
-    //            selectedDays.a
-    //        }
-    //    }
 }
 
 import SwiftUI

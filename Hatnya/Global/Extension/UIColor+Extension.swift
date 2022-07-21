@@ -71,18 +71,41 @@ extension CyclePickerView: UIGestureRecognizerDelegate {
     }
 }
 
-extension UIStackView {
-    func addSeparator(of size: CGFloat) {
-        let view = UIView()
-        view.backgroundColor = .systemGray4
-        view.translatesAutoresizingMaskIntoConstraints = false
+extension SelectCycleDaysView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        var completeSentence = ""
+        let selectedCycle = cyclePickerView.selectedCycleLabel.text ?? ""
         
-        if axis == .vertical {
-            view.heightAnchor.constraint(equalToConstant: size).isActive = true
-        } else {
-            view.widthAnchor.constraint(equalToConstant: size).isActive = true
+        var days: [String] = []
+        
+        if dayButtonStackView.sundayButton.isSelected {
+            days.append("일")
+        }
+        if dayButtonStackView.mondayButton.isSelected {
+            days.append("월")
+        }
+        if dayButtonStackView.tuesdayButton.isSelected {
+            days.append("화")
+        }
+        if dayButtonStackView.wednesdayButton.isSelected {
+            days.append("수")
+        }
+        if dayButtonStackView.thursdayButton.isSelected {
+            days.append("목")
+        }
+        if dayButtonStackView.fridayButton.isSelected {
+            days.append("금")
+        }
+        if dayButtonStackView.saturdayButton.isSelected {
+            days.append("토")
         }
         
-        addArrangedSubview(view)
+        completeSentence = "숙제가 " + selectedCycle + "마다 "
+        days.forEach { day in
+            completeSentence = completeSentence + day + ", "
+        }
+        completeSentence = completeSentence + "에 반복됩니다."
+        selectedCycleDaysLabel.text = completeSentence
+        return true
     }
 }
