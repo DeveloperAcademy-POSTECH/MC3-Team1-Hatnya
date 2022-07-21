@@ -15,6 +15,23 @@ class StudyListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let emptyStudyLabel = UILabel()
+        emptyStudyLabel.text = "스터디 그룹이 없습니다."
+        emptyStudyLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyStudyLabel.font = .systemFont(ofSize: 17)
+        emptyStudyLabel.textColor = .gray
+        emptyStudyLabel.textAlignment = .center
+        
+        if StudyGroup.sampleData.isEmpty {
+            view.addSubview(emptyStudyLabel)
+            let safeArea = view.safeAreaLayoutGuide
+
+            emptyStudyLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
+            emptyStudyLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 200).isActive = true
+            emptyStudyLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -200).isActive = true
+        }
+        
     }
     
     func showActionSheet() {

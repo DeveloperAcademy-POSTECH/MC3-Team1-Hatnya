@@ -75,7 +75,6 @@
                                         <connections>
                                             <outlet property="studyDesc" destination="uAw-kV-1he" id="BKJ-J3-KeW"/>
                                             <outlet property="studyName" destination="c4R-6K-LPC" id="IsP-XS-TRU"/>
-                                            <segue destination="nef-YH-meD" kind="show" id="dEe-kQ-9V0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -103,23 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-188.40579710144928" y="-7.3660714285714279"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="TsY-2m-IEa">
-            <objects>
-                <viewController id="nef-YH-meD" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="j8o-Cj-blo">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="qcc-cq-gSL"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="1pW-ka-hds"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vcl-9m-rke" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="599" y="-7"/>
+            <point key="canvasLocation" x="-200" y="-7"/>
         </scene>
     </scenes>
     <resources>
