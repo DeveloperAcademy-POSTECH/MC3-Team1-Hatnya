@@ -2,9 +2,10 @@
 //  EditTaskViewController.swift
 //  Hatnya
 //
-//  Created by kelly on 2022/07/18.
+//  Created by 리아 on 2022/07/21.
 //
 
+import SwiftUI
 import UIKit
 
 class EditTaskViewController: UIViewController {
@@ -13,4 +14,12 @@ class EditTaskViewController: UIViewController {
         super.viewDidLoad()
     }
     
+}
+
+struct EditTaskPreview: PreviewProvider {
+    
+    static var previews: some View {
+        EditTaskViewController().toPreview()
+    }
+
 }
