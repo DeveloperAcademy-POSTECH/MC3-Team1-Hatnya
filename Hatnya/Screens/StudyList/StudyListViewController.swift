@@ -15,6 +15,8 @@ class StudyListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
     }
     
     func showActionSheet() {
@@ -39,15 +41,21 @@ class StudyListViewController: UIViewController {
 }
 
 extension StudyListViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return StudyGroup.sampleData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "studyListCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: StudyListTableViewCell.identifier,
+                                                       for: indexPath) as? StudyListTableViewCell else {
+            return UITableViewCell()
+        }
         
-        cell.textLabel?.text = StudyGroup.sampleData[indexPath.row].studyName
-        cell.detailTextLabel?.text = StudyGroup.sampleData[indexPath.row].description
+        cell.studyName.text = StudyGroup.sampleData[indexPath.row].studyName
+        cell.studyDesc.text = StudyGroup.sampleData[indexPath.row].description
+        
+        cell.layer.cornerRadius = 13
         
         return cell
     }
