@@ -29,6 +29,7 @@
 		AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */; };
 		AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */; };
 		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
+		AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListTitleView.swift; sourceTree = "<group>"; };
 		AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListCell.swift; sourceTree = "<group>"; };
 		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
+		AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		A28DEF8A288550C9004014DE /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				AED2E1BA2888DE5E00B32FF7 /* Utility */,
 				A28DEFA62885533D004014DE /* Extension */,
 				A28DEFA32885530C004014DE /* Literal */,
 				A28DEF8D28855112004014DE /* Resource */,
@@ -233,6 +236,14 @@
 				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		AED2E1BA2888DE5E00B32FF7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +352,7 @@
 				A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */,
 				AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */,
 				A28DEFA1288552CC004014DE /* StudyGroup.swift in Sources */,
+				AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */,
 				AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */,
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
