@@ -8,6 +8,8 @@
 import UIKit
 
 class CreateStudyViewController: UIViewController {
+    var selectedDays: [String] = [""]
+    
     private let getStudyNameView = GetInfoView()
     private let getStudyDescriptView = GetInfoView()
     private let cyclePickerView = CyclePickerView()
@@ -27,11 +29,18 @@ class CreateStudyViewController: UIViewController {
         return label
     }()
     
+    private var nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("다음", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
         render()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,7 +108,22 @@ class CreateStudyViewController: UIViewController {
             dayButtonStackView.leadingAnchor.constraint(equalTo: cyclePickerView.leadingAnchor),
             dayButtonStackView.centerXAnchor.constraint(equalTo: cyclePickerView.centerXAnchor)
         ])
+        
+        view.addSubview(nextButton)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nextButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
+            nextButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            nextButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
+    
+    //    private func selectedDayUpdate() {
+    //        if dayButtonStackView.mondayButton.isSelected {
+    //            selectedDays.a
+    //        }
+    //    }
 }
 
 import SwiftUI

@@ -8,13 +8,13 @@
 import UIKit
 
 class DayButtonStackView: UIStackView {
-    private let mondayButton = DayButtonView()
-    private let tuesdayButton = DayButtonView()
-    private let wednesdayButton = DayButtonView()
-    private let thursdayButton = DayButtonView()
-    private let fridayButton = DayButtonView()
-    private let saturdayButton = DayButtonView()
-    private let sundayButton = DayButtonView()
+    let mondayButton = DayButtonView()
+    let tuesdayButton = DayButtonView()
+    let wednesdayButton = DayButtonView()
+    let thursdayButton = DayButtonView()
+    let fridayButton = DayButtonView()
+    let saturdayButton = DayButtonView()
+    let sundayButton = DayButtonView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,8 +39,8 @@ class DayButtonStackView: UIStackView {
         fridayButton.setName(title: "금")
         saturdayButton.setName(title: "토")
         
-        [sundayButton, mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton].map {
-            addArrangedSubview($0)
+        [sundayButton, mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton].forEach { btn in
+            addArrangedSubview(btn)
         }
     }
 }
