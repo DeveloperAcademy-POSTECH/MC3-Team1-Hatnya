@@ -13,6 +13,7 @@ class HomeworkListCell: UICollectionViewCell {
     private lazy var checkButton: UIButton = {
         let emptyCheckImage = UIImage(systemName: "square")
         $0.setImage(emptyCheckImage, for: .normal)
+        $0.setPreferredSymbolConfiguration(.init(pointSize: 25), forImageIn: .normal)
         $0.tintColor = .gray
         $0.addTarget(self, action: #selector(checkButtonTouched), for: .touchUpInside)
         return $0
@@ -20,6 +21,7 @@ class HomeworkListCell: UICollectionViewCell {
     
     private lazy var textLabel: UILabel = {
         $0.text = "알고리즘 1091번"
+        $0.font = .systemFont(ofSize: 19)
         return $0
     }(UILabel())
     
@@ -31,7 +33,7 @@ class HomeworkListCell: UICollectionViewCell {
     }(UIView())
     
     var isComplished = false
-    private let tagSize: CGFloat = 20
+    private let tagSize: CGFloat = 24
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,37 +48,6 @@ class HomeworkListCell: UICollectionViewCell {
 }
 
 extension HomeworkListCell {
-    
-    private func configureSubviews() {
-        let margin: CGFloat = 15
-        
-        addSubview(checkButton)
-        checkButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
-            checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            checkButton.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
-            checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
-        ])
-        
-        addSubview(textLabel)
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            textLabel.leadingAnchor.constraint(equalTo: checkButton.trailingAnchor, constant: margin),
-            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
-            textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
-        ])
-        
-        addSubview(tagView)
-        tagView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tagView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
-            tagView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            tagView.widthAnchor.constraint(equalToConstant: tagSize),
-            tagView.heightAnchor.constraint(equalToConstant: tagSize)
-        ])
-    }
     
     @objc
     func checkButtonTouched() {
@@ -94,12 +65,80 @@ extension HomeworkListCell {
         isComplished.toggle()
     }
     
+    private func configureSubviews() {
+        let margin: CGFloat = 20
+
+        addSubview(checkButton)
+        checkButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
+            checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkButton.widthAnchor.constraint(equalToConstant: 30),
+            checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
+        ])
+        
+        addSubview(tagView)
+        tagView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tagView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
+            tagView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            tagView.widthAnchor.constraint(equalToConstant: tagSize),
+            tagView.heightAnchor.constraint(equalToConstant: tagSize)
+        ])
+        
+        addSubview(textLabel)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            textLabel.leadingAnchor.constraint(equalTo: checkButton.trailingAnchor, constant: margin),
+            textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            textLabel.trailingAnchor.constraint(equalTo: tagView.leadingAnchor, constant: -margin),
+            textLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
+            textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
+        ])
+        
+    }
+    
+    func configureContent(item: Homework, index: Int) {
+        textLabel.text = item.name
+        tagView.backgroundColor = TagColor.order(index: index)
+    }
+    
 }
 
 struct HomeworkListCellPreview: PreviewProvider {
     
     static var previews: some View {
         HomeworkListCell().toPreview()
+    }
+
+}
+
+enum TagColor: Int, CaseIterable {
+    case pink
+    case yellow
+    case green
+    case lightBlue
+    case purple
+    
+    static func color(_ tagColor: TagColor) -> UIColor {
+        switch tagColor {
+        case .pink:
+            return .tagPink
+        case .yellow:
+            return .tagYellow
+        case .green:
+            return .tagGreen
+        case .lightBlue:
+            return .tagLightBlue
+        case .purple:
+            return .tagPurple
+        }
+    }
+    
+    static func order(index: Int) -> UIColor {
+        let colorNum = index % Self.allCases.count
+        let orderColor = TagColor(rawValue: colorNum) ?? .pink
+        return Self.color(orderColor)
     }
 
 }

@@ -135,9 +135,9 @@ extension StudyRoomViewController {
 extension StudyRoomViewController: UICollectionViewDelegate {
     
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(40))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
@@ -158,19 +158,23 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: createHomeworkListViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.layer.borderWidth = 0.5
+        collectionView.layer.borderColor = UIColor.gray.cgColor
+        collectionView.layer.cornerRadius = 15
         view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
             collectionView.topAnchor.constraint(equalTo: codeCopyButton.bottomAnchor, constant: margin),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)
         ])
     }
     
     private func configureDatasource() {
         let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { cell, indexPath, item in
-            //
+            cell.configureContent(item: item, index: indexPath.row)
         }
         
         datasource = Datasource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
@@ -178,9 +182,7 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         })
         
         let headerRegisteration = UICollectionView.SupplementaryRegistration
-        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { supplementaryView, elementKind, indexPath in
-            //
-        }
+        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { _, _, _ in }
         
         datasource.supplementaryViewProvider = { _, _, index in
             return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
@@ -189,7 +191,7 @@ extension StudyRoomViewController: UICollectionViewDelegate {
     
     private func applySnapShot() {
         snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
+        snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
         datasource.apply(snapshot)
     }
     

@@ -14,4 +14,20 @@ extension UIColor {
     static var grey001: UIColor {
         return UIColor(hex: "#979797")
     }
+    static var tagPink: UIColor {
+        return UIColor(hex: "#FDC3B1")
+    }
+    static var tagYellow: UIColor {
+        return UIColor(hex: "#FFE897")
+    }
+    static var tagGreen: UIColor {
+        return UIColor(hex: "#D4EBCC")
+    }
+    static var tagLightBlue: UIColor {
+        return UIColor(hex: "#C9E8EF")
+    }
+    static var tagPurple: UIColor {
+        return UIColor(hex: "#D3C9EF")
+    }
+
 }
