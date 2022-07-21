@@ -45,7 +45,7 @@ class CyclePickerView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
-        stackView.spacing = 1
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -65,10 +65,10 @@ class CyclePickerView: UIView {
         [titleLabel, selectedCycleLabel].map {
             hStackView.addArrangedSubview($0)
         }
-        
-        [hStackView, pickerView].map {
-            vStackView.addArrangedSubview($0)
-        }
+
+        vStackView.addArrangedSubview(hStackView)
+        vStackView.addSeparator(of: 0.5)
+        vStackView.addArrangedSubview(pickerView)
         
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
         tapGesture.delegate = self

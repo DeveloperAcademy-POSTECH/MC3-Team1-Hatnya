@@ -81,7 +81,7 @@ class CreateStudyViewController: UIViewController {
             studyCycleLabel.centerXAnchor.constraint(equalTo: getStudyDescriptView.centerXAnchor)
         ])
         
-        cyclePickerView.backgroundColor = .systemGray5
+        cyclePickerView.backgroundColor = .systemGray6
         cyclePickerView.layer.cornerRadius = 10
         view.addSubview(cyclePickerView)
         cyclePickerView.translatesAutoresizingMaskIntoConstraints = false

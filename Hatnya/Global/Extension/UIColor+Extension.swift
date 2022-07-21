@@ -60,10 +60,6 @@ extension CyclePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension CyclePickerView: UIGestureRecognizerDelegate {
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive press: UIPress) -> Bool {
-//        apickerView.isHidden = true
-//        return true
-//    }
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if isShown == true {
             pickerView.isHidden = true
@@ -72,5 +68,21 @@ extension CyclePickerView: UIGestureRecognizerDelegate {
         }
         isShown.toggle()
         return true
+    }
+}
+
+extension UIStackView {
+    func addSeparator(of size: CGFloat) {
+        let view = UIView()
+        view.backgroundColor = .systemGray4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        if axis == .vertical {
+            view.heightAnchor.constraint(equalToConstant: size).isActive = true
+        } else {
+            view.widthAnchor.constraint(equalToConstant: size).isActive = true
+        }
+        
+        addArrangedSubview(view)
     }
 }
