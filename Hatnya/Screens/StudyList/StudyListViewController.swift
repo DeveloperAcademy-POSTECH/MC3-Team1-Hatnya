@@ -28,8 +28,7 @@ class StudyListViewController: UIViewController {
             let safeArea = view.safeAreaLayoutGuide
 
             emptyStudyLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
-            emptyStudyLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 200).isActive = true
-            emptyStudyLabel.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -200).isActive = true
+            emptyStudyLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
         }
         
     }
