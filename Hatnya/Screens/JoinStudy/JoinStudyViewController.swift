@@ -15,19 +15,6 @@ class JoinStudyViewController: UIViewController {
     @IBOutlet private var studyGroupDescription: UILabel!
     @IBOutlet private var nextButton: UIButton!
     
-    private func searchStudyGroup() {
-        for studyGroup in StudyGroup.sampleData {
-            if codeTextField.text == studyGroup.code {
-                searchResultView.backgroundColor = .systemGray6
-                studyGroupName.text = studyGroup.studyName
-                studyGroupDescription.text = studyGroup.description
-                return
-            } else {
-                studyGroupName.text = "해당하는 스터디가 없습니다."
-            }
-        }
-    }
-    
     @IBAction private func touchUpNextButton(_ sender: UIButton) {
         
     }
@@ -57,6 +44,19 @@ class JoinStudyViewController: UIViewController {
 }
 
 extension JoinStudyViewController: UITextFieldDelegate {
+    private func searchStudyGroup() {
+        for studyGroup in StudyGroup.sampleData {
+            if codeTextField.text == studyGroup.code {
+                searchResultView.backgroundColor = .systemGray6
+                studyGroupName.text = studyGroup.studyName
+                studyGroupDescription.text = studyGroup.description
+                return
+            } else {
+                studyGroupName.text = "해당하는 스터디가 없습니다."
+            }
+        }
+    }
+    
     private func checkMaxLength(textField: UITextField!, maxLength: Int) {
         if textField.text?.count ?? 0 == maxLength {
             searchStudyGroup()
