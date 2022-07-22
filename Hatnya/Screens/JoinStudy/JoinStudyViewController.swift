@@ -2,7 +2,7 @@
 //  JoinStudyViewController.swift
 //  Hatnya
 //
-//  Created by kelly on 2022/07/18.
+//  Created by Eve on 2022/07/19.
 //
 
 import UIKit
@@ -41,7 +41,6 @@ class JoinStudyViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         codeTextField.delegate = self
@@ -55,20 +54,6 @@ class JoinStudyViewController: UIViewController {
 
         setTextField()
     }
-    
-}
-
-extension UITextField {
-    
-    func underlined(viewSize: CGFloat, color: UIColor) {
-        let border = CALayer()
-        let width = CGFloat(1)
-        border.borderColor = color.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height + 10, width: viewSize - 40, height: width)
-        border.borderWidth = width
-        self.layer.addSublayer(border)
-    }
-    
 }
 
 extension JoinStudyViewController: UITextFieldDelegate {
@@ -82,13 +67,14 @@ extension JoinStudyViewController: UITextFieldDelegate {
             nextButton.isEnabled = false
             studyGroupName.text = ""
             studyGroupDescription.text = ""
-            searchResultView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+            searchResultView.backgroundColor = .clear
         }
     }
     
     private func setTextField() {
         codeTextField.clearButtonMode = .whileEditing
-        codeTextField.underlined(viewSize: UIScreen.main.bounds.width, color: .systemGray)
+        // TODO: textField의 underlined 기능 extension 머지 후 주석 해제
+        // codeTextField.underlined(viewSize: UIScreen.main.bounds.width, color: .systemGray)
     }
     
 }
