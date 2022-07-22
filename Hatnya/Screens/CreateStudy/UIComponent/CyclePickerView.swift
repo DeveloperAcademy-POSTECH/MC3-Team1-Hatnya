@@ -133,9 +133,9 @@ extension CyclePickerView: UIPickerViewDelegate {
     }
 }
 
-//extension CyclePickerView: UIPickerViewDataSource {
-//
-//}
+extension CyclePickerView: UIPickerViewDataSource {
+    // 이 코드가 없으면 피커에 데이터가 나타나지 않음
+}
 
 extension CyclePickerView: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
