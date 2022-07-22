@@ -16,11 +16,6 @@ struct StudyGroup {
      let createdAt: Date
  }
 
-struct StudyInfo {
-   var name: String
-   var desc: String
-}
-
  extension StudyGroup {
      static let sampleData: [StudyGroup] = [
          StudyGroup(members: [], studyName: "영어 회화 스터디", code: "A1B2C3", description: "자유 주제로 매주 스피킹하는 모임입니다", cycle: StudyCycle(cycle: 1, weekDay: ["월", "화"]), createdAt: Date()),
