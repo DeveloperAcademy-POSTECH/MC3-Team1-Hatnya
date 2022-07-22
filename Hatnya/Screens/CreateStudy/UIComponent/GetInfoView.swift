@@ -8,7 +8,6 @@
 import UIKit
 
 class GetInfoView: UIView {
-    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -55,5 +54,15 @@ class GetInfoView: UIView {
     func update(title: String, placeHolder: String) {
         self.titleLabel.text = title
         self.valueTextField.placeholder = placeHolder
+    }
+}
+
+extension GetInfoView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: self.valueTextField.bounds.width, color: UIColor.blue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: self.valueTextField.bounds.width, color: UIColor.gray)
     }
 }

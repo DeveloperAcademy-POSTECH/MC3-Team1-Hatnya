@@ -18,7 +18,7 @@ class CyclePickerView: UIView {
         return label
     }()
     
-    var selectedCycleLabel: UILabel = {
+    let selectedCycleLabel: UILabel = {
         let label = UILabel()
         label.text = "1주"
         label.font = UIFont.systemFont(ofSize: 17)
@@ -26,7 +26,7 @@ class CyclePickerView: UIView {
         return label
     }()
     
-    let pickerView: UIPickerView = {
+    private let pickerView: UIPickerView = {
         let picker = UIPickerView()
         return picker
     }()
@@ -101,5 +101,50 @@ class CyclePickerView: UIView {
         pickerView.delegate = self
         pickerView.isHidden = true
     }
+}
 
+extension CyclePickerView: UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return cycles.count
+        } else {
+            return 1
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return cycles[row]
+        } else {
+            return "주"
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 0 {
+            print("row: \(row)")
+            print("value: \(cycles[row])")
+            selectedCycleLabel.text = cycles[row] + "주"
+        }
+    }
+}
+
+//extension CyclePickerView: UIPickerViewDataSource {
+//
+//}
+
+extension CyclePickerView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if isShown == true {
+            pickerView.isHidden = true
+        } else {
+            pickerView.isHidden = false
+        }
+        isShown.toggle()
+        return true
+    }
 }

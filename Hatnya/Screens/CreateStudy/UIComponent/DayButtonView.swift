@@ -50,4 +50,5 @@ class DayButtonView: UIButton {
     func setName(title: String) {
         self.setTitle(title, for: .normal)
     }
+    
 }

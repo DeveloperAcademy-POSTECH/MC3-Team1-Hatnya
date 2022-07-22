@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class CreateStudyViewController: UIViewController {
     var selectedDays: [String] = [""]
@@ -107,9 +108,8 @@ class CreateStudyViewController: UIViewController {
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
+    
 }
-
-import SwiftUI
 
 struct ViewControllerRepresentable: UIViewControllerRepresentable {
     typealias UIViewControllerType = CreateStudyViewController
