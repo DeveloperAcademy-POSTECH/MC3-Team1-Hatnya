@@ -111,21 +111,10 @@ class CreateStudyViewController: UIViewController {
     
 }
 
-struct ViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = CreateStudyViewController
-    
-    func makeUIViewController(context: Context) -> CreateStudyViewController {
-        return CreateStudyViewController()
-    }
-    
-    func updateUIViewController(_ uiViewController: CreateStudyViewController, context: Context) {
-    }
-    
-}
+struct CreateStudyViewControllerPreview: PreviewProvider {
 
-@available(iOS 13.0.0, *)
-struct ViewPreview: PreviewProvider {
     static var previews: some View {
-        ViewControllerRepresentable()
+        CreateStudyViewController().toPreview()
     }
+
 }
