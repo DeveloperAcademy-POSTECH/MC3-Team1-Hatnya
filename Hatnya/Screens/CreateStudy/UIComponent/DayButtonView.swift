@@ -13,6 +13,7 @@ class DayButtonView: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configUI()
         render()
     }
     
@@ -20,14 +21,16 @@ class DayButtonView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func render() {
+    private func configUI() {
         self.backgroundColor = .systemBackground
         self.setTitleColor(UIColor.systemBlue, for: .normal)
         self.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         self.layer.cornerRadius = 16
         self.addTarget(self, action: #selector(buttonTouch), for: .touchUpInside)
         self.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 32, height: 32))
-        
+    }
+    
+    private func render() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.widthAnchor.constraint(equalToConstant: 32).isActive = true
         self.heightAnchor.constraint(equalToConstant: 32).isActive = true
