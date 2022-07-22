@@ -8,7 +8,7 @@
 import UIKit
 
 class DayButtonView: UIButton {
-    var  isClicked = false
+    var isClicked = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
