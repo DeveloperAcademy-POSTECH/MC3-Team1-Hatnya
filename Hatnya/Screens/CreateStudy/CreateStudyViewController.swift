@@ -9,7 +9,8 @@ import UIKit
 import SwiftUI
 
 class CreateStudyViewController: UIViewController {
-    var selectedDays: [String] = [""]
+//    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
+//    var selectedDays: [String] = [""]
     
     private let getStudyNameView = GetInfoView()
     private let getStudyDescriptView = GetInfoView()

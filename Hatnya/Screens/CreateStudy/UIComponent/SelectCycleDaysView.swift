@@ -11,6 +11,7 @@ class SelectCycleDaysView: UIView {
     let cyclePickerView = CyclePickerView()
     let dayButtonStackView = DayButtonStackView()
     
+//    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
 //    let selectedCycleDaysLabel: UILabel = {
 //        let label = UILabel()
 //        label.text = "숙제가 매주 월요일 및 목요일에 반복됩니다."
@@ -49,6 +50,7 @@ class SelectCycleDaysView: UIView {
             dayButtonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
         
+//    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
 //        addSubview(selectedCycleDaysLabel)
 //        selectedCycleDaysLabel.translatesAutoresizingMaskIntoConstraints = false
 //        NSLayoutConstraint.activate([
@@ -61,7 +63,7 @@ class SelectCycleDaysView: UIView {
     
 }
 
-// 2차 스프린트 예정 - 선택한 주기 보여주는 라벨
+//    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
 
 //extension SelectCycleDaysView: UIGestureRecognizerDelegate {
 //    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
