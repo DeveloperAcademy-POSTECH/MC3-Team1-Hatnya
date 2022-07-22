@@ -6,3 +6,12 @@
 //
 
 import UIKit
+
+extension UIColor {
+    
+    // MARK: - grey
+    
+    static var grey001: UIColor {
+        return UIColor(hex: "#979797")
+    }
+}
