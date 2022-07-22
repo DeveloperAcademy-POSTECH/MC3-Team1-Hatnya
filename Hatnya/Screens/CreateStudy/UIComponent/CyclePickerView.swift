@@ -52,11 +52,17 @@ class CyclePickerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configUI()
         render()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configUI() {
+        pickerView.delegate = self
+        pickerView.isHidden = true
     }
     
     private func render() {
@@ -97,9 +103,6 @@ class CyclePickerView: UIView {
             hStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             hStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
-        
-        pickerView.delegate = self
-        pickerView.isHidden = true
     }
 }
 
