@@ -45,10 +45,4 @@ class StudyListTableViewCell: UITableViewCell {
       studyName.text = dataSource.name
       studyDesc.text = dataSource.desc
    }
-   
-}
-
-struct StudyInfo {
-   var name: String
-   var desc: String
 }

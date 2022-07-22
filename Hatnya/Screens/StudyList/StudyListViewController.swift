@@ -13,27 +13,34 @@ class StudyListViewController: UIViewController {
         showActionSheet()
     }
     
+    private let emptyStudyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "스터디 그룹이 없습니다."
+        label.font = .systemFont(ofSize: 17)
+        label.textColor = .gray
+        label.textAlignment = .center
+        
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let emptyStudyLabel = UILabel()
-        emptyStudyLabel.text = "스터디 그룹이 없습니다."
-        emptyStudyLabel.translatesAutoresizingMaskIntoConstraints = false
-        emptyStudyLabel.font = .systemFont(ofSize: 17)
-        emptyStudyLabel.textColor = .gray
-        emptyStudyLabel.textAlignment = .center
-        
+        render()
+    }
+    
+    private func render() {
         if StudyGroup.sampleData.isEmpty {
             view.addSubview(emptyStudyLabel)
             let safeArea = view.safeAreaLayoutGuide
-
+            
+            emptyStudyLabel.translatesAutoresizingMaskIntoConstraints = false
             emptyStudyLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
             emptyStudyLabel.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
         }
-        
     }
     
-    func showActionSheet() {
+    private func showActionSheet() {
         let actionSheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         
         let first = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
@@ -72,5 +79,4 @@ extension StudyListViewController: UITableViewDataSource {
         
         return cell
     }
-    
 }
