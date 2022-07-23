@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-class EditTaskViewController: UIViewController {
+final class EditTaskViewController: UIViewController {
     
     private var taskDataSource: UITableViewDiffableDataSource<EditTaskSection, Homework>!
     private var snapshot = NSDiffableDataSourceSnapshot<EditTaskSection, Homework>()
@@ -18,8 +18,54 @@ class EditTaskViewController: UIViewController {
         super.viewDidLoad()
         configureLayout()
         configureDatasource()
-        tableView.isEditing = true
         applySnapshot()
+    }
+    
+}
+
+extension EditTaskViewController {
+
+    private func configureLayout() {
+        tableView = UITableView(frame: .zero, style: .plain)
+        tableView.register(EditTaskTableViewCell.self, forCellReuseIdentifier: EditTaskTableViewCell.description())
+        tableView.register(EditTaskSupplementaryView.self,
+                           forHeaderFooterViewReuseIdentifier: EditTaskSupplementaryView.description())
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.isEditing = true
+        tableView.delegate = self
+        view.addSubview(tableView)
+        
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func configureDatasource() {
+        taskDataSource = EditTaskDatasource(tableView: tableView, cellProvider: { tableView, indexPath, task in
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: EditTaskTableViewCell.description(),
+                for: indexPath) as? EditTaskTableViewCell else { return UITableViewCell() }
+            cell.setText(with: task.name)
+            return cell
+        })
+    }
+    
+    private func applySnapshot() {
+        snapshot.appendSections([.main])
+        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
+        taskDataSource.apply(snapshot)
+    }
+    
+}
+
+extension EditTaskViewController: UITableViewDelegate {
+        
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: EditTaskSupplementaryView.description()) else { return UIView() }
+        return footerView
     }
     
 }
@@ -56,38 +102,21 @@ private class EditTaskDatasource: UITableViewDiffableDataSource<EditTaskSection,
         apply(snapshot, animatingDifferences: true)
     }
     
-}
-
-extension EditTaskViewController {
-
-    private func configureLayout() {
-        tableView = UITableView(frame: .zero, style: .plain)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.description())
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        
-        NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
-    
-    private func configureDatasource() {
-        taskDataSource = EditTaskDatasource(tableView: tableView, cellProvider: { tableView, indexPath, task in
-            let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.description(), for: indexPath)
-            var content = cell.defaultContentConfiguration()
-            content.text = task.name
-            cell.contentConfiguration = content
-            return cell
-        })
-    }
-    
-    private func applySnapshot() {
-        snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
-        taskDataSource.apply(snapshot)
+
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
+        var snapshot = snapshot()
+
+        if editingStyle == .delete {
+            if let identifierToDelete = itemIdentifier(for: indexPath) {
+                snapshot.deleteItems([identifierToDelete])
+            }
+        }
+        apply(snapshot)
     }
     
 }

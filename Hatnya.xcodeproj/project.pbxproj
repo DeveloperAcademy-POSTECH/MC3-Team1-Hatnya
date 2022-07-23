@@ -31,6 +31,8 @@
 		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
 		AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */; };
 		AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */; };
+		AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BF288C3A3700B32FF7 /* EditTaskSupplementaryView.swift */; };
+		AED2E1C2288C3A6000B32FF7 /* EditTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1C1288C3A6000B32FF7 /* EditTaskTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
 		AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
 		AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StrikeThrough.swift"; sourceTree = "<group>"; };
+		AED2E1BF288C3A3700B32FF7 /* EditTaskSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskSupplementaryView.swift; sourceTree = "<group>"; };
+		AED2E1C1288C3A6000B32FF7 /* EditTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +213,7 @@
 		A28DEF92288551BF004014DE /* EditTask */ = {
 			isa = PBXGroup;
 			children = (
+				AED2E1C3288C3BC600B32FF7 /* UIComponent */,
 				A28DEF9628855228004014DE /* EditTaskViewController.swift */,
 			);
 			path = EditTask;
@@ -247,6 +252,15 @@
 				AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		AED2E1C3288C3BC600B32FF7 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				AED2E1C1288C3A6000B32FF7 /* EditTaskTableViewCell.swift */,
+				AED2E1BF288C3A3700B32FF7 /* EditTaskSupplementaryView.swift */,
+			);
+			path = UIComponent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */,
+				AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */,
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
 				AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */,
@@ -357,6 +372,7 @@
 				AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */,
 				A28DEFA1288552CC004014DE /* StudyGroup.swift in Sources */,
 				AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */,
+				AED2E1C2288C3A6000B32FF7 /* EditTaskTableViewCell.swift in Sources */,
 				AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */,
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
