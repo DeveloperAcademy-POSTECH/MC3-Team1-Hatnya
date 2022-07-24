@@ -26,7 +26,7 @@ class StudyRoomViewController: UIViewController {
     }()
     private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(deadLineString)(목) 까지"
+        label.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
         label.textColor = .grey001
         label.font = UIFont.systemFont(ofSize: 14)
         return label
@@ -92,7 +92,7 @@ class StudyRoomViewController: UIViewController {
             chartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chartView.heightAnchor.constraint(equalToConstant: 237)]
         )
-        
+
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -107,13 +107,17 @@ class StudyRoomViewController: UIViewController {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
-    
+
     private func getDateDiffence() -> Int {
         guard let date = deadLineString.stringToDate else { return 0 }
         let distance = date.distance(to: Date())
         let doubleResult = Double(distance) / oneDayTimeInterval
         let result = abs(Int(doubleResult))
-        print(result)
         return result
+    }
+
+    private func setDayOfWeek(_ day: Date?) -> String {
+        guard let date = day else { return "" }
+        return date.getDayOfWeek
     }
 }
