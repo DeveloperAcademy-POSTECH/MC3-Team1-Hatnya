@@ -5,10 +5,13 @@
 //  Created by 리아 on 2022/07/23.
 //
 
+import Combine
 import SwiftUI
 import UIKit
 
 final class EditTaskSupplementaryView: UITableViewHeaderFooterView {
+    
+    @Published var newTask = Homework(name: "", due: Date(), isCompleted: false)
     
     private lazy var plusButton: UIButton = {
         var config = UIImage.SymbolConfiguration(paletteColors: [.systemGreen])
@@ -81,7 +84,8 @@ extension EditTaskSupplementaryView {
     
     @objc
     func plusButtonTouched() {
-        print(textField.text!)
+        guard let text = textField.text else { return }
+        newTask = Homework(name: text, due: Date(), isCompleted: false)
         textField.text = ""
     }
     
