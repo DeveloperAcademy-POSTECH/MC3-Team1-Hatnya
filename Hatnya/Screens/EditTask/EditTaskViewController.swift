@@ -26,6 +26,8 @@ final class EditTaskViewController: UIViewController {
     
 }
 
+// MARK: - Configure TableView
+
 extension EditTaskViewController {
 
     private func configureLayout() {
@@ -63,6 +65,8 @@ extension EditTaskViewController {
     }
     
 }
+
+// MARK: - Edit TableView
 
 extension EditTaskViewController: UITableViewDelegate {
         
