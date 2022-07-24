@@ -2,7 +2,7 @@
 //  StudyListViewController.swift
 //  Hatnya
 //
-//  Created by kelly on 2022/07/18.
+//  Created by 김원희 on 2022/07/18.
 //
 
 import UIKit
