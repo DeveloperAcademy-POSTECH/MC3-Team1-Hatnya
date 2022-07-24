@@ -19,9 +19,29 @@ final class EditTaskViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavi()
         configureLayout()
         configureDatasource()
         applySnapshot()
+    }
+    
+}
+
+// MARK: - Configure Navigation
+
+extension EditTaskViewController {
+    
+    private func configureNavi() {
+
+        self.navigationController?.navigationBar.backgroundColor = .systemBackground
+        self.navigationItem.title = "숙제 목록"
+        let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonTouched))
+        self.navigationItem.rightBarButtonItem = completeButton
+    }
+    
+    @objc
+    func completeButtonTouched() {
+        dismiss(animated: true)
     }
     
 }

@@ -132,8 +132,14 @@ extension StudyRoomViewController {
 
 // MARK: - Homework List View
 
-extension StudyRoomViewController: UICollectionViewDelegate {
-    
+extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
+
+    func editButtonTapped() {
+        let newViewController = UINavigationController(rootViewController: EditTaskViewController())
+        present(newViewController, animated: true)
+//        self.navigationController?.pushViewController(newViewController, animated: true)
+    }
+
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -182,7 +188,9 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         })
         
         let headerRegisteration = UICollectionView.SupplementaryRegistration
-        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { _, _, _ in }
+        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { supplymentaryView, _, _ in
+            supplymentaryView.delegate = self
+        }
         
         datasource.supplementaryViewProvider = { _, _, index in
             return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
