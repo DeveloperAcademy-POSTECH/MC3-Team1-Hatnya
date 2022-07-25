@@ -57,7 +57,7 @@ class CyclePickerView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     private func configUI() {
@@ -76,7 +76,8 @@ class CyclePickerView: UIView {
             vStackView.addArrangedSubview(subview)
         }
         
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
+        let tapGesture: UITapGestureRecognizer
+        tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
         hStackView.addGestureRecognizer(tapGesture)
         
@@ -96,7 +97,7 @@ class CyclePickerView: UIView {
         NSLayoutConstraint.activate([
             pickerView.heightAnchor.constraint(equalToConstant: 130),
             pickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            pickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            pickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([

@@ -5,8 +5,8 @@
 //  Created by kelly on 2022/07/18.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 class CreateStudyViewController: UIViewController {
 //    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
@@ -63,7 +63,7 @@ class CreateStudyViewController: UIViewController {
             backButton.topAnchor.constraint(equalTo: safeArea.topAnchor),
             backButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
             backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         getStudyNameView.update(title: "스터디 이름", placeHolder: "스터디 이름을 입력해주세요.")

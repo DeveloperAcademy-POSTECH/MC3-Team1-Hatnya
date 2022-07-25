@@ -8,7 +8,6 @@
 import UIKit
 
 class DayButtonView: UIButton {
-    var isClicked = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,7 +17,7 @@ class DayButtonView: UIButton {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     private func configUI() {
@@ -37,7 +36,7 @@ class DayButtonView: UIButton {
     }
     
     @objc func buttonTouch() {
-        if isClicked {
+        if self.isSelected {
             self.backgroundColor = .systemBackground
             self.setTitleColor(UIColor.systemBlue, for: .normal)
             self.titleLabel?.font = UIFont.systemFont(ofSize: 20)
@@ -46,7 +45,7 @@ class DayButtonView: UIButton {
             self.setTitleColor(UIColor.white, for: .normal)
             self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         }
-        isClicked.toggle()
+        self.isSelected.toggle()
         print(self.title(for: .selected) ?? "")
     }
     
