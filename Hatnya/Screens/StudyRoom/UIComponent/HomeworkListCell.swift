@@ -71,8 +71,11 @@ extension HomeworkListCell {
     private func configureSubviews() {
         let margin: CGFloat = 20
 
-        addSubview(checkButton)
-        checkButton.translatesAutoresizingMaskIntoConstraints = false
+        [checkButton, tagView, textLabel].forEach { component in
+            addSubview(component)
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         NSLayoutConstraint.activate([
             checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
             checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -80,8 +83,6 @@ extension HomeworkListCell {
             checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
         ])
         
-        addSubview(tagView)
-        tagView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tagView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
             tagView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -89,13 +90,10 @@ extension HomeworkListCell {
             tagView.heightAnchor.constraint(equalToConstant: tagSize)
         ])
         
-        addSubview(textLabel)
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textLabel.leadingAnchor.constraint(equalTo: checkButton.trailingAnchor, constant: margin),
             textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             textLabel.trailingAnchor.constraint(equalTo: tagView.leadingAnchor, constant: -margin),
-            textLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
             textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
         ])
         
