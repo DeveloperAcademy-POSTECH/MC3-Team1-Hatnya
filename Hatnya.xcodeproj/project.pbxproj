@@ -31,6 +31,7 @@
 		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
 		AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */; };
 		AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */; };
+		AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
 		AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
 		AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StrikeThrough.swift"; sourceTree = "<group>"; };
+		AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+underlined.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +238,7 @@
 			children = (
 				A28DEFA728855354004014DE /* UIColor+Extension.swift */,
 				AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */,
+				AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */,
 				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
 			);
 			path = Extension;
@@ -346,6 +349,7 @@
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
 				AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */,
+				AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */,
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
 				AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */,
