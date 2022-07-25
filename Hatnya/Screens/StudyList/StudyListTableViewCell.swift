@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StudyListTableViewCell: UITableViewCell {
+final class StudyListTableViewCell: UITableViewCell {
    
    static let identifier = "StudyListTableViewCell"
    
@@ -43,6 +43,6 @@ class StudyListTableViewCell: UITableViewCell {
    
    func configure(with dataSource: StudyInfo) {
       studyName.text = dataSource.name
-      studyDesc.text = dataSource.desc
+      studyDesc.text = dataSource.description
    }
 }

@@ -9,5 +9,5 @@ import Foundation
 
 struct StudyInfo {
    var name: String
-   var desc: String
+   var description: String
 }

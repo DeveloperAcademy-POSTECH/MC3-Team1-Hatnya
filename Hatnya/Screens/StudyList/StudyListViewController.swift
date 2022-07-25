@@ -2,18 +2,18 @@
 //  StudyListViewController.swift
 //  Hatnya
 //
-//  Created by 김원희 on 2022/07/18.
+//  Created by kelly on 2022/07/18.
 //
 
 import UIKit
 
-class StudyListViewController: UIViewController {
+final class StudyListViewController: UIViewController {
 
-    @IBAction private func showASBtn(_ sender: Any) {
+    @IBAction private func showActionSheetButton(_ sender: Any) {
         showActionSheet()
     }
     
-    private let emptyStudyLabel: UILabel = {
+    private lazy var emptyStudyLabel: UILabel = {
         let label = UILabel()
         label.text = "스터디 그룹이 없습니다."
         label.font = .systemFont(ofSize: 17)
@@ -43,18 +43,18 @@ class StudyListViewController: UIViewController {
     private func showActionSheet() {
         let actionSheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         
-        let first = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
-            print("스터디 코드 입력 view로 연결")
+        let enterStudyButton = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
+            //TODO: 스터디 코드 입력 창으로 연결
         }
-        let second = UIAlertAction(title: "스터디 생성하기", style: .default) { _ in
-            print("스터디 생성 view로 연결")
+        let createStudyButton = UIAlertAction(title: "스터디 생성하기", style: .default) { _ in
+            //TODO: 스터디 생성 창으로 연결
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
             
         }
         
-        actionSheet.addAction(first)
-        actionSheet.addAction(second)
+        actionSheet.addAction(enterStudyButton)
+        actionSheet.addAction(createStudyButton)
         actionSheet.addAction(cancel)
         
         present(actionSheet, animated: true, completion: nil)
@@ -74,7 +74,7 @@ extension StudyListViewController: UITableViewDataSource {
         }
         
         let dataSource = StudyInfo(name: StudyGroup.sampleData[indexPath.row].studyName,
-                                   desc: StudyGroup.sampleData[indexPath.row].description)
+                                   description: StudyGroup.sampleData[indexPath.row].description)
         cell.configure(with: dataSource)
         
         return cell
