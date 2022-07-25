@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelectCycleDaysView: UIView {
+final class SelectCycleDaysView: UIView {
     lazy var cyclePickerView = CyclePickerView()
     lazy var dayButtonStackView = DayButtonStackView()
     

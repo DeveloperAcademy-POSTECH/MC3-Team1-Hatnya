@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DayButtonView: UIButton {
+final class DayButtonView: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
