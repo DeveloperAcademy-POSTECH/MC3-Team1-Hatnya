@@ -137,7 +137,6 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
     func editButtonTapped() {
         let newViewController = UINavigationController(rootViewController: EditTaskViewController())
         present(newViewController, animated: true)
-//        self.navigationController?.pushViewController(newViewController, animated: true)
     }
 
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
