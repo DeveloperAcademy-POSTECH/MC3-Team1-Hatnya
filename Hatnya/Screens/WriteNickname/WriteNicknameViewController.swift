@@ -2,7 +2,7 @@
 //  WriteNicknameViewController.swift
 //  Hatnya
 //
-//  Created by kelly on 2022/07/18.
+//  Created by 비트 on 2022/07/19.
 //
 
 import UIKit
