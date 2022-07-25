@@ -8,8 +8,8 @@
 import UIKit
 
 class SelectCycleDaysView: UIView {
-    let cyclePickerView = CyclePickerView()
-    let dayButtonStackView = DayButtonStackView()
+    lazy var cyclePickerView = CyclePickerView()
+    lazy var dayButtonStackView = DayButtonStackView()
     
 //    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
 //    let selectedCycleDaysLabel: UILabel = {

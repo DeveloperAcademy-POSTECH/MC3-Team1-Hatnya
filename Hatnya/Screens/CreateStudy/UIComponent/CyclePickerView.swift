@@ -11,14 +11,14 @@ class CyclePickerView: UIView {
     var isShown = false
     let cycles = ["1", "2", "3", "4"]
     
-    private let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "반복"
         label.font = UIFont.systemFont(ofSize: 17)
         return label
     }()
     
-    let selectedCycleLabel: UILabel = {
+    lazy var selectedCycleLabel: UILabel = {
         let label = UILabel()
         label.text = "1주"
         label.font = UIFont.systemFont(ofSize: 17)
@@ -26,12 +26,12 @@ class CyclePickerView: UIView {
         return label
     }()
     
-    private let pickerView: UIPickerView = {
+    lazy var pickerView: UIPickerView = {
         let picker = UIPickerView()
         return picker
     }()
     
-    private let hStackView: UIStackView = {
+    lazy var hStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -40,7 +40,7 @@ class CyclePickerView: UIView {
         return stackView
     }()
     
-    private let vStackView: UIStackView = {
+    lazy var vStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill

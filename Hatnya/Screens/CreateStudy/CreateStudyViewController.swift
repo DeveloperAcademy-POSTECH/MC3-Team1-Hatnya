@@ -12,25 +12,25 @@ class CreateStudyViewController: UIViewController {
 //    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
 //    var selectedDays: [String] = [""]
     
-    private let getStudyNameView = GetInfoView()
-    private let getStudyDescriptView = GetInfoView()
-    private let selectCycleDayView = SelectCycleDaysView()
+    lazy var getStudyNameView = GetInfoView()
+    lazy var getStudyDescriptView = GetInfoView()
+    lazy var selectCycleDayView = SelectCycleDaysView()
     
-    private let backButton: UIButton = {
+    lazy var backButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "xmark")
         button.setImage(image, for: .normal)
         return button
     }()
     
-    private let studyCycleLabel: UILabel = {
+    lazy var studyCycleLabel: UILabel = {
         let label = UILabel()
         label.text = "스터디 주기"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
     
-    private var nextButton: UIButton = {
+    lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
         button.backgroundColor = .systemBlue

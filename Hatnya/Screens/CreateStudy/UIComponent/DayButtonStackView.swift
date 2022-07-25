@@ -8,13 +8,13 @@
 import UIKit
 
 class DayButtonStackView: UIStackView {
-    let mondayBtn = DayButtonView()
-    let tuesdayBtn = DayButtonView()
-    let wednesdayBtn = DayButtonView()
-    let thursdayBtn = DayButtonView()
-    let fridayBtn = DayButtonView()
-    let saturdayBtn = DayButtonView()
-    let sundayBtn = DayButtonView()
+    lazy var mondayBtn = DayButtonView()
+    lazy var tuesdayBtn = DayButtonView()
+    lazy var wednesdayBtn = DayButtonView()
+    lazy var thursdayBtn = DayButtonView()
+    lazy var fridayBtn = DayButtonView()
+    lazy var saturdayBtn = DayButtonView()
+    lazy var sundayBtn = DayButtonView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

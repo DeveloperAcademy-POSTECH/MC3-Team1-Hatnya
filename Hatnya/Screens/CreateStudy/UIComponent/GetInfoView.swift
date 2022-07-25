@@ -8,13 +8,13 @@
 import UIKit
 
 class GetInfoView: UIView {
-    private let titleLabel: UILabel = {
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
     
-    let valueTextField: UITextField = {
+    lazy var valueTextField: UITextField = {
         let textField = UITextField()
         textField.clearButtonMode = .always
         return textField
