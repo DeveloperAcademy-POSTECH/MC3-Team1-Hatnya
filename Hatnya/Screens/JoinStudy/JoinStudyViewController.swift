@@ -31,43 +31,54 @@ class JoinStudyViewController: UIViewController {
         super.viewDidLoad()
         
         codeTextField.delegate = self
-        searchResultView.layer.cornerRadius = 5
-        nextButton.isEnabled = false
-        nextButton.setBackgroundColor(.systemGray6, for: .disabled)
+        initSearchResultView()
+        initNextButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         setTextField()
     }
 }
 
 extension JoinStudyViewController: UITextFieldDelegate {
+    private func initSearchResultView() {
+        searchResultView.layer.cornerRadius = 5
+    }
+    
+    private func initNextButton() {
+        nextButton.isEnabled = false
+        nextButton.setBackgroundColor(.systemGray6, for: .disabled)
+    }
+    
     private func searchStudyGroup() {
-        for studyGroup in StudyGroup.sampleData {
-            if codeTextField.text == studyGroup.code {
-                searchResultView.backgroundColor = .systemGray6
-                studyGroupName.text = studyGroup.studyName
-                studyGroupDescription.text = studyGroup.description
-                return
-            } else {
-                studyGroupName.text = "해당하는 스터디가 없습니다."
-            }
-        }
+// TODO: 추후 Firebase 데이터 연동 후 sampleData 변수에 Firebase의 StudyGroup 데이터 넣으면 됨
+//        for studyGroup in StudyGroup.sampleData {
+//            if codeTextField.text == studyGroup.code {
+//                searchResultView.backgroundColor = .systemGray6
+//                studyGroupName.text = studyGroup.studyName
+//                studyGroupDescription.text = studyGroup.description
+//                return
+//            } else {
+//                studyGroupName.text = "해당하는 스터디가 없습니다."
+//            }
+//        }
     }
     
     private func checkMaxLength(textField: UITextField!, maxLength: Int) {
-        if textField.text?.count ?? 0 == maxLength {
-            searchStudyGroup()
-            nextButton.isEnabled = true
-        } else if textField.text?.count ?? 0 > maxLength {
-            textField.deleteBackward()
-        } else {
-            nextButton.isEnabled = false
-            studyGroupName.text = ""
-            studyGroupDescription.text = ""
-            searchResultView.backgroundColor = .clear
+        if let textLength = textField.text?.count {
+            if textLength == maxLength {
+                searchStudyGroup()
+                nextButton.isEnabled = true
+            } else if textField.text?.count ?? 0 > maxLength {
+                textField.deleteBackward()
+            } else {
+                nextButton.isEnabled = false
+                studyGroupName.text = ""
+                studyGroupDescription.text = ""
+                searchResultView.backgroundColor = .clear
+            }
         }
     }
     
