@@ -32,7 +32,7 @@ class HomeworkListCell: UICollectionViewCell {
         return $0
     }(UIView())
     
-    var isComplished = false
+    private var isHomeworkComplished = false
     private let tagSize: CGFloat = 24
     
     override init(frame: CGRect) {
@@ -56,7 +56,7 @@ extension HomeworkListCell {
         let checkedImage = UIImage(systemName: "checkmark.square.fill")
         let emptyImage = UIImage(systemName: "square")
         
-        if isComplished {
+        if isHomeworkComplished {
             checkButton.setImage(emptyImage, for: .normal)
             textLabel.textColor = .label
         } else {
@@ -64,8 +64,8 @@ extension HomeworkListCell {
             textLabel.textColor = .gray
         }
         
-        isComplished.toggle()
-        textLabel.strikeThrough(isComplished)
+        isHomeworkComplished.toggle()
+        textLabel.strikeThrough(isHomeworkComplished)
     }
     
     private func configureSubviews() {
