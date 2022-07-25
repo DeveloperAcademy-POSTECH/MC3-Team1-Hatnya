@@ -108,11 +108,11 @@ class StudyRoomViewController: UIViewController {
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
 
-    private func getDateDiffence() -> Int {
+    private func getDateDifference() -> Int {
         guard let date = deadLineString.stringToDate else { return 0 }
         let distance = date.distance(to: Date())
-        let doubleResult = Double(distance) / oneDayTimeInterval
-        let result = abs(Int(doubleResult))
+        let resultToDouble = Double(distance) / oneDayTimeInterval
+        let result = abs(Int(resultToDouble))
         return result
     }
 
