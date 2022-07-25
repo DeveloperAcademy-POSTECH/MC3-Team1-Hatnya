@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WriteNicknameViewController: UIViewController {
+final class WriteNicknameViewController: UIViewController {
 
     private lazy var backButton: UIButton = {
         let button = UIButton()
@@ -46,7 +46,8 @@ class WriteNicknameViewController: UIViewController {
         return button
     }()
     
-    @objc func nextButtonTapHandler(sender: UIButton) {
+    @objc
+    func nextButtonTapHandler(sender: UIButton) {
         print("button click")
     }
     
@@ -64,6 +65,10 @@ class WriteNicknameViewController: UIViewController {
         
         setTextField()
     }
+    
+}
+
+extension WriteNicknameViewController {
     
     private func configureView() {
         guard let view = self.view else { return }
@@ -87,21 +92,21 @@ class WriteNicknameViewController: UIViewController {
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 43),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])
         
         inputTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             inputTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
             inputTextField.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            inputTextField.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            inputTextField.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
         ])
         
         nextButton.translatesAutoresizingMaskIntoConstraints = false
@@ -111,19 +116,6 @@ class WriteNicknameViewController: UIViewController {
             nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-    }
-    
-}
-
-extension UITextField {
-    
-    func underlined(viewSize: CGFloat, color: UIColor){
-        let border = CALayer()
-        let width = CGFloat(1)
-        border.borderColor = color.cgColor
-        border.frame = CGRect(x: 0, y: self.frame.size.height + 10, width: viewSize - 40, height: width)
-        border.borderWidth = width
-        self.layer.addSublayer(border)
     }
     
 }
