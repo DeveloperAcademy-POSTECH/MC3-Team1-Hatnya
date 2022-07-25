@@ -9,7 +9,7 @@ import UIKit
 
 final class EditTaskTableViewCell: UITableViewCell {
     
-    var textField = UITextField()
+    private var textField = UITextField()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,11 +23,10 @@ final class EditTaskTableViewCell: UITableViewCell {
     
 }
 
-extension EditTaskTableViewCell: UITextFieldDelegate {
+extension EditTaskTableViewCell {
     
-    func configureViewHierachy() {
+    private func configureViewHierachy() {
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.delegate = self
         contentView.addSubview(textField)
         
         let margin: CGFloat = 13
@@ -41,7 +40,6 @@ extension EditTaskTableViewCell: UITextFieldDelegate {
     
     func setText(with text: String) {
         textField.text = text
-        
     }
     
 }
