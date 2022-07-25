@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-class HomeworkListCell: UICollectionViewCell {
+final class HomeworkListCell: UICollectionViewCell {
     
     private lazy var checkButton: UIButton = {
         let emptyCheckImage = UIImage(systemName: "square")

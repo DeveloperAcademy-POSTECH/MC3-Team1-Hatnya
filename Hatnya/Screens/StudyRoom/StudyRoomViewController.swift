@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-class StudyRoomViewController: UIViewController {
+final class StudyRoomViewController: UIViewController {
 
     // MARK: - property
 
