@@ -5,6 +5,8 @@
 //  Created by kelly on 2022/07/18.
 //
 
+import FirebaseCore
+import FirebaseFirestore
 import UIKit
 
 final class StudyListViewController: UIViewController {
@@ -12,6 +14,9 @@ final class StudyListViewController: UIViewController {
     @IBAction private func showActionSheetButton(_ sender: Any) {
         showActionSheet()
     }
+    
+    let firestore = Firestore.firestore()
+    var studyGroup = [StudyGroup]()
     
     private lazy var emptyStudyLabel: UILabel = {
         let label = UILabel()
@@ -23,10 +28,13 @@ final class StudyListViewController: UIViewController {
         return label
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         render()
+        addUid()
+        fetchStudyGroups()
     }
     
     private func render() {
@@ -58,6 +66,43 @@ final class StudyListViewController: UIViewController {
         actionSheet.addAction(cancel)
         
         present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func addUid() {
+        let uuid = UIDevice.current.identifierForVendor!.uuidString
+        let uidIndex = uuid.index(uuid.startIndex, offsetBy: 5)
+        let uid = String(uuid[...uidIndex])
+        print("addUid: \(uid)")
+        UserDefaults.standard.set(uid, forKey: "User")
+    }
+    
+    private func fetchStudyGroups() {
+        var count: Int = 0
+        
+        firestore.collectionGroup("Members")
+            .whereField("uid", isEqualTo: UserDefaults.standard.string(forKey: "User") ?? "")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for memberDocument in querySnapshot!.documents {
+                        let studyGroupId = memberDocument.reference.parent.parent?.documentID ?? ""
+                        let docRef = self.firestore.collection("StudyGroup").document(studyGroupId)
+                        
+                        docRef.getDocument { [self] (document, _) in
+                            if let document = document, document.exists {
+                                studyGroup[count].name = document.get("name") as? String ?? ""
+                                studyGroup[count].description = document.get("description") as? String ?? ""
+                                print(studyGroup[count].name)
+                                print(studyGroup[count].description)
+                                count += 1
+                            } else {
+                                print("StudyGroup document does not exist (failed to get study groups list)")
+                            }
+                        }
+                    }
+                }
+            }
     }
 }
 
