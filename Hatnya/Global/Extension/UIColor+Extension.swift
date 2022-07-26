@@ -33,5 +33,5 @@ extension UIColor {
         return UIColor(hex: "D3C9EF")
     }
     
-    static let colorPalette: [UIColor] = [.chart001, .chart002, .chart003, .chart004]
+    static let colorPalette: [UIColor] = [.chart001, .chart002, .chart003, .chart004, .chart001, .chart002, .chart003, .chart004]
 }

@@ -35,7 +35,20 @@ class StudyRoomViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()
-    private let chartView = StudyChartView()
+    private let flowLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 30, right: 16)
+        layout.minimumInteritemSpacing = 10
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.8, height: 32)
+        return layout
+    }()
+    private lazy var chartCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.register(
+            StudyChartCollectionViewCell.self,
+            forCellWithReuseIdentifier: StudyChartCollectionViewCell.className)
+        return collectionView
+    }()
     private let codeCopyButton: UIButton = {
         let button = UIButton(type: .system)
         let action = UIAction { _ in
@@ -53,6 +66,7 @@ class StudyRoomViewController: UIViewController {
         super.viewDidLoad()
         configUI()
         render()
+        setupChartCollectionView()
     }
 
     private func configUI() {
@@ -82,19 +96,19 @@ class StudyRoomViewController: UIViewController {
             dDayLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
 
-        view.addSubview(chartView)
-        chartView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(chartCollectionView)
+        chartCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chartView.topAnchor.constraint(equalTo: deadLineLabel.bottomAnchor, constant: 30),
-            chartView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            chartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            chartView.heightAnchor.constraint(equalToConstant: 237)]
+            chartCollectionView.topAnchor.constraint(equalTo: deadLineLabel.bottomAnchor, constant: 29),
+            chartCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            chartCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            chartCollectionView.heightAnchor.constraint(equalToConstant: 237)]
         )
-        
+
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            codeCopyButton.topAnchor.constraint(equalTo: chartView.bottomAnchor, constant: 21),
+            codeCopyButton.topAnchor.constraint(equalTo: chartCollectionView.bottomAnchor, constant: 21),
             codeCopyButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
     }
@@ -104,5 +118,25 @@ class StudyRoomViewController: UIViewController {
     private func setupNavigationBar() {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
+    }
+
+    private func setupChartCollectionView() {
+        chartCollectionView.delegate = self
+        chartCollectionView.dataSource = self
+    }
+}
+
+extension StudyRoomViewController: UICollectionViewDelegate {
+
+}
+
+extension StudyRoomViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        6
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyChartCollectionViewCell.className, for: indexPath)
+        return cell
     }
 }

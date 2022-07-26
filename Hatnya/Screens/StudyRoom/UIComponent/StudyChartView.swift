@@ -8,7 +8,7 @@
 import UIKit
 
 class StudyChartView: UIView {
-    var homeworkCount = 3
+    var homeworkCount = 8
 
     // MARK: - property
 
@@ -22,7 +22,7 @@ class StudyChartView: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
-        stackView.spacing = 1
+        stackView.spacing = 5
         stackView.clipsToBounds = true
         stackView.layer.cornerRadius = 5
         return stackView
@@ -63,6 +63,7 @@ class StudyChartView: UIView {
         for index in 0..<homeworkCount {
             let testView = UIView()
             testView.backgroundColor = UIColor.colorPalette[index]
+            testView.layer.cornerRadius = 5
             chartStackView.addArrangedSubview(testView)
         }
     }
