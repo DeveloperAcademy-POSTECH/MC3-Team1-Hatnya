@@ -25,7 +25,7 @@ final class DayButtonView: UIButton {
         self.setTitleColor(UIColor.systemBlue, for: .normal)
         self.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         self.layer.cornerRadius = 16
-        self.addTarget(self, action: #selector(buttonTouch), for: .touchUpInside)
+        self.addTarget(self, action: #selector(dayButtonTouch), for: .touchUpInside)
         self.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 32, height: 32))
     }
     
@@ -35,7 +35,8 @@ final class DayButtonView: UIButton {
         self.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
     
-    @objc func buttonTouch() {
+    @objc
+    private func dayButtonTouch() {
         if self.isSelected {
             self.backgroundColor = .systemBackground
             self.setTitleColor(UIColor.systemBlue, for: .normal)
