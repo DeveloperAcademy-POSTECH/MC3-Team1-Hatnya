@@ -8,7 +8,9 @@
 import SwiftUI
 import UIKit
 
-class HomeworkListTitleView: UICollectionReusableView {
+final class HomeworkListTitleView: UICollectionReusableView {
+    
+    weak var delegate: EditDelegate?
     
     private lazy var titleLabel: UILabel = {
         $0.text = "숙제 목록"
@@ -19,6 +21,7 @@ class HomeworkListTitleView: UICollectionReusableView {
     private lazy var plusButton: UIButton = {
         let plusImage = UIImage(systemName: "plus")
         $0.setImage(plusImage, for: .normal)
+        $0.addTarget(self, action: #selector(plusButtonTouched), for: .touchUpInside)
         return $0
     }(UIButton())
     
@@ -59,6 +62,12 @@ extension HomeworkListTitleView {
             plusButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
         ])
     }
+    
+    @objc
+    func plusButtonTouched() {
+        delegate?.editButtonTapped()
+    }
+    
 }
 
 struct HomeworkListTitlePreview: PreviewProvider {
@@ -67,4 +76,8 @@ struct HomeworkListTitlePreview: PreviewProvider {
         HomeworkListTitleView().toPreview()
     }
 
+}
+
+protocol EditDelegate: AnyObject {
+    func editButtonTapped()
 }
