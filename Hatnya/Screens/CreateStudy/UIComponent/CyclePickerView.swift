@@ -108,17 +108,6 @@ class CyclePickerView: UIView {
 }
 
 extension CyclePickerView: UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return cycles.count
-        } else {
-            return 1
-        }
-    }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
@@ -138,7 +127,18 @@ extension CyclePickerView: UIPickerViewDelegate {
 }
 
 extension CyclePickerView: UIPickerViewDataSource {
-    // 이 코드가 없으면 피커에 데이터가 나타나지 않음
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return cycles.count
+        } else {
+            return 1
+        }
+    }
 }
 
 extension CyclePickerView: UIGestureRecognizerDelegate {
