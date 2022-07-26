@@ -9,6 +9,8 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
+    var deadLineString = "2022.08.01"
+    var oneDayTimeInterval: Double = 86_400
 
     // MARK: - property
 
@@ -23,16 +25,16 @@ final class StudyRoomViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
-    private let deadLineLabel: UILabel = {
+    private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
-        label.text = "2022. 07. 14(목) 까지"
+        label.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
         label.textColor = .grey001
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    private let dDayLabel: UILabel = {
+    private lazy var dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-5"
+        label.text = "D-\(getDateDiffence())"
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()
@@ -113,7 +115,7 @@ extension StudyRoomViewController {
             chartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chartView.heightAnchor.constraint(equalToConstant: 237)]
         )
-        
+
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -127,6 +129,19 @@ extension StudyRoomViewController {
     private func setupNavigationBar() {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
+    }
+
+    private func getDateDifference() -> Int {
+        guard let date = deadLineString.stringToDate else { return 0 }
+        let distance = date.distance(to: Date())
+        let resultToDouble = Double(distance) / oneDayTimeInterval
+        let result = abs(Int(resultToDouble))
+        return result
+    }
+
+    private func setDayOfWeek(_ day: Date?) -> String {
+        guard let date = day else { return "" }
+        return date.getDayOfWeek
     }
 }
 

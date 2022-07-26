@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3982366C2886EF0400F6B004 /* ColorLiteral.swift */; };
+		3982366F288D228300F6B004 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3982366E288D228300F6B004 /* String+Extension.swift */; };
+		39823671288D281B00F6B004 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39823670288D281B00F6B004 /* Date+Extension.swift */; };
 		39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F3F8E52886778900256D56 /* StudyChartView.swift */; };
 		A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9E42887A04900A84BCC /* GetInfoView.swift */; };
 		A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */; };
@@ -45,6 +47,8 @@
 
 /* Begin PBXFileReference section */
 		3982366C2886EF0400F6B004 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
+		3982366E288D228300F6B004 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		39823670288D281B00F6B004 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		39F3F8E52886778900256D56 /* StudyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyChartView.swift; sourceTree = "<group>"; };
 		A22BA9E42887A04900A84BCC /* GetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfoView.swift; sourceTree = "<group>"; };
 		A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclePickerView.swift; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 				AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */,
 				AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */,
 				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
+				3982366E288D228300F6B004 /* String+Extension.swift */,
+				39823670288D281B00F6B004 /* Date+Extension.swift */,
 				3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */,
 			);
 			path = Extension;
@@ -390,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */,
+				3982366F288D228300F6B004 /* String+Extension.swift in Sources */,
 				39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */,
 				AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */,
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
@@ -405,6 +412,7 @@
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,
 				AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */,
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
+				39823671288D281B00F6B004 /* Date+Extension.swift in Sources */,
 				A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */,
 				3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */,
 				A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */,
