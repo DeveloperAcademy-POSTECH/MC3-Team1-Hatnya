@@ -14,6 +14,8 @@
 		A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */; };
 		A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */; };
 		A22BA9FE288A03B300A84BCC /* SelectCycleDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */; };
+		3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */; };
+		3DFBE06F288653B100D62DA4 /* JoinStudyView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */; };
 		A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7228854EEF004014DE /* AppDelegate.swift */; };
 		A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7428854EEF004014DE /* SceneDelegate.swift */; };
 		A28DEF7728854EEF004014DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7628854EEF004014DE /* ViewController.swift */; };
@@ -31,6 +33,12 @@
 		A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA728855354004014DE /* UIColor+Extension.swift */; };
 		AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AEC29DA428858DE700DA24B8 /* .swiftlint.yml */; };
 		AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */; };
+		AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */; };
+		AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */; };
+		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
+		AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */; };
+		AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */; };
+		AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +49,8 @@
 		A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonView.swift; sourceTree = "<group>"; };
 		A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonStackView.swift; sourceTree = "<group>"; };
 		A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectCycleDaysView.swift; path = Hatnya/Screens/CreateStudy/UIComponent/SelectCycleDaysView.swift; sourceTree = SOURCE_ROOT; };
+		3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = JoinStudyView.storyboard; sourceTree = "<group>"; };
 		A28DEF6F28854EEF004014DE /* Hatnya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatnya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A28DEF7228854EEF004014DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A28DEF7428854EEF004014DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +70,12 @@
 		A28DEFA728855354004014DE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AEC29DA428858DE700DA24B8 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Preview.swift"; sourceTree = "<group>"; };
+		AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListTitleView.swift; sourceTree = "<group>"; };
+		AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListCell.swift; sourceTree = "<group>"; };
+		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
+		AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
+		AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StrikeThrough.swift"; sourceTree = "<group>"; };
+		AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+underlined.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				39F3F8E52886778900256D56 /* StudyChartView.swift */,
+				AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */,
+				AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -132,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				A28DEFA0288552CC004014DE /* StudyGroup.swift */,
+				AED2E1B828880EDC00B32FF7 /* Homework.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -153,6 +172,7 @@
 		A28DEF8A288550C9004014DE /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				AED2E1BA2888DE5E00B32FF7 /* Utility */,
 				A28DEFA62885533D004014DE /* Extension */,
 				A28DEFA32885530C004014DE /* Literal */,
 				A28DEF8D28855112004014DE /* Resource */,
@@ -177,6 +197,7 @@
 				A28DEF7B28854EF1004014DE /* Assets.xcassets */,
 				A28DEF7D28854EF1004014DE /* LaunchScreen.storyboard */,
 				A28DEF7828854EEF004014DE /* Main.storyboard */,
+				3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -244,9 +265,20 @@
 			isa = PBXGroup;
 			children = (
 				A28DEFA728855354004014DE /* UIColor+Extension.swift */,
+				AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */,
+				AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */,
 				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
+				3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		AED2E1BA2888DE5E00B32FF7 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +340,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DFBE06F288653B100D62DA4 /* JoinStudyView.storyboard in Resources */,
 				AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */,
 				A28DEF7F28854EF1004014DE /* LaunchScreen.storyboard in Resources */,
 				A28DEF7C28854EF1004014DE /* Assets.xcassets in Resources */,
@@ -347,16 +380,23 @@
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
 				A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */,
+				AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */,
+				AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */,
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
 				A22BA9FE288A03B300A84BCC /* SelectCycleDaysView.swift in Sources */,
 				A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
+				AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */,
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,
 				AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */,
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
 				A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */,
+				3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */,
 				A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */,
+				AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */,
 				A28DEFA1288552CC004014DE /* StudyGroup.swift in Sources */,
+				AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */,
+				AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */,
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
 				A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */,
@@ -513,7 +553,7 @@
 				INFOPLIST_FILE = Hatnya/Global/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = JoinStudyView;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,7 +581,7 @@
 				INFOPLIST_FILE = Hatnya/Global/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = JoinStudyView;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
