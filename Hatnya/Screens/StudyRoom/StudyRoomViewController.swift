@@ -34,7 +34,7 @@ final class StudyRoomViewController: UIViewController {
     }()
     private lazy var dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-\(getDateDiffence())"
+        label.text = "D-\(getDateDifference())"
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()

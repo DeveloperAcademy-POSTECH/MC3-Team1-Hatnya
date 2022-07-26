@@ -8,7 +8,7 @@
 import UIKit
 
 final class StudyListViewController: UIViewController {
-
+    
     @IBAction private func showActionSheetButton(_ sender: Any) {
         showActionSheet()
     }
@@ -73,8 +73,12 @@ extension StudyListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let dataSource = StudyInfo(name: StudyGroup.sampleData[indexPath.row].studyName,
-                                   description: StudyGroup.sampleData[indexPath.row].description)
+        let dataSource = StudyGroup(members: StudyGroup.sampleData[indexPath.row].members,
+                                    name: StudyGroup.sampleData[indexPath.row].name,
+                                    code: StudyGroup.sampleData[indexPath.row].code,
+                                    description: StudyGroup.sampleData[indexPath.row].description,
+                                    cycle: StudyGroup.sampleData[indexPath.row].cycle,
+                                    createdAt: StudyGroup.sampleData[indexPath.row].createdAt)
         cell.configure(with: dataSource)
         
         return cell
