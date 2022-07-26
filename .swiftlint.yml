@@ -49,7 +49,6 @@ opt_in_rules:
   - prefer_self_type_over_type_of_self
   - private_action
   - private_outlet
-  - prohibited_interface_builder
   - prohibited_super_call
   - quick_discouraged_call
   - quick_discouraged_focused_test

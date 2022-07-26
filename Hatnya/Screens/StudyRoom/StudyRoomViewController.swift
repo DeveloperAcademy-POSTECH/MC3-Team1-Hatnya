@@ -165,24 +165,6 @@ extension StudyRoomViewController {
     }
 }
 
-//extension StudyRoomViewController: UICollectionViewDelegate {
-//
-//}
-
-extension StudyRoomViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userList.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: StudyChartCollectionViewCell.className,
-            for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
-        cell.userNameLabel.text = userList[indexPath.item]
-        return cell
-    }
-}
-
 // MARK: - Homework List View
 
 extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
@@ -255,6 +237,20 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         datasource.apply(snapshot)
     }
     
+}
+
+extension StudyRoomViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return userList.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: StudyChartCollectionViewCell.className,
+            for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
+        cell.userNameLabel.text = userList[indexPath.item]
+        return cell
+    }
 }
 
 struct StudyRoomViewControllerPreview: PreviewProvider {
