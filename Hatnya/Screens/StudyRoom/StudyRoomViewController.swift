@@ -5,6 +5,7 @@
 //  Created by kelly on 2022/07/18.
 //
 
+import SwiftUI
 import UIKit
 
 class StudyRoomViewController: UIViewController {
@@ -48,13 +49,35 @@ class StudyRoomViewController: UIViewController {
         button.addAction(action, for: .touchUpInside)
         return button
     }()
+    
+    // MARK: - HomeworkList property
+    
+    private let sectionHeaderElementKind = "section-header-element-kind"
+    
+    enum HomeworkSection {
+        case main
+    }
+
+    typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
+    
+    private var collectionView: UICollectionView!
+    private var datasource: Datasource!
+    private var snapshot = Snapshot()
+    
+}
 
     // MARK: - life cycle
 
+extension StudyRoomViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
         render()
+        configureHierachy()
+        configureDatasource()
+        applySnapShot()
     }
 
     private func configUI() {
@@ -120,4 +143,79 @@ class StudyRoomViewController: UIViewController {
         guard let date = day else { return "" }
         return date.getDayOfWeek
     }
+}
+
+// MARK: - Homework List View
+
+extension StudyRoomViewController: UICollectionViewDelegate {
+    
+    private func createHomeworkListViewLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(44))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: sectionHeaderElementKind,
+            alignment: .top)
+        sectionHeader.pinToVisibleBounds = true
+        section.boundarySupplementaryItems = [sectionHeader]
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
+    }
+    
+    private func configureHierachy() {
+        let margin: CGFloat = 20
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: createHomeworkListViewLayout())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.layer.borderWidth = 0.5
+        collectionView.layer.borderColor = UIColor.gray.cgColor
+        collectionView.layer.cornerRadius = 15
+        view.addSubview(collectionView)
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
+            collectionView.topAnchor.constraint(equalTo: codeCopyButton.bottomAnchor, constant: margin),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)
+        ])
+    }
+    
+    private func configureDatasource() {
+        let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { cell, indexPath, item in
+            cell.configureContent(item: item, index: indexPath.row)
+        }
+        
+        datasource = Datasource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
+            collectionView.dequeueConfiguredReusableCell(using: cellRegisteration, for: indexPath, item: item)
+        })
+        
+        let headerRegisteration = UICollectionView.SupplementaryRegistration
+        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { _, _, _ in }
+        
+        datasource.supplementaryViewProvider = { _, _, index in
+            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
+        }
+    }
+    
+    private func applySnapShot() {
+        snapshot.appendSections([.main])
+        snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
+        datasource.apply(snapshot)
+    }
+    
+}
+
+struct StudyRoomViewControllerPreview: PreviewProvider {
+    
+    static var previews: some View {
+        StudyRoomViewController().toPreview()
+    }
+
 }
