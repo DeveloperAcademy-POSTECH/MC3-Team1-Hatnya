@@ -13,6 +13,7 @@ class CycleSegmentedControlView: UIView {
     
     lazy var cycleSegControl: UISegmentedControl = {
         let segcontrol = UISegmentedControl(items: array)
+        segcontrol.selectedSegmentIndex = 0
         segcontrol.backgroundColor = .systemGray6
         segcontrol.tintColor = .white
         segcontrol.addTarget(self, action: #selector(segconChanged(segcon:)), for: UIControl.Event.valueChanged)
