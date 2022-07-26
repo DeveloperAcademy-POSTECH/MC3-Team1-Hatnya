@@ -66,7 +66,6 @@ extension HomeworkListTitleView {
     @objc
     func plusButtonTouched() {
         delegate?.editButtonTapped()
-        
     }
     
 }

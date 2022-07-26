@@ -32,7 +32,6 @@ final class EditTaskViewController: UIViewController {
 extension EditTaskViewController {
     
     private func configureNavi() {
-
         self.navigationController?.navigationBar.backgroundColor = .systemBackground
         self.navigationItem.title = "숙제 목록"
         let completeButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(completeButtonTouched))
