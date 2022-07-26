@@ -32,7 +32,7 @@ final class HomeworkListCell: UICollectionViewCell {
         return $0
     }(UIView())
     
-    var isComplished = false
+    private var isHomeworkComplished = false
     private let tagSize: CGFloat = 24
     
     override init(frame: CGRect) {
@@ -56,7 +56,7 @@ extension HomeworkListCell {
         let checkedImage = UIImage(systemName: "checkmark.square.fill")
         let emptyImage = UIImage(systemName: "square")
         
-        if isComplished {
+        if isHomeworkComplished {
             checkButton.setImage(emptyImage, for: .normal)
             textLabel.textColor = .label
         } else {
@@ -64,15 +64,18 @@ extension HomeworkListCell {
             textLabel.textColor = .gray
         }
         
-        isComplished.toggle()
-        textLabel.strikeThrough(isComplished)
+        isHomeworkComplished.toggle()
+        textLabel.strikeThrough(isHomeworkComplished)
     }
     
     private func configureSubviews() {
         let margin: CGFloat = 20
 
-        addSubview(checkButton)
-        checkButton.translatesAutoresizingMaskIntoConstraints = false
+        [checkButton, tagView, textLabel].forEach { component in
+            addSubview(component)
+            component.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         NSLayoutConstraint.activate([
             checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
             checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -80,8 +83,6 @@ extension HomeworkListCell {
             checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
         ])
         
-        addSubview(tagView)
-        tagView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tagView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
             tagView.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -89,13 +90,10 @@ extension HomeworkListCell {
             tagView.heightAnchor.constraint(equalToConstant: tagSize)
         ])
         
-        addSubview(textLabel)
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textLabel.leadingAnchor.constraint(equalTo: checkButton.trailingAnchor, constant: margin),
             textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             textLabel.trailingAnchor.constraint(equalTo: tagView.leadingAnchor, constant: -margin),
-            textLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: margin),
             textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
         ])
         
