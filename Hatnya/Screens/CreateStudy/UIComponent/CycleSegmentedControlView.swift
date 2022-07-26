@@ -67,6 +67,5 @@ class CycleSegmentedControlView: UIView {
     @objc
     func segconChanged(segcon: UISegmentedControl) {
         selectedCycle = array[segcon.selectedSegmentIndex]
-        print(selectedCycle)
     }
 }
