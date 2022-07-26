@@ -5,6 +5,7 @@
 //  Created by 비트 on 2022/07/19.
 //
 
+import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
@@ -128,7 +129,7 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     
     private func setTextField() {
         inputTextField.clearButtonMode = .whileEditing
-        inputTextField.underlined(viewSize: UIScreen.main.bounds.width, color: .systemGray)
+        inputTextField.underlined(viewSize: inputTextField.bounds.width, color: .systemGray)
     }
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
@@ -141,4 +142,12 @@ extension WriteNicknameViewController: UITextFieldDelegate {
         }
     }
     
+}
+
+struct WriteNicknameViewControllerPreview: PreviewProvider {
+
+    static var previews: some View {
+        WriteNicknameViewController().toPreview()
+    }
+
 }
