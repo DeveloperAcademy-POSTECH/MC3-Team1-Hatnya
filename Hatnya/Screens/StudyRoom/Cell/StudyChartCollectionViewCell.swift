@@ -8,7 +8,7 @@
 import UIKit
 
 final class StudyChartCollectionViewCell: UICollectionViewCell {
-
+    
     // MARK: - property
 
     lazy var userNameLabel: UILabel = {
@@ -16,7 +16,10 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 19)
         return label
     }()
-    private lazy var chartView = StudyChartView()
+    lazy var chartView: StudyChartView = {
+        let view = StudyChartView()
+        return view
+    }()
 
     // MARK: - init
 

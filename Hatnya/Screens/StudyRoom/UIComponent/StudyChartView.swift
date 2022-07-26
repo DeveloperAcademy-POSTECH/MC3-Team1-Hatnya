@@ -8,7 +8,7 @@
 import UIKit
 
 final class StudyChartView: UIView {
-    var homeworkCount = 5
+    var homeworkCount = Member.testMemberList[0].homeworks.count
 
     // MARK: - property
 
@@ -17,7 +17,7 @@ final class StudyChartView: UIView {
         view.layer.backgroundColor = UIColor.grey001.cgColor
         return view
     }()
-    private lazy var chartStackView: UIStackView = {
+    private let chartStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -33,13 +33,11 @@ final class StudyChartView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         render()
-        configUI()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         render()
-        configUI()
     }
 
     private func render() {
@@ -54,18 +52,20 @@ final class StudyChartView: UIView {
         )
     }
 
-    private func configUI() {
-        setupChartStackView()
-    }
-
     // MARK: - func
 
-    private func setupChartStackView() {
-        for index in 0..<homeworkCount {
-            let testView = UIView()
-            testView.backgroundColor = UIColor.colorPalette[index]
-            testView.layer.cornerRadius = 5
-            chartStackView.addArrangedSubview(testView)
+    func setupChartStackView(_ list: [Bool]) {
+        if chartStackView.arrangedSubviews.count < homeworkCount {
+            for index in 0..<homeworkCount {
+                let testView = UIView()
+                if list[index] {
+                    testView.backgroundColor = UIColor.colorPalette[index]
+                } else {
+                    testView.backgroundColor = .grey002
+                }
+                testView.layer.cornerRadius = 5
+                chartStackView.addArrangedSubview(testView)
+            }
         }
     }
 }

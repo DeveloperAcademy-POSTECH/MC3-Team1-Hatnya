@@ -11,10 +11,9 @@ import UIKit
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
-    var userList = ["Chemi", "Lia", "Zero", "May", "Eve", "Bit"]
-
+    
     // MARK: - property
-
+    
     private let navigationBarRightItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
@@ -48,6 +47,8 @@ final class StudyRoomViewController: UIViewController {
     }()
     private lazy var chartCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.register(
             StudyChartCollectionViewCell.self,
             forCellWithReuseIdentifier: StudyChartCollectionViewCell.className)
@@ -71,7 +72,7 @@ final class StudyRoomViewController: UIViewController {
     enum HomeworkSection {
         case main
     }
-
+    
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
     
@@ -81,7 +82,7 @@ final class StudyRoomViewController: UIViewController {
     
 }
 
-    // MARK: - life cycle
+// MARK: - life cycle
 
 extension StudyRoomViewController {
     
@@ -89,17 +90,16 @@ extension StudyRoomViewController {
         super.viewDidLoad()
         configUI()
         render()
-        setupChartCollectionView()
         configureHierachy()
         configureDatasource()
         applySnapShot()
     }
-
+    
     private func configUI() {
         view.backgroundColor = .white
         setupNavigationBar()
     }
-
+    
     private func render() {
         view.addSubview(everyTaskLabel)
         everyTaskLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -107,21 +107,21 @@ extension StudyRoomViewController {
             everyTaskLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 38),
             everyTaskLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)]
         )
-
+        
         view.addSubview(deadLineLabel)
         deadLineLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             deadLineLabel.topAnchor.constraint(equalTo: everyTaskLabel.bottomAnchor, constant: 4),
             deadLineLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)]
         )
-
+        
         view.addSubview(dDayLabel)
         dDayLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             dDayLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 39),
             dDayLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
-
+        
         view.addSubview(chartCollectionView)
         chartCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -130,7 +130,7 @@ extension StudyRoomViewController {
             chartCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chartCollectionView.heightAnchor.constraint(equalToConstant: 237)]
         )
-
+        
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -138,19 +138,14 @@ extension StudyRoomViewController {
             codeCopyButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
     }
-
+    
     // MARK: - func
-
+    
     private func setupNavigationBar() {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
-
-    private func setupChartCollectionView() {
-        chartCollectionView.delegate = self
-        chartCollectionView.dataSource = self
-    }
-
+    
     private func getDateDifference() -> Int {
         guard let date = deadLineString.stringToDate else { return 0 }
         let distance = date.distance(to: Date())
@@ -158,7 +153,7 @@ extension StudyRoomViewController {
         let result = abs(Int(resultToDouble))
         return result
     }
-
+    
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
@@ -168,12 +163,12 @@ extension StudyRoomViewController {
 // MARK: - Homework List View
 
 extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
-
+    
     func editButtonTapped() {
         let newViewController = UINavigationController(rootViewController: EditTaskViewController())
         present(newViewController, animated: true)
     }
-
+    
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -208,8 +203,8 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
             collectionView.topAnchor.constraint(equalTo: codeCopyButton.bottomAnchor, constant: margin),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)
-        ])
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)]
+        )
     }
     
     private func configureDatasource() {
@@ -241,14 +236,17 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
 
 extension StudyRoomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userList.count
+        return Member.testMemberList.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: StudyChartCollectionViewCell.className,
             for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
-        cell.userNameLabel.text = userList[indexPath.item]
+        cell.userNameLabel.text = Member.testMemberList[indexPath.item].nickname
+        cell.chartView.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
+            $0.isCompleted
+        })
         return cell
     }
 }
@@ -258,5 +256,5 @@ struct StudyRoomViewControllerPreview: PreviewProvider {
     static var previews: some View {
         StudyRoomViewController().toPreview()
     }
-
+    
 }
