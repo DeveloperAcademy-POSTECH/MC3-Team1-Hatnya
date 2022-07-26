@@ -8,28 +8,43 @@
 import UIKit
 
 final class StudyChartCollectionViewCell: UICollectionViewCell {
-    
-    private let chartView = StudyChartView()
-    
+
+    // MARK: - property
+
+    lazy var userNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 19)
+        return label
+    }()
+    private lazy var chartView = StudyChartView()
+
     // MARK: - init
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         render()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         render()
     }
-    
+
     private func render() {
-        addSubview(chartView)
+        self.addSubview(userNameLabel)
+        userNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            userNameLabel.topAnchor.constraint(equalTo: self.topAnchor),
+            userNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            userNameLabel.widthAnchor.constraint(equalToConstant: 90)]
+        )
+
+        self.addSubview(chartView)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             chartView.topAnchor.constraint(equalTo: self.topAnchor),
-            chartView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            chartView.trailingAnchor.constraint(equalTo: self.trailingAnchor)
-        ])
+            chartView.centerYAnchor.constraint(equalTo: userNameLabel.centerYAnchor),
+            chartView.trailingAnchor.constraint(equalTo: self.trailingAnchor)]
+        )
     }
 }

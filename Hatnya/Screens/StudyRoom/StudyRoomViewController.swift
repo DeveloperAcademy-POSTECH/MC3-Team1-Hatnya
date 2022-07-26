@@ -7,7 +7,8 @@
 
 import UIKit
 
-class StudyRoomViewController: UIViewController {
+final class StudyRoomViewController: UIViewController {
+    var userList = ["Chemi", "Lia", "Zero", "May", "Eve", "Bit"]
 
     // MARK: - property
 
@@ -37,9 +38,9 @@ class StudyRoomViewController: UIViewController {
     }()
     private let flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 30, right: 16)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         layout.minimumInteritemSpacing = 10
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.8, height: 32)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width - 40, height: 32)
         return layout
     }()
     private lazy var chartCollectionView: UICollectionView = {
@@ -132,11 +133,14 @@ extension StudyRoomViewController: UICollectionViewDelegate {
 
 extension StudyRoomViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        return userList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StudyChartCollectionViewCell.className, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: StudyChartCollectionViewCell.className,
+            for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
+        cell.userNameLabel.text = userList[indexPath.item]
         return cell
     }
 }

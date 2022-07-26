@@ -7,8 +7,8 @@
 
 import UIKit
 
-class StudyChartView: UIView {
-    var homeworkCount = 8
+final class StudyChartView: UIView {
+    var homeworkCount = 5
 
     // MARK: - property
 
@@ -43,12 +43,13 @@ class StudyChartView: UIView {
     }
 
     private func render() {
+        let width = UIScreen.main.bounds.width * 0.65
         addSubview(chartStackView)
         chartStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             chartStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             chartStackView.topAnchor.constraint(equalTo: self.topAnchor),
-            chartStackView.widthAnchor.constraint(equalToConstant: 266),
+            chartStackView.widthAnchor.constraint(equalToConstant: width),
             chartStackView.heightAnchor.constraint(equalToConstant: 32)]
         )
     }
