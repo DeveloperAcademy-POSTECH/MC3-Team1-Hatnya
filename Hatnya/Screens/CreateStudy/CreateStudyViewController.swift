@@ -103,7 +103,6 @@ final class CreateStudyViewController: UIViewController {
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
 }
 
 struct CreateStudyViewControllerPreview: PreviewProvider {

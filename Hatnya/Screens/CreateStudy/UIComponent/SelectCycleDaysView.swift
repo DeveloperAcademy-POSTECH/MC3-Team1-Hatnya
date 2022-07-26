@@ -41,5 +41,4 @@ final class SelectCycleDaysView: UIView {
             dayButtonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-    
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 class CyclePickerView: UIView {
-    
     var isShown = false
     let cycles = ["1", "2", "3", "4"]
     
@@ -67,7 +66,6 @@ class CyclePickerView: UIView {
     }
     
     private func render() {
-        
         addSubview(vStackView)
         
         [titleLabel, selectedCycleLabel].forEach { subview in
@@ -106,13 +104,10 @@ class CyclePickerView: UIView {
             hStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             hStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
-        
     }
-    
 }
 
 extension CyclePickerView: UIPickerViewDelegate {
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 0 {
             return cycles[row]
@@ -128,11 +123,9 @@ extension CyclePickerView: UIPickerViewDelegate {
             selectedCycleLabel.text = cycles[row] + "주"
         }
     }
-    
 }
 
 extension CyclePickerView: UIPickerViewDataSource {
-    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
@@ -144,11 +137,9 @@ extension CyclePickerView: UIPickerViewDataSource {
             return 1
         }
     }
-    
 }
 
 extension CyclePickerView: UIGestureRecognizerDelegate {
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if isShown == true {
             pickerView.isHidden = true
@@ -158,5 +149,4 @@ extension CyclePickerView: UIGestureRecognizerDelegate {
         isShown.toggle()
         return true
     }
-    
 }
