@@ -11,6 +11,11 @@
 		3982366F288D228300F6B004 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3982366E288D228300F6B004 /* String+Extension.swift */; };
 		39823671288D281B00F6B004 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39823670288D281B00F6B004 /* Date+Extension.swift */; };
 		39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F3F8E52886778900256D56 /* StudyChartView.swift */; };
+		A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9E42887A04900A84BCC /* GetInfoView.swift */; };
+		A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */; };
+		A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */; };
+		A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */; };
+		A22BA9FE288A03B300A84BCC /* SelectCycleDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */; };
 		3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */; };
 		3DFBE06F288653B100D62DA4 /* JoinStudyView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */; };
 		A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7228854EEF004014DE /* AppDelegate.swift */; };
@@ -35,6 +40,8 @@
 		AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B828880EDC00B32FF7 /* Homework.swift */; };
 		AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */; };
 		AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */; };
+		AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1BF288C3A3700B32FF7 /* EditTaskSupplementaryView.swift */; };
+		AED2E1C2288C3A6000B32FF7 /* EditTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1C1288C3A6000B32FF7 /* EditTaskTableViewCell.swift */; };
 		AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +50,11 @@
 		3982366E288D228300F6B004 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		39823670288D281B00F6B004 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		39F3F8E52886778900256D56 /* StudyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyChartView.swift; sourceTree = "<group>"; };
+		A22BA9E42887A04900A84BCC /* GetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfoView.swift; sourceTree = "<group>"; };
+		A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclePickerView.swift; sourceTree = "<group>"; };
+		A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonView.swift; sourceTree = "<group>"; };
+		A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonStackView.swift; sourceTree = "<group>"; };
+		A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectCycleDaysView.swift; path = Hatnya/Screens/CreateStudy/UIComponent/SelectCycleDaysView.swift; sourceTree = SOURCE_ROOT; };
 		3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = JoinStudyView.storyboard; sourceTree = "<group>"; };
 		A28DEF6F28854EEF004014DE /* Hatnya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatnya.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +81,8 @@
 		AED2E1B828880EDC00B32FF7 /* Homework.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homework.swift; sourceTree = "<group>"; };
 		AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColor.swift; sourceTree = "<group>"; };
 		AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+StrikeThrough.swift"; sourceTree = "<group>"; };
+		AED2E1BF288C3A3700B32FF7 /* EditTaskSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskSupplementaryView.swift; sourceTree = "<group>"; };
+		AED2E1C1288C3A6000B32FF7 /* EditTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskTableViewCell.swift; sourceTree = "<group>"; };
 		AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+underlined.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +103,18 @@
 				39F3F8E52886778900256D56 /* StudyChartView.swift */,
 				AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */,
 				AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */,
+			);
+			path = UIComponent;
+			sourceTree = "<group>";
+		};
+		A22BA9E32887A00200A84BCC /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				A22BA9E42887A04900A84BCC /* GetInfoView.swift */,
+				A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */,
+				A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */,
+				A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */,
+				A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -220,6 +246,7 @@
 		A28DEF92288551BF004014DE /* EditTask */ = {
 			isa = PBXGroup;
 			children = (
+				AED2E1C3288C3BC600B32FF7 /* UIComponent */,
 				A28DEF9628855228004014DE /* EditTaskViewController.swift */,
 			);
 			path = EditTask;
@@ -228,6 +255,7 @@
 		A28DEF93288551CC004014DE /* CreateStudy */ = {
 			isa = PBXGroup;
 			children = (
+				A22BA9E32887A00200A84BCC /* UIComponent */,
 				A28DEF9428855209004014DE /* CreateStudyViewController.swift */,
 			);
 			path = CreateStudy;
@@ -262,6 +290,15 @@
 				AED2E1BB2888DE6E00B32FF7 /* TagColor.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		AED2E1C3288C3BC600B32FF7 /* UIComponent */ = {
+			isa = PBXGroup;
+			children = (
+				AED2E1C1288C3A6000B32FF7 /* EditTaskTableViewCell.swift */,
+				AED2E1BF288C3A3700B32FF7 /* EditTaskSupplementaryView.swift */,
+			);
+			path = UIComponent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,13 +395,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */,
 				3982366F288D228300F6B004 /* String+Extension.swift in Sources */,
 				39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */,
+				AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */,
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
+				A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */,
 				AED2E1B72887B4DF00B32FF7 /* HomeworkListCell.swift in Sources */,
 				AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */,
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
+				A22BA9FE288A03B300A84BCC /* SelectCycleDaysView.swift in Sources */,
+				A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
 				AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */,
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,
@@ -377,10 +419,12 @@
 				AED2E1B928880EDC00B32FF7 /* Homework.swift in Sources */,
 				A28DEFA1288552CC004014DE /* StudyGroup.swift in Sources */,
 				AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */,
+				AED2E1C2288C3A6000B32FF7 /* EditTaskTableViewCell.swift in Sources */,
 				AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */,
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
 				A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */,
+				A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */,
 				A28DEF9928855239004014DE /* StudyRoomViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
