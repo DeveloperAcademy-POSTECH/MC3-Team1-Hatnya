@@ -9,10 +9,10 @@ import UIKit
 
 class CycleSegmentedControlView: UIView {
     var selectedCycle = "1주"
-    let array = ["1주", "2주", "3주", "4주"]
+    let cycleNameArray = ["1주", "2주", "3주", "4주"]
     
     private lazy var cycleSegControl: UISegmentedControl = {
-        let segcontrol = UISegmentedControl(items: array)
+        let segcontrol = UISegmentedControl(items: cycleNameArray)
         segcontrol.selectedSegmentIndex = 0
         segcontrol.backgroundColor = .systemGray6
         segcontrol.tintColor = .white
@@ -66,6 +66,6 @@ class CycleSegmentedControlView: UIView {
     
     @objc
     func segControlChanged(segcontrol: UISegmentedControl) {
-        selectedCycle = array[segcontrol.selectedSegmentIndex]
+        selectedCycle = cycleNameArray[segcontrol.selectedSegmentIndex]
     }
 }
