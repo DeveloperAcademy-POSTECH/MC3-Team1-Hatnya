@@ -41,7 +41,7 @@ final class StudyListTableViewCell: UITableViewCell {
       contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 7.5, left: 15, bottom: 7.5, right: 15))
    }
    
-   func configure(with dataSource: StudyInfo) {
+   func configure(with dataSource: StudyGroup) {
       studyName.text = dataSource.name
       studyDesc.text = dataSource.description
    }
