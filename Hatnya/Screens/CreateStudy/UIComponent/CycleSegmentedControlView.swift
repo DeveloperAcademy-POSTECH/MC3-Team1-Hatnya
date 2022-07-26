@@ -21,7 +21,7 @@ class CycleSegmentedControlView: UIView {
         
     }()
     
-    private lazy var evryLabel: UILabel = {
+    private lazy var everyLabel: UILabel = {
         let label = UILabel()
         label.text = "마다"
         label.textAlignment = .center
@@ -50,7 +50,7 @@ class CycleSegmentedControlView: UIView {
     }
     
     private func render() {
-        [cycleSegControl, evryLabel].forEach { view in
+        [cycleSegControl, everyLabel].forEach { view in
             hStackView.addArrangedSubview(view)
         }
         
