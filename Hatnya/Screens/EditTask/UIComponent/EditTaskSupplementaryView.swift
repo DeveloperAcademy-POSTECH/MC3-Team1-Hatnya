@@ -46,34 +46,27 @@ final class EditTaskSupplementaryView: UITableViewHeaderFooterView {
 extension EditTaskSupplementaryView {
     
     private func configureHierachy() {
-        plusButton.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(plusButton)
+        [plusButton, textField, borderView].forEach { component in
+            component.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(component)
+        }
+
         NSLayoutConstraint.activate([
             plusButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             plusButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 17),
             plusButton.widthAnchor.constraint(equalToConstant: 30),
-            plusButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 30)
-        ])
-        
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(textField)
-        NSLayoutConstraint.activate([
+            plusButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 30),
+
             textField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             textField.leadingAnchor.constraint(equalTo: plusButton.trailingAnchor, constant: 10),
             textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 50)
-        ])
-        
-        borderView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(borderView)
-        NSLayoutConstraint.activate([
+            textField.heightAnchor.constraint(greaterThanOrEqualToConstant: 50),
+
             borderView.centerYAnchor.constraint(equalTo: contentView.bottomAnchor),
             borderView.heightAnchor.constraint(equalToConstant: 0.5),
             borderView.leadingAnchor.constraint(equalTo: plusButton.leadingAnchor, constant: 5),
-            borderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            borderView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
             contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 48)
         ])
     }
