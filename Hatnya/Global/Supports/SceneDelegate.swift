@@ -4,7 +4,6 @@
 //
 //  Created by kelly on 2022/07/18.
 //
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -12,6 +11,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        let rootViewControoler = UINavigationController(rootViewController: StudyRoomViewController())
+        window?.rootViewController = rootViewControoler
+        window?.makeKeyAndVisible()
     }
 
 }

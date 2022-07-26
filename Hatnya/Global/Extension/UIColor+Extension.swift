@@ -15,23 +15,23 @@ extension UIColor {
         return UIColor(hex: "#979797")
     }
     
-    // MARK: - chartColor
+    // MARK: - tagColor
     
-    static var chart001: UIColor {
-        return UIColor(hex: "FDC3B1")
+    static var tagPink: UIColor {
+        return UIColor(hex: "#FDC3B1")
     }
-    
-    static var chart002: UIColor {
-        return UIColor(hex: "FFE58A")
+    static var tagYellow: UIColor {
+        return UIColor(hex: "#FFE897")
     }
-    
-    static var chart003: UIColor {
-        return UIColor(hex: "C9E8EF")
+    static var tagGreen: UIColor {
+        return UIColor(hex: "#D4EBCC")
     }
-    
-    static var chart004: UIColor {
-        return UIColor(hex: "D3C9EF")
+    static var tagLightBlue: UIColor {
+        return UIColor(hex: "#C9E8EF")
     }
-    
-    static let colorPalette: [UIColor] = [.chart001, .chart002, .chart003, .chart004, .chart001, .chart002, .chart003, .chart004]
+    static var tagPurple: UIColor {
+        return UIColor(hex: "#D3C9EF")
+    }
+
+    static let colorPalette: [UIColor] = [.tagPink, .tagYellow, .tagGreen, .tagLightBlue, .tagPurple, .tagPink, .tagYellow, .tagGreen]
 }
