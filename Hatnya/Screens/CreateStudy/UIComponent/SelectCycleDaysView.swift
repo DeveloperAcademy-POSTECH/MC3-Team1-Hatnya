@@ -8,8 +8,8 @@
 import UIKit
 
 final class SelectCycleDaysView: UIView {
-    lazy var cyclePickerView = CyclePickerView()
-    lazy var dayButtonStackView = DayButtonStackView()
+    private lazy var cyclePickerView = CyclePickerView()
+    private lazy var dayButtonStackView = DayButtonStackView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

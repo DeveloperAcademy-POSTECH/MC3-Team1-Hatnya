@@ -8,17 +8,18 @@
 import UIKit
 
 class CyclePickerView: UIView {
+    
     var isShown = false
     let cycles = ["1", "2", "3", "4"]
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "반복"
         label.font = UIFont.systemFont(ofSize: 17)
         return label
     }()
     
-    lazy var selectedCycleLabel: UILabel = {
+    private lazy var selectedCycleLabel: UILabel = {
         let label = UILabel()
         label.text = "1주"
         label.font = UIFont.systemFont(ofSize: 17)
@@ -26,12 +27,12 @@ class CyclePickerView: UIView {
         return label
     }()
     
-    lazy var pickerView: UIPickerView = {
+    private lazy var pickerView: UIPickerView = {
         let picker = UIPickerView()
         return picker
     }()
     
-    lazy var hStackView: UIStackView = {
+    private lazy var hStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -40,7 +41,7 @@ class CyclePickerView: UIView {
         return stackView
     }()
     
-    lazy var vStackView: UIStackView = {
+    private lazy var vStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .fill
@@ -66,6 +67,7 @@ class CyclePickerView: UIView {
     }
     
     private func render() {
+        
         addSubview(vStackView)
         
         [titleLabel, selectedCycleLabel].forEach { subview in
@@ -104,7 +106,9 @@ class CyclePickerView: UIView {
             hStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             hStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
+        
     }
+    
 }
 
 extension CyclePickerView: UIPickerViewDelegate {
@@ -124,6 +128,7 @@ extension CyclePickerView: UIPickerViewDelegate {
             selectedCycleLabel.text = cycles[row] + "주"
         }
     }
+    
 }
 
 extension CyclePickerView: UIPickerViewDataSource {
@@ -139,9 +144,11 @@ extension CyclePickerView: UIPickerViewDataSource {
             return 1
         }
     }
+    
 }
 
 extension CyclePickerView: UIGestureRecognizerDelegate {
+    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if isShown == true {
             pickerView.isHidden = true
@@ -151,4 +158,5 @@ extension CyclePickerView: UIGestureRecognizerDelegate {
         isShown.toggle()
         return true
     }
+    
 }
