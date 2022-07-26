@@ -16,7 +16,7 @@ class CycleSegmentedControlView: UIView {
         segcontrol.selectedSegmentIndex = 0
         segcontrol.backgroundColor = .systemGray6
         segcontrol.tintColor = .white
-        segcontrol.addTarget(self, action: #selector(segconChanged(segcon:)), for: UIControl.Event.valueChanged)
+        segcontrol.addTarget(self, action: #selector(segControlChanged(segcontrol:)), for: UIControl.Event.valueChanged)
         return segcontrol
         
     }()
@@ -65,7 +65,7 @@ class CycleSegmentedControlView: UIView {
     }
     
     @objc
-    func segconChanged(segcon: UISegmentedControl) {
-        selectedCycle = array[segcon.selectedSegmentIndex]
+    func segControlChanged(segcontrol: UISegmentedControl) {
+        selectedCycle = array[segcontrol.selectedSegmentIndex]
     }
 }
