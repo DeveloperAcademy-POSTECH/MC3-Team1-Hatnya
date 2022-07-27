@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CycleSegmentedControlView: UIView {
+final class CycleSegmentedControlView: UIView {
     enum Cycle: String, CaseIterable {
         case one = "1주"
         case two = "2주"
