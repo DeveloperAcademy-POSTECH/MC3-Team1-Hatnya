@@ -11,6 +11,7 @@ import UIKit
 
 final class StudyListViewController: UIViewController {
     
+    @IBOutlet private weak var tableView: UITableView!
     @IBAction private func showActionSheetButton(_ sender: Any) {
         showActionSheet()
     }
@@ -27,14 +28,18 @@ final class StudyListViewController: UIViewController {
         
         return label
     }()
-    
+        
+    override func loadView() {
+        super.loadView()
+        
+        addUid()
+        fetchStudyGroups()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         render()
-        addUid()
-        fetchStudyGroups()
     }
     
     private func render() {
@@ -68,6 +73,7 @@ final class StudyListViewController: UIViewController {
         present(actionSheet, animated: true, completion: nil)
     }
     
+    /// 기기의 UUID를 6글자로 잘라서 유저의 uid로 UserDefaults에 저장
     func addUid() {
         let uuid = UIDevice.current.identifierForVendor!.uuidString
         let uidIndex = uuid.index(uuid.startIndex, offsetBy: 5)
@@ -77,8 +83,7 @@ final class StudyListViewController: UIViewController {
     }
     
     private func fetchStudyGroups() {
-        var count: Int = 0
-        
+        // "Members" 컬렉션에서 (UserDefaults에 저장된 값 == uid)인 document만 필터링
         firestore.collectionGroup("Members")
             .whereField("uid", isEqualTo: UserDefaults.standard.string(forKey: "User") ?? "")
             .getDocuments() { (querySnapshot, err) in
@@ -86,16 +91,22 @@ final class StudyListViewController: UIViewController {
                     print("Error getting documents: \(err)")
                 } else {
                     for memberDocument in querySnapshot!.documents {
+                        // 가져온 "Member" document의 parent의 parent인 "StudyGroup"의 document에 접근
                         let studyGroupId = memberDocument.reference.parent.parent?.documentID ?? ""
                         let docRef = self.firestore.collection("StudyGroup").document(studyGroupId)
                         
                         docRef.getDocument { [self] (document, _) in
                             if let document = document, document.exists {
-                                studyGroup[count].name = document.get("name") as? String ?? ""
-                                studyGroup[count].description = document.get("description") as? String ?? ""
-                                print(studyGroup[count].name)
-                                print(studyGroup[count].description)
-                                count += 1
+                                // "StudyGroup"의 document에서 "StudyGroup"의 이름과 설명 가져오기
+                                let studyGroupName = document.get("name") as? String ?? ""
+                                let studyGroupDescription = document.get("description") as? String ?? ""
+                                
+                                // 기존 "StudyGroup" 객체에 append
+                                studyGroup.append(StudyGroup(members: [],
+                                                             name: studyGroupName, code: "", description: studyGroupDescription,
+                                                             cycle: StudyCycle(cycle: 0, weekDay: []), createdAt: Date()))
+                                // firebase에서 데이터를 가져왔으므로 reload
+                                tableView.reloadData()
                             } else {
                                 print("StudyGroup document does not exist (failed to get study groups list)")
                             }
@@ -109,7 +120,7 @@ final class StudyListViewController: UIViewController {
 extension StudyListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return StudyGroup.sampleData.count
+        return studyGroup.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -118,12 +129,12 @@ extension StudyListViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let dataSource = StudyGroup(members: StudyGroup.sampleData[indexPath.row].members,
-                                    name: StudyGroup.sampleData[indexPath.row].name,
-                                    code: StudyGroup.sampleData[indexPath.row].code,
-                                    description: StudyGroup.sampleData[indexPath.row].description,
-                                    cycle: StudyGroup.sampleData[indexPath.row].cycle,
-                                    createdAt: StudyGroup.sampleData[indexPath.row].createdAt)
+        let dataSource = StudyGroup(members: studyGroup[indexPath.row].members,
+                                    name: studyGroup[indexPath.row].name,
+                                    code: studyGroup[indexPath.row].code,
+                                    description: studyGroup[indexPath.row].description,
+                                    cycle: studyGroup[indexPath.row].cycle,
+                                    createdAt: studyGroup[indexPath.row].createdAt)
         cell.configure(with: dataSource)
         
         return cell
