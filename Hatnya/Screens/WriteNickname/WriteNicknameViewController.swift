@@ -49,7 +49,7 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
-        print("button click")
+        self.presentingViewController?.dismiss(animated: true)
     }
     
     override func viewDidLoad() {

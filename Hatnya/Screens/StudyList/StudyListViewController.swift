@@ -45,13 +45,14 @@ final class StudyListViewController: UIViewController {
         
         let enterStudyButton = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
             let storyboard = UIStoryboard(name: "JoinStudyView", bundle: nil)
-            let joinViewVontroller = storyboard.instantiateViewController(identifier: "JoinStudyViewController")
-            joinViewVontroller.modalPresentationStyle = .formSheet
-            self.present(joinViewVontroller, animated: true, completion: nil)
+            let joinViewController = storyboard.instantiateViewController(identifier: "JoinStudyView")
+            joinViewController.modalPresentationStyle = .formSheet
+            self.present(joinViewController, animated: true, completion: nil)
         }
         let createStudyButton = UIAlertAction(title: "스터디 생성하기", style: .default) { _ in
             let createViewVontroller = CreateStudyViewController()
-            self.present(createViewVontroller, animated: true, completion: nil)
+            let navcon = UINavigationController(rootViewController: createViewVontroller)
+            self.present(navcon, animated: true, completion: nil)
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
             
