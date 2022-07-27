@@ -2,7 +2,7 @@
 //  StudyRoomViewController.swift
 //  Hatnya
 //
-//  Created by kelly on 2022/07/18.
+//  Created by Mingwan Choi on 2022/07/18.
 //
 
 import SwiftUI
