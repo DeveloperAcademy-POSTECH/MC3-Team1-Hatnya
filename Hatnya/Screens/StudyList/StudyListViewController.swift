@@ -73,13 +73,11 @@ final class StudyListViewController: UIViewController {
         present(actionSheet, animated: true, completion: nil)
     }
     
-    /// 기기의 UUID를 6글자로 잘라서 유저의 uid로 UserDefaults에 저장
+    /// 기기의 UUID를 유저의 uid로 UserDefaults에 저장
     func addUid() {
         let uuid = UIDevice.current.identifierForVendor!.uuidString
-        let uidIndex = uuid.index(uuid.startIndex, offsetBy: 5)
-        let uid = String(uuid[...uidIndex])
-        print("addUid: \(uid)")
-        UserDefaults.standard.set(uid, forKey: "User")
+        print("addUid: \(uuid)")
+        UserDefaults.standard.set(uuid, forKey: "User")
     }
     
     private func fetchStudyGroups() {
@@ -91,7 +89,7 @@ final class StudyListViewController: UIViewController {
                     print("Error getting documents: \(err)")
                 } else {
                     for memberDocument in querySnapshot!.documents {
-                        // 가져온 "Member" document의 parent의 parent인 "StudyGroup"의 document에 접근
+                        // 가져온 "Member" document의 parent인 "StudyGroup"의 document에 접근
                         let studyGroupId = memberDocument.reference.parent.parent?.documentID ?? ""
                         let docRef = self.firestore.collection("StudyGroup").document(studyGroupId)
                         
