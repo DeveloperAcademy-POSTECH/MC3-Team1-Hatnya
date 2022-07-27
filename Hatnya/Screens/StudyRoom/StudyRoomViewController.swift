@@ -8,7 +8,9 @@
 import SwiftUI
 import UIKit
 
-class StudyRoomViewController: UIViewController {
+final class StudyRoomViewController: UIViewController {
+    var deadLineString = "2022.08.01"
+    var oneDayTimeInterval: Double = 86_400
 
     // MARK: - property
 
@@ -23,16 +25,16 @@ class StudyRoomViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
-    private let deadLineLabel: UILabel = {
+    private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
-        label.text = "2022. 07. 14(목) 까지"
+        label.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
         label.textColor = .grey001
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    private let dDayLabel: UILabel = {
+    private lazy var dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-5"
+        label.text = "D-\(getDateDifference())"
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()
@@ -113,7 +115,7 @@ extension StudyRoomViewController {
             chartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chartView.heightAnchor.constraint(equalToConstant: 237)]
         )
-        
+
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -128,12 +130,30 @@ extension StudyRoomViewController {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
+
+    private func getDateDifference() -> Int {
+        guard let date = deadLineString.stringToDate else { return 0 }
+        let distance = date.distance(to: Date())
+        let resultToDouble = Double(distance) / oneDayTimeInterval
+        let result = abs(Int(resultToDouble))
+        return result
+    }
+
+    private func setDayOfWeek(_ day: Date?) -> String {
+        guard let date = day else { return "" }
+        return date.getDayOfWeek
+    }
 }
 
 // MARK: - Homework List View
 
-extension StudyRoomViewController: UICollectionViewDelegate {
-    
+extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
+
+    func editButtonTapped() {
+        let newViewController = UINavigationController(rootViewController: EditTaskViewController())
+        present(newViewController, animated: true)
+    }
+
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -182,7 +202,9 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         })
         
         let headerRegisteration = UICollectionView.SupplementaryRegistration
-        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { _, _, _ in }
+        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { supplymentaryView, _, _ in
+            supplymentaryView.delegate = self
+        }
         
         datasource.supplementaryViewProvider = { _, _, index in
             return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
