@@ -13,7 +13,7 @@ final class CreateStudyViewController: UIViewController {
 //    var selectedDays: [String] = [""]
     
     private lazy var getStudyNameView = GetInfoView()
-    private lazy var getStudyDescriptView = GetInfoView()
+    private lazy var getDescriptView = GetInfoView()
     private lazy var selectCycleDayView = SelectCycleDaysView()
     
     private lazy var backButton: UIButton = {
@@ -48,7 +48,7 @@ final class CreateStudyViewController: UIViewController {
         super.viewDidAppear(animated)
         
         getStudyNameView.valueTextField.underlined(viewSize: getStudyNameView.valueTextField.bounds.width, color: .systemGray)
-        getStudyDescriptView.valueTextField.underlined(viewSize: getStudyDescriptView.valueTextField.bounds.width, color: .systemGray)
+        getDescriptView.valueTextField.underlined(viewSize: getDescriptView.valueTextField.bounds.width, color: .systemGray)
     }
     
     private func configUI() {
@@ -58,7 +58,7 @@ final class CreateStudyViewController: UIViewController {
     private func render() {
         let safeArea = view.safeAreaLayoutGuide
         
-        [backButton, getStudyNameView, getStudyDescriptView, studyCycleLabel, selectCycleDayView, nextButton].forEach { component in
+        [backButton, getStudyNameView, getDescriptView, studyCycleLabel, selectCycleDayView, nextButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -77,17 +77,17 @@ final class CreateStudyViewController: UIViewController {
             getStudyNameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
         
-        getStudyDescriptView.update(title: "스터디 설명", placeHolder: "스터디 한 줄 소개를 입력해주세요.")
+        getDescriptView.update(title: "스터디 설명", placeHolder: "스터디 한 줄 소개를 입력해주세요.")
         NSLayoutConstraint.activate([
-            getStudyDescriptView.topAnchor.constraint(equalTo: getStudyNameView.bottomAnchor, constant: 50),
-            getStudyDescriptView.leadingAnchor.constraint(equalTo: getStudyNameView.leadingAnchor),
-            getStudyDescriptView.centerXAnchor.constraint(equalTo: getStudyNameView.centerXAnchor)
+            getDescriptView.topAnchor.constraint(equalTo: getStudyNameView.bottomAnchor, constant: 50),
+            getDescriptView.leadingAnchor.constraint(equalTo: getStudyNameView.leadingAnchor),
+            getDescriptView.centerXAnchor.constraint(equalTo: getStudyNameView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            studyCycleLabel.topAnchor.constraint(equalTo: getStudyDescriptView.bottomAnchor, constant: 50),
-            studyCycleLabel.leadingAnchor.constraint(equalTo: getStudyDescriptView.leadingAnchor),
-            studyCycleLabel.centerXAnchor.constraint(equalTo: getStudyDescriptView.centerXAnchor)
+            studyCycleLabel.topAnchor.constraint(equalTo: getDescriptView.bottomAnchor, constant: 50),
+            studyCycleLabel.leadingAnchor.constraint(equalTo: getDescriptView.leadingAnchor),
+            studyCycleLabel.centerXAnchor.constraint(equalTo: getDescriptView.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([
