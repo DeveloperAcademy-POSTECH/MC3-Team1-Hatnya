@@ -59,10 +59,10 @@ class GetInfoView: UIView {
 
 extension GetInfoView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: self.valueTextField.bounds.width, color: UIColor.blue)
+        textField.underlined(viewSize: self.valueTextField.bounds.width, color: .systemBlue)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: self.valueTextField.bounds.width, color: UIColor.gray)
+        textField.underlined(viewSize: self.valueTextField.bounds.width, color: .systemGray)
     }
 }
