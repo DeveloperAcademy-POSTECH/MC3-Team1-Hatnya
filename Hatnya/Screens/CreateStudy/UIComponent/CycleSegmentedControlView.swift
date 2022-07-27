@@ -15,7 +15,7 @@ final class CycleSegmentedControlView: UIView {
         case four = "4주"
     }
     
-    var selectedCycle = Cycle.one
+    private var selectedCycle = Cycle.one
     
     private lazy var cycleSegControl: UISegmentedControl = {
         let segcontrol = UISegmentedControl(items: Cycle.allCases.map {
