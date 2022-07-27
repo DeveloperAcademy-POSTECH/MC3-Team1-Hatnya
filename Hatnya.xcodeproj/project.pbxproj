@@ -12,11 +12,11 @@
 		39823671288D281B00F6B004 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39823670288D281B00F6B004 /* Date+Extension.swift */; };
 		39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F3F8E52886778900256D56 /* StudyChartView.swift */; };
 		3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */; };
-		3DD9E7B8288F6FC800C3BEC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD9E7B7288F6FC800C3BEC0 /* GoogleService-Info.plist */; };
 		3DD9E7BB288F717700C3BEC0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9E7BA288F717700C3BEC0 /* FirebaseAnalytics */; };
 		3DD9E7BD288F717700C3BEC0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9E7BC288F717700C3BEC0 /* FirebaseFirestore */; };
 		3DD9E7BF288F90AC00C3BEC0 /* StudyCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9E7BE288F90AC00C3BEC0 /* StudyCycle.swift */; };
 		3DD9E7C1288F90CB00C3BEC0 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD9E7C0288F90CB00C3BEC0 /* Member.swift */; };
+		3DD9E7C72890FEEB00C3BEC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD9E7C62890FEEB00C3BEC0 /* GoogleService-Info.plist */; };
 		3DFBE06F288653B100D62DA4 /* JoinStudyView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */; };
 		A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9E42887A04900A84BCC /* GetInfoView.swift */; };
 		A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */; };
@@ -58,9 +58,9 @@
 		39823670288D281B00F6B004 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		39F3F8E52886778900256D56 /* StudyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyChartView.swift; sourceTree = "<group>"; };
 		3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
-		3DD9E7B7288F6FC800C3BEC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3DD9E7BE288F90AC00C3BEC0 /* StudyCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCycle.swift; sourceTree = "<group>"; };
 		3DD9E7C0288F90CB00C3BEC0 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
+		3DD9E7C62890FEEB00C3BEC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = JoinStudyView.storyboard; sourceTree = "<group>"; };
 		A22BA9E42887A04900A84BCC /* GetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfoView.swift; sourceTree = "<group>"; };
 		A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclePickerView.swift; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 		A28DEF7128854EEF004014DE /* Hatnya */ = {
 			isa = PBXGroup;
 			children = (
-				3DD9E7B7288F6FC800C3BEC0 /* GoogleService-Info.plist */,
+				3DD9E7C62890FEEB00C3BEC0 /* GoogleService-Info.plist */,
 				A28DEF8A288550C9004014DE /* Global */,
 				A28DEF89288550C0004014DE /* Screens */,
 				A28DEF862885506F004014DE /* Network */,
@@ -392,6 +392,7 @@
 				A28DEF7C28854EF1004014DE /* Assets.xcassets in Resources */,
 				A28DEF7A28854EEF004014DE /* Main.storyboard in Resources */,
 				A7D23173288D93EF00A59A85 /* StudyList.storyboard in Resources */,
+				3DD9E7C72890FEEB00C3BEC0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
