@@ -17,6 +17,7 @@ final class StudyListViewController: UIViewController {
     }
     
     let firestore = Firestore.firestore()
+   
     var studyGroup = [StudyGroup]()
     
     private lazy var emptyStudyLabel: UILabel = {
@@ -40,10 +41,11 @@ final class StudyListViewController: UIViewController {
         super.viewDidLoad()
         
         render()
+        tableView.delegate = self
     }
     
     private func render() {
-        if StudyGroup.sampleData.isEmpty {
+        if studyGroup.isEmpty {
             view.addSubview(emptyStudyLabel)
             let safeArea = view.safeAreaLayoutGuide
             
@@ -112,6 +114,16 @@ final class StudyListViewController: UIViewController {
                     }
                 }
             }
+    }
+}
+
+extension StudyListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedStudyGroup = studyGroup[indexPath.row]
+        let studyRoomViewController = StudyRoomViewController(selectedStudyGroup: selectedStudyGroup)
+        navigationController?.pushViewController(studyRoomViewController, animated: true)
     }
 }
 

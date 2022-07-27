@@ -9,8 +9,20 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
+//    let studyListViewController = StudyListViewController()
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
+    
+    private let selectedStudyGroup: StudyGroup
+    
+    init(selectedStudyGroup: StudyGroup) {
+        self.selectedStudyGroup = selectedStudyGroup
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     // MARK: - property
 
@@ -217,12 +229,16 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         datasource.apply(snapshot)
     }
     
-}
-
-struct StudyRoomViewControllerPreview: PreviewProvider {
-    
-    static var previews: some View {
-        StudyRoomViewController().toPreview()
+    private func fetchDeadline() {
+        
     }
-
+    
 }
+
+//struct StudyRoomViewControllerPreview: PreviewProvider {
+//    
+//    static var previews: some View {
+//        StudyRoomViewController().toPreview()
+//    }
+//
+//}
