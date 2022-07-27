@@ -8,11 +8,19 @@
 import UIKit
 
 class CycleSegmentedControlView: UIView {
-    var selectedCycle = "1주"
-    let cycleNameArray = ["1주", "2주", "3주", "4주"]
+    enum Cycle: String, CaseIterable {
+        case one = "1주"
+        case two = "2주"
+        case three = "3주"
+        case four = "4주"
+    }
+    
+    var selectedCycle = Cycle.one
     
     private lazy var cycleSegControl: UISegmentedControl = {
-        let segcontrol = UISegmentedControl(items: cycleNameArray)
+        let segcontrol = UISegmentedControl(items: Cycle.allCases.map {
+            $0.rawValue
+        })
         segcontrol.selectedSegmentIndex = 0
         segcontrol.backgroundColor = .systemGray6
         segcontrol.tintColor = .white
@@ -66,6 +74,6 @@ class CycleSegmentedControlView: UIView {
     
     @objc
     func segControlChanged(segcontrol: UISegmentedControl) {
-        selectedCycle = cycleNameArray[segcontrol.selectedSegmentIndex]
+        selectedCycle = Cycle.allCases[segcontrol.selectedSegmentIndex]
     }
 }
