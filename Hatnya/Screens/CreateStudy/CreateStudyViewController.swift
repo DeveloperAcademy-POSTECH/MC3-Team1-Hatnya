@@ -16,13 +16,6 @@ final class CreateStudyViewController: UIViewController {
     private lazy var getStudyDescriptView = GetInfoView()
     private lazy var selectCycleDayView = SelectCycleDaysView()
     
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(systemName: "xmark")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
     private lazy var studyCycleLabel: UILabel = {
         let label = UILabel()
         label.text = "스터디 주기"
@@ -59,21 +52,14 @@ final class CreateStudyViewController: UIViewController {
     private func render() {
         let safeArea = view.safeAreaLayoutGuide
         
-        [backButton, getStudyNameView, getStudyDescriptView, studyCycleLabel, selectCycleDayView, nextButton].forEach { component in
+        [getStudyNameView, getStudyDescriptView, studyCycleLabel, selectCycleDayView, nextButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            backButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
         getStudyNameView.update(title: "스터디 이름", placeHolder: "스터디 이름을 입력해주세요.")
         NSLayoutConstraint.activate([
-            getStudyNameView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 30),
+            getStudyNameView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
             getStudyNameView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             getStudyNameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
