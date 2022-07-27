@@ -16,7 +16,8 @@ class JoinStudyViewController: UIViewController {
     @IBOutlet private var nextButton: UIButton!
     
     @IBAction private func touchUpNextButton(_ sender: UIButton) {
-        
+        let nicknameViewController = WriteNicknameViewController()
+        self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
     @IBAction private func touchUpDismissButton(_ sender: UIButton) {
