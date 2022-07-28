@@ -40,4 +40,20 @@ final class SelectCycleDaysView: UIView {
             dayButtonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+    func returnSelectedCycle() -> Int {
+        switch cycleSegmentedControlView.selectedCycle {
+            case "1주":
+                return 1
+            case "2주":
+                return 2
+            case "3주":
+                return 3
+            case "4주":
+                return 4
+            default:
+                return 0
+        }
+    }
+    
 }
