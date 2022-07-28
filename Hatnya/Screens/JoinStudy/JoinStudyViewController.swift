@@ -50,7 +50,7 @@ extension JoinStudyViewController: UITextFieldDelegate {
     
     private func initNextButton() {
         nextButton.isEnabled = false
-        nextButton.setBackgroundColor(.systemGray5, for: .disabled)
+        nextButton.setBackgroundColor(.systemGray4, for: .disabled)
     }
     
     private func searchStudyGroup() {

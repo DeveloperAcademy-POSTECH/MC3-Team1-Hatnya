@@ -40,7 +40,6 @@ class GetInfoView: UIView {
         ])
         
         addSubview(valueTextField)
-        valueTextField.delegate = self
         valueTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             valueTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
@@ -56,13 +55,13 @@ class GetInfoView: UIView {
         self.valueTextField.placeholder = placeHolder
     }
 }
-
-extension GetInfoView: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: self.valueTextField.bounds.width, color: .systemBlue)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.underlined(viewSize: self.valueTextField.bounds.width, color: .systemGray)
-    }
-}
+//
+//extension GetInfoView: UITextFieldDelegate {
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        textField.underlined(viewSize: self.valueTextField.bounds.width, color: .systemBlue)
+//    }
+//    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        textField.underlined(viewSize: self.valueTextField.bounds.width, color: .systemGray)
+//    }
+//}

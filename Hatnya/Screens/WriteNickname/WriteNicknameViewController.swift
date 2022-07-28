@@ -34,7 +34,7 @@ final class WriteNicknameViewController: UIViewController {
         let button = UIButton()
         button.setTitle("그룹 입장하기", for: .normal)
         button.isSelected = false
-        button.backgroundColor = .systemGray5
+        button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextButtonTapHandler), for: .touchUpInside)
         return button
@@ -119,7 +119,7 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text == nil || textField.text == "" {
-            nextButton.backgroundColor = .lightGray
+            nextButton.backgroundColor = .systemGray4
             nextButton.isUserInteractionEnabled = false
         } else {
             nextButton.backgroundColor = .systemBlue
