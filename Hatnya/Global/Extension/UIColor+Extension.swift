@@ -19,6 +19,10 @@ extension UIColor {
         return UIColor(hex: "F5F5F5")
     }
     
+    static var backgroundGrey: UIColor {
+        return UIColor(hex: "F8F8F8")
+    }
+    
     // MARK: - tagColor
     
     static var tagPink: UIColor {

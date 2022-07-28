@@ -39,7 +39,8 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             userNameLabel.topAnchor.constraint(equalTo: self.topAnchor),
             userNameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            userNameLabel.widthAnchor.constraint(equalToConstant: 90)]
+            userNameLabel.widthAnchor.constraint(equalToConstant: 60),
+            userNameLabel.heightAnchor.constraint(equalToConstant: 32)]
         )
 
         self.addSubview(chartView)
