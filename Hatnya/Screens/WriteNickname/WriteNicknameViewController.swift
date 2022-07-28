@@ -5,10 +5,12 @@
 //  Created by 비트 on 2022/07/19.
 //
 
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
+    let firestore = Firestore.firestore()
     var studyGroup = StudyGroup(members: [],
                                 name: "이름 없음",
                                 code: "no code",
@@ -49,6 +51,36 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
+        studyGroup.members.append(Member(nickname: inputTextField.text ?? "이름 없음", homeworks: []))
+        print(studyGroup)
+        
+        let studyGroupUUID = UUID()
+        let cycleGroupUUID = UUID()
+        let membersGroupUUID = UUID()
+        
+        let studyGroupData: [String: Any] = [
+            "code": studyGroup.code,
+            "createdAt": Timestamp(date: Date()),
+            "description": studyGroup.description,
+            "name": studyGroup.name
+        ]
+        
+        let cycleData: [String: Any] = [
+            "cycle": studyGroup.cycle.cycle,
+            "weekday": studyGroup.cycle.weekDay
+        ]
+        
+        let membersData: [String: Any] = [
+            "nickname": studyGroup.cycle.cycle,
+            "uid": UIDevice.current.identifierForVendor!.uuidString
+        ]
+    
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString).setData(studyGroupData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Cycle").document(cycleGroupUUID.uuidString).setData(cycleData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Members").document(membersGroupUUID.uuidString).setData(membersData)
+        
         self.presentingViewController?.dismiss(animated: true)
     }
     

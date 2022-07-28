@@ -13,7 +13,7 @@ struct StudyGroup {
     let code: String
     let description: String
     let cycle: StudyCycle
-    let createdAt: Date?
+    var createdAt: Date?
 }
 
 extension StudyGroup {
