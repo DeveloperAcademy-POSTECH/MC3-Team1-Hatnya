@@ -98,8 +98,6 @@ extension StudyRoomViewController {
     }
 
     private func render() {
-        let height = UIScreen.main.bounds.height * 0.1
-        print(height)
         view.addSubview(taskBoxView)
         taskBoxView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -247,7 +245,7 @@ extension StudyRoomViewController: UICollectionViewDataSource {
         cell.userNameLabel.text = Member.testMemberList[indexPath.item].nickname
         cell.chartView.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
                 $0.isCompleted
-            })
+        })
         return cell
     }
 }
