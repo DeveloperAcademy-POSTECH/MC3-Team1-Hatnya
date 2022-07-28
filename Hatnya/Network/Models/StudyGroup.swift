@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StudyGroup {
+struct StudyGroup: Codable {
     var members: [Member]
     let name: String
     let code: String
@@ -26,5 +26,3 @@ extension StudyGroup {
                    createdAt: Date())
     ]
 }
-
-

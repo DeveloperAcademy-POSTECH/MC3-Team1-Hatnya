@@ -5,6 +5,9 @@
 //  Created by kelly on 2022/07/18.
 //
 
+import Combine
+import FirebaseCore
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
@@ -78,6 +81,7 @@ extension StudyRoomViewController {
         configureHierachy()
         configureDatasource()
         applySnapShot()
+        fetch()
     }
 
     private func configUI() {
@@ -143,6 +147,51 @@ extension StudyRoomViewController {
         guard let date = day else { return "" }
         return date.getDayOfWeek
     }
+    
+    private func fetch() {
+        let database = Firestore.firestore()
+        let path = "/StudyGroup/MNkcDnEVFRBAfLre6YzG/Member/GWb0hAwcHujkGixvGNEO/Homework"
+        database.collection(path)
+            .addSnapshotListener { snapShot, error in
+                guard let document = snapShot else {
+                    print(error as Any)
+                    return
+                }
+                let homeworks = document.documents.map { snapshot -> Homework in
+                    if let homework = self.decode(with: snapshot.data(), as: Homework.self) {
+                        return homework
+                    }
+                    return Homework.mock
+                }
+                self.snapshot.deleteAllItems()
+                self.snapshot.appendSections([.main])
+                self.snapshot.appendItems(homeworks, toSection: .main)
+                self.datasource.apply(self.snapshot)
+            }
+    }
+
+    private func decode<T: Decodable>(with documentData: [String: Any], as type: T.Type) -> T? {
+        var data = documentData
+        data.forEach { (key: String, value: Any) in
+            switch value {
+            case _ as DocumentReference:
+                data.removeValue(forKey: key)
+            case let timeData as Timestamp:
+                let date = timeData.dateValue()
+                let jsonDate = Int((date.timeIntervalSince1970 * 1000).rounded())
+                data[key] = jsonDate
+            default:
+                break
+            }
+        }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: data) else { return nil }
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .millisecondsSince1970
+        
+        let object = try? decoder.decode(T.self, from: jsonData)
+        return object
+    }
+
 }
 
 // MARK: - Homework List View
@@ -213,7 +262,7 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
     
     private func applySnapShot() {
         snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
+        snapshot.appendItems([Homework.mock], toSection: .main)
         datasource.apply(snapshot)
     }
     

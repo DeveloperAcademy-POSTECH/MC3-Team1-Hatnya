@@ -79,7 +79,7 @@ extension EditTaskViewController {
     
     private func applySnapshot() {
         snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
+        snapshot.appendItems([Homework.mock], toSection: .main)
         taskDataSource.apply(snapshot)
     }
     

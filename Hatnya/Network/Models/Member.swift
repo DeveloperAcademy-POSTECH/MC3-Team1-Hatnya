@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Member {
+struct Member: Codable {
     let nickname: String
     let homeworks: [Homework]
 }
