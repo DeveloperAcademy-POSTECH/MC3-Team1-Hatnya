@@ -9,7 +9,13 @@ import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
-
+    var studyGroup = StudyGroup(members: [],
+                                name: "이름 없음",
+                                code: "no code",
+                                description: "설명 없음",
+                                cycle: StudyCycle(cycle: 1, weekDay: ["화"]),
+                                createdAt: nil)
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "스터디에서 사용할 닉네임을 입력하세요"
@@ -52,6 +58,7 @@ final class WriteNicknameViewController: UIViewController {
         configureAddSubviews()
         configureConstraints()
         configureTextField()
+        print(studyGroup)
     }
     
     override func viewDidAppear(_ animated: Bool) {
