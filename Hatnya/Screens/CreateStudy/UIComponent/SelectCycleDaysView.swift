@@ -16,7 +16,7 @@ final class SelectCycleDaysView: UIView {
         
         render()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -43,17 +43,45 @@ final class SelectCycleDaysView: UIView {
     
     func returnSelectedCycle() -> Int {
         switch cycleSegmentedControlView.selectedCycle {
-            case "1주":
-                return 1
-            case "2주":
-                return 2
-            case "3주":
-                return 3
-            case "4주":
-                return 4
-            default:
-                return 0
+        case "1주":
+            return 1
+        case "2주":
+            return 2
+        case "3주":
+            return 3
+        case "4주":
+            return 4
+        default:
+            return 0
         }
+    }
+    
+    func returnSelectedDays() -> [String] {
+        var selectedDays: [String] = []
+        
+        if dayButtonStackView.sundayBtn.isSelected {
+            selectedDays.append("일")
+        }
+        if dayButtonStackView.mondayBtn.isSelected {
+            selectedDays.append("월")
+        }
+        if dayButtonStackView.tuesdayBtn.isSelected {
+            selectedDays.append("화")
+        }
+        if dayButtonStackView.wednesdayBtn.isSelected {
+            selectedDays.append("수")
+        }
+        if dayButtonStackView.thursdayBtn.isSelected {
+            selectedDays.append("목")
+        }
+        if dayButtonStackView.fridayBtn.isSelected {
+            selectedDays.append("금")
+        }
+        if dayButtonStackView.saturdayBtn.isSelected {
+            selectedDays.append("토")
+        }
+        
+        return selectedDays
     }
     
 }
