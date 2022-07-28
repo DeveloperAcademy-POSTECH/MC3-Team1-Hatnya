@@ -28,7 +28,7 @@ final class CreateStudyViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(nextButtonTouch), for: .touchUpInside)
+        button.addTarget(self, action: #selector(touchNextButton), for: .touchUpInside)
         return button
     }()
     
@@ -92,7 +92,7 @@ final class CreateStudyViewController: UIViewController {
     }
     
     @objc
-    private func nextButtonTouch() {
+    private func touchNextButton() {
         let nicknameViewController = WriteNicknameViewController()
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
