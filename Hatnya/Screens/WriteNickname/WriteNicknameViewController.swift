@@ -39,7 +39,7 @@ final class WriteNicknameViewController: UIViewController {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle("그룹 입장하기", for: .normal)
-        button.isSelected = false
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
         button.isEnabled = false
         button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 10

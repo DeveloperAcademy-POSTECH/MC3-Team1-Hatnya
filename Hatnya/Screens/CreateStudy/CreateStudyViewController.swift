@@ -27,6 +27,7 @@ final class CreateStudyViewController: UIViewController {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
         button.backgroundColor = .systemGray4
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
         button.isEnabled = false
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextButtonTouch), for: .touchUpInside)
@@ -112,7 +113,7 @@ final class CreateStudyViewController: UIViewController {
         if (getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == "")
             || (getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == "")
             || selectedDays.isEmpty {
-            nextButton.setBackgroundColor(.systemGray4, for: .disabled)
+            nextButton.backgroundColor = .systemGray4
             nextButton.isEnabled = false
         } else {
             nextButton.backgroundColor = .systemBlue
