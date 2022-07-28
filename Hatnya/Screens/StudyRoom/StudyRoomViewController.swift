@@ -14,9 +14,10 @@ final class StudyRoomViewController: UIViewController {
 
     // MARK: - property
 
-    private let navigationBarRightItem: UIBarButtonItem = {
+    private lazy var navigationBarRightItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
+        item.menu = setupNavigationRightButton()
         return item
     }()
     private let everyTaskLabel: UILabel = {
@@ -143,6 +144,30 @@ extension StudyRoomViewController {
         guard let date = day else { return "" }
         return date.getDayOfWeek
     }
+
+    private func setupNavigationRightButton() -> UIMenu {
+        let menu = UIMenu(options: [], children: [
+            UIAction(title: "팀원 초대하기", handler: { _ in
+                UIPasteboard.general.string = "초대코드"
+            }),
+            UIAction(title: "기간 수정", handler: { _ in
+            }),
+            UIAction(title: "닉네임 수정", handler: { [weak self] _ in
+                let viewController = WriteNicknameViewController()
+                viewController.isEditMode = true
+                self?.present(viewController, animated: true)
+            }),
+            UIAction(title: "스터디 나가기", attributes: .destructive, handler: { [weak self] _ in
+                let alert = UIAlertController(title: "스터디 탈퇴", message: "정말 스터디를 탈퇴하시겠습니까??", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "취소", style: .default))
+                alert.addAction(UIAlertAction(title: "나가기", style: .destructive) { _ in
+                    print("스터디 탈퇴")
+                })
+                self?.present(alert, animated: true, completion: nil)
+            })
+        ])
+        return menu
+    }
 }
 
 // MARK: - Homework List View
@@ -188,8 +213,8 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
             collectionView.topAnchor.constraint(equalTo: codeCopyButton.bottomAnchor, constant: margin),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)
-        ])
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)]
+        )
     }
     
     private func configureDatasource() {
