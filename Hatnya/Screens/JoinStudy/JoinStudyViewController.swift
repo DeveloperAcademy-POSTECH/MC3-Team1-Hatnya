@@ -77,6 +77,9 @@ extension JoinStudyViewController: UITextFieldDelegate {
     }
     
     private func searchStudyGroup() {
+        
+        studyGroupName.text = "해당하는 스터디가 없습니다."
+        
         getGroupWithSameCode { [weak self] results in
             switch results {
             case .success(let info):
