@@ -8,7 +8,7 @@
 import UIKit
 
 final class StudyChartCollectionViewCell: UICollectionViewCell {
-    
+    var homeworkCount = Member.testMemberList[0].homeworks.count
     // MARK: - property
 
     lazy var userNameLabel: UILabel = {
@@ -16,9 +16,15 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 19)
         return label
     }()
-    lazy var chartView: StudyChartView = {
-        let view = StudyChartView()
-        return view
+    private let chartStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.alignment = .fill
+        stackView.spacing = 5
+        stackView.clipsToBounds = true
+        stackView.layer.cornerRadius = 5
+        return stackView
     }()
 
     // MARK: - init
@@ -43,12 +49,30 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
             userNameLabel.heightAnchor.constraint(equalToConstant: 32)]
         )
 
-        self.addSubview(chartView)
-        chartView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(chartStackView)
+        chartStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chartView.topAnchor.constraint(equalTo: self.topAnchor),
-            chartView.centerYAnchor.constraint(equalTo: userNameLabel.centerYAnchor),
-            chartView.trailingAnchor.constraint(equalTo: self.trailingAnchor)]
+            chartStackView.topAnchor.constraint(equalTo: self.topAnchor),
+            chartStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            chartStackView.leadingAnchor.constraint(equalTo: userNameLabel.trailingAnchor, constant: 5),
+            chartStackView.heightAnchor.constraint(equalToConstant: 32)]
         )
+    }
+    
+    // MARK: - func
+    
+    func setupChartStackView(_ list: [Bool]) {
+        if chartStackView.arrangedSubviews.count < homeworkCount {
+            for index in 0..<homeworkCount {
+                let testView = UIView()
+                if list[index] {
+                    testView.backgroundColor = UIColor.colorPalette[index]
+                } else {
+                    testView.backgroundColor = .grey002
+                }
+                testView.layer.cornerRadius = 5
+                chartStackView.addArrangedSubview(testView)
+            }
+        }
     }
 }

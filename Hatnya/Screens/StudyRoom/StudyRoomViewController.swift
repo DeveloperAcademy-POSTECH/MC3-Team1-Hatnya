@@ -8,9 +8,149 @@
 import SwiftUI
 import UIKit
 
+import FirebaseFirestore
+
+class StudyRoomViewModel {
+    @Published var studyUidList: [String] = []
+    @Published var userTaskList: [Member] = []
+    var currentCountUid: [String] = []
+
+    init() {
+//        fetchStudyUidList()
+//        fetchStudyTaskList(docUid: "MNkcDnEVFRBAfLre6YzG", userUid: "ESwkYnJ3XZ0w4sKhzgp2", to: 1)
+//        fetchMemberList()
+//        for _ in 0...4 {
+//            addData()
+//        }
+        addData()
+    }
+
+    func fetchMemberList() {
+        let firestoreDb = Firestore.firestore()
+        firestoreDb.collection("StudyGroup")
+            .document("MNkcDnEVFRBAfLre6YzG")
+            .collection("Member")
+            .getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                guard let snapshot = querySnapshot else { return }
+                for document in snapshot.documents {
+                    let data = document.data()
+                    let uid = data["uid"] as? String ?? ""
+                    let name = data["name"] as? String ?? ""
+                    self.userTaskList.append(
+                        Member(
+                            uid: uid,
+                            nickname: name,
+                            homeworks: []))
+                }
+                print(self.userTaskList)
+            }
+        }
+    }
+
+    func fetchStudyUidList(uid: String) {
+        let firestoreDb = Firestore.firestore()
+        firestoreDb
+            .collectionGroup("Member")
+            .whereField("uid", isEqualTo: uid)
+            .getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                guard let snapshot = querySnapshot else { return }
+                for document in snapshot.documents {
+                    self.studyUidList.append(document.documentID)
+                }
+            }
+        }
+    }
+
+    func addData() {
+        let firestoreDb = Firestore.firestore()
+//        firestoreDb.collection("StudyGroup")
+//            .document("MNkcDnEVFRBAfLre6YzG")
+//            .collection("Member")
+//            .document("rIb90OelGCvbF1Ij3zxf")
+//            .collection("Homework")
+//            .addDocument(data: [
+//            "count": 1,
+//            "isCompleted": false,
+//            "name": "알고리즘 1000번"
+//            ])
+//        print("추가 완료")
+        
+        firestoreDb.collection("StudyGroup")
+            .document("w2sEujplXcqubgaYYUdZ")
+            .collection("Members")
+            .document("wMlumUzY0yDz2PeTtrXm")
+            .collection("Homeworks")
+            .addDocument(data: [
+                "cycle": 2,
+                "homework": [
+                    [
+                    "isCompleted": true,
+                    "name": "read 4p"
+                    ],
+                    [
+                    "isCompleted": false,
+                    "name": "read 5p"
+                    ],
+                    [
+                    "isCompleted": false,
+                    "name": "read 6p"
+                    ],
+                ]
+            ])
+//        firestoreDb.collection("StudyGroup/w2sEujplXcqubgaYYUdZ/Members/wMlumUzY0yDz2PeTtrXm/Homeworks/2week")
+//            .addDocument(data: [
+//                "cycle": 2,
+//                "homework": [
+//                    [
+//                    "isCompleted": true,
+//                    "name": "read 4p"
+//                    ],
+//                    [
+//                    "isCompleted": false,
+//                    "name": "read 5p"
+//                    ],
+//                    [
+//                    "isCompleted": false,
+//                    "name": "read 6p"
+//                    ],
+//                ]
+//            ])
+    }
+
+    func fetchStudyTaskList(docUid: String, userUid: String, to count: Int) {
+        let firestoreDb = Firestore.firestore()
+        firestoreDb.collection("StudyGroup")
+            .document(docUid)
+            .collection("Member")
+            .document(userUid)
+            .collection("Homework")
+            .whereField("count", isEqualTo: count)
+            .getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                guard let snapshot = querySnapshot else { return }
+                for document in snapshot.documents {
+                    let data = document.data()
+                    print(data)
+//                    userTaskList.append(Member(uid: data["uid"], nickname: data["name"], homeworks: data["uid"]))
+                }
+            }
+        }
+    }
+}
+
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
+
+    var viewModel = StudyRoomViewModel()
 
     // MARK: - property
 
@@ -104,9 +244,9 @@ extension StudyRoomViewController {
             taskBoxView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 69),
             taskBoxView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             taskBoxView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            taskBoxView.heightAnchor.constraint(equalToConstant: 360)
-        ])
-        
+            taskBoxView.heightAnchor.constraint(equalToConstant: 360)]
+        )
+
         taskBoxView.addSubview(everyTaskLabel)
         everyTaskLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -243,9 +383,9 @@ extension StudyRoomViewController: UICollectionViewDataSource {
             withReuseIdentifier: StudyChartCollectionViewCell.className,
             for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
         cell.userNameLabel.text = Member.testMemberList[indexPath.item].nickname
-        cell.chartView.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
+        cell.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
                 $0.isCompleted
-        })
+            })
         return cell
     }
 }
