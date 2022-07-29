@@ -57,7 +57,7 @@ extension JoinStudyViewController: UITextFieldDelegate {
         nextButton.setBackgroundColor(.systemGray6, for: .disabled)
     }
     
-    func getGroupWithSameCode(completion: @escaping (Result<StudyInfo, Error>) -> Void) {
+    func groupWithSameCode(completion: @escaping (Result<StudyInfo, Error>) -> Void) {
         database.collection("StudyGroup").whereField("code", isEqualTo: codeTextField.text as Any)
             .getDocuments { querySnapshot, err in
                 if let err = err {
@@ -80,7 +80,7 @@ extension JoinStudyViewController: UITextFieldDelegate {
         
         studyGroupName.text = "해당하는 스터디가 없습니다."
         
-        getGroupWithSameCode { [weak self] results in
+        groupWithSameCode { [weak self] results in
             switch results {
             case .success(let info):
                 self?.searchResultView.backgroundColor = .systemGray6
