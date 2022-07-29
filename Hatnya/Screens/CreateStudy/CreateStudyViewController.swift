@@ -102,8 +102,8 @@ final class CreateStudyViewController: UIViewController {
                                     name: getStudyNameView.valueTextField.text ?? "이름 없음",
                                     code: "no code",
                                     description: getDescriptView.valueTextField.text ?? "설명 없음",
-                                    cycle: StudyCycle(cycle: selectCycleDayView.returnSelectedCycle(),
-                                                      weekDay: selectCycleDayView.returnSelectedDays()),
+                                    cycle: StudyCycle(cycle: selectCycleDayView.getSelectedCycle(),
+                                                      weekDay: selectCycleDayView.getSelectedDays()),
                                     createdAt: nil)
         nicknameViewController.studyGroup = studyGroup
         self.navigationController?.pushViewController(nicknameViewController, animated: true)

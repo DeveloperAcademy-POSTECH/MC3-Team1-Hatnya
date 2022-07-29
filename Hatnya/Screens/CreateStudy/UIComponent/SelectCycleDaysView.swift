@@ -41,7 +41,7 @@ final class SelectCycleDaysView: UIView {
         ])
     }
     
-    func returnSelectedCycle() -> Int {
+    func getSelectedCycle() -> Int {
         switch cycleSegmentedControlView.selectedCycle {
         case .one:
             return 1
@@ -54,7 +54,7 @@ final class SelectCycleDaysView: UIView {
         }
     }
     
-    func returnSelectedDays() -> [String] {
+    func getSelectedDays() -> [String] {
         var selectedDays: [String] = []
         
         if dayButtonStackView.sundayBtn.isSelected {
