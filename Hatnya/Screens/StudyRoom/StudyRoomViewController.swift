@@ -11,7 +11,48 @@ import UIKit
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
-
+    
+    private enum Menu {
+        case inviteTeam
+        case editDate
+        case editNickname(action: (() -> Void))
+        case leaveStudy(action: (() -> Void))
+        
+        var menuTitle: String {
+            switch self {
+            case .inviteTeam:
+                return "팀원 초대하기"
+            case .editDate:
+                return "기간 수정하기"
+            case .editNickname:
+                return "닉네임 수정하기"
+            case .leaveStudy:
+                return "스터디 탈퇴하기"
+            }
+        }
+        
+        var action: UIAction {
+            switch self {
+            case .inviteTeam:
+                return UIAction(title: self.menuTitle, handler: { _ in
+                    // TODO: toast 추가
+                    UIPasteboard.general.string = "초대코드"
+                })
+            case .editDate:
+                return UIAction(title: self.menuTitle, handler: { _ in
+                })
+            case .editNickname(let action):
+                return UIAction(title: self.menuTitle, handler: { _ in
+                    action()
+                })
+            case .leaveStudy(let action):
+                return UIAction(title: self.menuTitle, attributes: .destructive, handler: { _ in
+                    action()
+                })
+            }
+        }
+    }
+    
     // MARK: - property
 
     private lazy var navigationBarRightItem: UIBarButtonItem = {
@@ -147,24 +188,21 @@ extension StudyRoomViewController {
 
     private func setupNavigationRightButton() -> UIMenu {
         let menu = UIMenu(options: [], children: [
-            UIAction(title: "팀원 초대하기", handler: { _ in
-                UIPasteboard.general.string = "초대코드"
-            }),
-            UIAction(title: "기간 수정", handler: { _ in
-            }),
-            UIAction(title: "닉네임 수정", handler: { [weak self] _ in
+            Menu.inviteTeam.action,
+            Menu.editDate.action,
+            Menu.editNickname(action: { [weak self] in
                 let viewController = WriteNicknameViewController()
                 viewController.isEditMode = true
                 self?.present(viewController, animated: true)
-            }),
-            UIAction(title: "스터디 나가기", attributes: .destructive, handler: { [weak self] _ in
+            }).action,
+            Menu.leaveStudy(action: { [weak self] in
                 let alert = UIAlertController(title: "스터디 탈퇴", message: "정말 스터디를 탈퇴하시겠습니까??", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "취소", style: .default))
                 alert.addAction(UIAlertAction(title: "나가기", style: .destructive) { _ in
                     print("스터디 탈퇴")
                 })
                 self?.present(alert, animated: true, completion: nil)
-            })
+            }).action
         ])
         return menu
     }
