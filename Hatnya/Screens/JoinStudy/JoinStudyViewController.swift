@@ -77,7 +77,16 @@ extension JoinStudyViewController: UITextFieldDelegate {
     }
     
     private func searchStudyGroup() {
-        
+        getGroupWithSameCode { [weak self] results in
+            switch results {
+            case .success(let info):
+                self?.searchResultView.backgroundColor = .systemGray6
+                self?.studyGroupName.text = info.name
+                self?.studyGroupDescription.text = info.description
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func checkMaxLength(textField: UITextField!, maxLength: Int) {
