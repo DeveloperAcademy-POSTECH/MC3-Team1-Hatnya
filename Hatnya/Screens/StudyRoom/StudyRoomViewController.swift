@@ -14,18 +14,18 @@ final class StudyRoomViewController: UIViewController {
 
     // MARK: - property
 
-    private let navigationBarRightItem: UIBarButtonItem = {
+    private lazy var navigationBarRightItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
         return item
     }()
-    private let taskBoxView: UIView = {
+    private lazy var taskBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 20
         return view
     }()
-    private let everyTaskLabel: UILabel = {
+    private lazy var everyTaskLabel: UILabel = {
         let label = UILabel()
         label.text = "모두의 숙제 현황"
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
@@ -44,7 +44,7 @@ final class StudyRoomViewController: UIViewController {
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()
-    private let flowLayout: UICollectionViewFlowLayout = {
+    private lazy var flowLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         layout.minimumInteritemSpacing = 10
@@ -98,43 +98,43 @@ extension StudyRoomViewController {
     }
 
     private func render() {
-        view.addSubview(taskBoxView)
-        taskBoxView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(taskBackgroundView)
+        taskBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            taskBoxView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 69),
-            taskBoxView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            taskBoxView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            taskBoxView.heightAnchor.constraint(equalToConstant: 360)]
+            taskBackgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 69),
+            taskBackgroundView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            taskBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            taskBackgroundView.heightAnchor.constraint(equalToConstant: 360)]
         )
 
-        taskBoxView.addSubview(everyTaskLabel)
+        taskBackgroundView.addSubview(everyTaskLabel)
         everyTaskLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            everyTaskLabel.topAnchor.constraint(equalTo: taskBoxView.topAnchor, constant: 25),
-            everyTaskLabel.leadingAnchor.constraint(equalTo: taskBoxView.leadingAnchor, constant: 21)]
+            everyTaskLabel.topAnchor.constraint(equalTo: taskBackgroundView.topAnchor, constant: 25),
+            everyTaskLabel.leadingAnchor.constraint(equalTo: taskBackgroundView.leadingAnchor, constant: 21)]
         )
 
-        taskBoxView.addSubview(deadLineLabel)
+        taskBackgroundView.addSubview(deadLineLabel)
         deadLineLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             deadLineLabel.topAnchor.constraint(equalTo: everyTaskLabel.bottomAnchor, constant: 4),
-            deadLineLabel.leadingAnchor.constraint(equalTo: taskBoxView.leadingAnchor, constant: 20)]
+            deadLineLabel.leadingAnchor.constraint(equalTo: taskBackgroundView.leadingAnchor, constant: 20)]
         )
 
-        taskBoxView.addSubview(dDayLabel)
+        taskBackgroundView.addSubview(dDayLabel)
         dDayLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dDayLabel.topAnchor.constraint(equalTo: taskBoxView.topAnchor, constant: 25),
-            dDayLabel.trailingAnchor.constraint(equalTo: taskBoxView.trailingAnchor, constant: -26)]
+            dDayLabel.topAnchor.constraint(equalTo: taskBackgroundView.topAnchor, constant: 25),
+            dDayLabel.trailingAnchor.constraint(equalTo: taskBackgroundView.trailingAnchor, constant: -26)]
         )
 
-        taskBoxView.addSubview(chartCollectionView)
+        taskBackgroundView.addSubview(chartCollectionView)
         chartCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             chartCollectionView.topAnchor.constraint(equalTo: deadLineLabel.bottomAnchor, constant: 29),
-            chartCollectionView.leadingAnchor.constraint(equalTo: taskBoxView.leadingAnchor, constant: 16),
-            chartCollectionView.trailingAnchor.constraint(equalTo: taskBoxView.trailingAnchor, constant: -16),
-            chartCollectionView.bottomAnchor.constraint(equalTo: taskBoxView.bottomAnchor, constant: -10)]
+            chartCollectionView.leadingAnchor.constraint(equalTo: taskBackgroundView.leadingAnchor, constant: 16),
+            chartCollectionView.trailingAnchor.constraint(equalTo: taskBackgroundView.trailingAnchor, constant: -16),
+            chartCollectionView.bottomAnchor.constraint(equalTo: taskBackgroundView.bottomAnchor, constant: -10)]
         )
     }
 
@@ -158,6 +158,24 @@ extension StudyRoomViewController {
         return date.getDayOfWeek
     }
 }
+
+extension StudyRoomViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return Member.testMemberList.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: StudyChartCollectionViewCell.className,
+            for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
+        cell.userNameLabel.text = Member.testMemberList[indexPath.item].nickname
+        cell.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
+                $0.isCompleted
+            })
+        return cell
+    }
+}
+
 
 // MARK: - Homework List View
 
@@ -193,15 +211,13 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.layer.borderWidth = 0.5
-        collectionView.layer.borderColor = UIColor.gray.cgColor
         collectionView.layer.cornerRadius = 15
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: margin),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -margin),
-            collectionView.topAnchor.constraint(equalTo: taskBoxView.bottomAnchor, constant: 26),
+            collectionView.topAnchor.constraint(equalTo: taskBackgroundView.bottomAnchor, constant: 26),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -margin)]
         )
     }
@@ -229,24 +245,6 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         snapshot.appendSections([.main])
         snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
         datasource.apply(snapshot)
-    }
-
-}
-
-extension StudyRoomViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Member.testMemberList.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: StudyChartCollectionViewCell.className,
-            for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
-        cell.userNameLabel.text = Member.testMemberList[indexPath.item].nickname
-        cell.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
-                $0.isCompleted
-            })
-        return cell
     }
 }
 

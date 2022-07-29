@@ -16,7 +16,7 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 19)
         return label
     }()
-    private let chartStackView: UIStackView = {
+    private lazy var chartStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
