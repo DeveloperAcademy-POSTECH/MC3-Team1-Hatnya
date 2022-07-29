@@ -10,7 +10,7 @@ import UIKit
 
 final class WriteNicknameViewController: UIViewController {
     
-    var isEditMode: Mode = .create
+    var mode: Mode = .create
     
     enum Mode {
         case edit
@@ -44,7 +44,7 @@ final class WriteNicknameViewController: UIViewController {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = isEditMode.titleText
+        label.text = mode.titleText
         label.font = UIFont.systemFont(ofSize: 18.0, weight: .semibold)
         return label
     }()
@@ -64,7 +64,7 @@ final class WriteNicknameViewController: UIViewController {
     
     private lazy var nextButton: UIButton = {
         let button = UIButton()
-        button.setTitle(isEditMode.nextButtonText, for: .normal)
+        button.setTitle(mode.nextButtonText, for: .normal)
         button.isSelected = false
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10

@@ -192,7 +192,7 @@ extension StudyRoomViewController {
             Menu.editDate.action,
             Menu.editNickname(action: { [weak self] in
                 let viewController = WriteNicknameViewController()
-                viewController.isEditMode = .edit
+                viewController.mode = .edit
                 self?.present(viewController, animated: true)
             }).action,
             Menu.leaveStudy(action: { [weak self] in
