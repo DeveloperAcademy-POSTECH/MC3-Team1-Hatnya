@@ -86,7 +86,6 @@ final class WriteNicknameViewController: UIViewController {
         configureAddSubviews()
         configureConstraints()
         configureTextField()
-        print(studyGroup)
     }
     
     override func viewDidAppear(_ animated: Bool) {
