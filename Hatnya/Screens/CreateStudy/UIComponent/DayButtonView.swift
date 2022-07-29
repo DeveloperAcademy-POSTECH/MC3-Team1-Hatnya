@@ -21,10 +21,10 @@ final class DayButtonView: UIButton {
     }
     
     private func configUI() {
-        toWhite()
+        buttonColorToWhite()
         titleLabel?.font = UIFont.systemFont(ofSize: 20)
         layer.cornerRadius = 16
-        addTarget(self, action: #selector(dayButtonTouch), for: .touchUpInside)
+        addTarget(self, action: #selector(touchDayButton), for: .touchUpInside)
         frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 32, height: 32))
     }
     
@@ -35,21 +35,21 @@ final class DayButtonView: UIButton {
     }
     
     @objc
-    private func dayButtonTouch() {
+    private func touchDayButton() {
         if isSelected {
-            toWhite()
+            buttonColorToWhite()
         } else {
-            toBlue()
+            buttonColorToBlue()
         }
         isSelected.toggle()
     }
     
-    private func toWhite() {
+    private func buttonColorToWhite() {
         backgroundColor = .systemBackground
         setTitleColor(UIColor.systemBlue, for: .normal)
     }
     
-    func toBlue() {
+    func buttonColorToBlue() {
         backgroundColor = .systemBlue
         setTitleColor(UIColor.white, for: .normal)
     }
