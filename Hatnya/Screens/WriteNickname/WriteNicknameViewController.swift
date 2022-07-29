@@ -52,7 +52,6 @@ final class WriteNicknameViewController: UIViewController {
     @objc
     func nextButtonTapHandler(sender: UIButton) {
         studyGroup.members.append(Member(nickname: inputTextField.text ?? "이름 없음", homeworks: []))
-        print(studyGroup)
         
         let studyGroupUUID = UUID()
         let cycleGroupUUID = UUID()
