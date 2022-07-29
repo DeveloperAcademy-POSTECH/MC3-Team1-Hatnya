@@ -176,7 +176,6 @@ extension StudyRoomViewController: UICollectionViewDataSource {
     }
 }
 
-
 // MARK: - Homework List View
 
 extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
