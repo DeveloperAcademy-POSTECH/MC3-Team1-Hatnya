@@ -19,10 +19,10 @@
 		3DD9E7C72890FEEB00C3BEC0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD9E7C62890FEEB00C3BEC0 /* GoogleService-Info.plist */; };
 		3DFBE06F288653B100D62DA4 /* JoinStudyView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */; };
 		A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9E42887A04900A84BCC /* GetInfoView.swift */; };
-		A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */; };
 		A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */; };
 		A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */; };
 		A22BA9FE288A03B300A84BCC /* SelectCycleDaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */; };
+		A266138C288F88CC00732F8E /* CycleSegmentedControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A266138B288F88CC00732F8E /* CycleSegmentedControlView.swift */; };
 		A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7228854EEF004014DE /* AppDelegate.swift */; };
 		A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7428854EEF004014DE /* SceneDelegate.swift */; };
 		A28DEF7728854EEF004014DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF7628854EEF004014DE /* ViewController.swift */; };
@@ -63,10 +63,10 @@
 		3DD9E7C62890FEEB00C3BEC0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3DFBE06E288653B100D62DA4 /* JoinStudyView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = JoinStudyView.storyboard; sourceTree = "<group>"; };
 		A22BA9E42887A04900A84BCC /* GetInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetInfoView.swift; sourceTree = "<group>"; };
-		A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclePickerView.swift; sourceTree = "<group>"; };
 		A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonView.swift; sourceTree = "<group>"; };
 		A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayButtonStackView.swift; sourceTree = "<group>"; };
 		A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelectCycleDaysView.swift; path = Hatnya/Screens/CreateStudy/UIComponent/SelectCycleDaysView.swift; sourceTree = SOURCE_ROOT; };
+		A266138B288F88CC00732F8E /* CycleSegmentedControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleSegmentedControlView.swift; sourceTree = "<group>"; };
 		A28DEF6F28854EEF004014DE /* Hatnya.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hatnya.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A28DEF7228854EEF004014DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A28DEF7428854EEF004014DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,10 +125,10 @@
 			isa = PBXGroup;
 			children = (
 				A22BA9E42887A04900A84BCC /* GetInfoView.swift */,
-				A22BA9EA28880BCD00A84BCC /* CyclePickerView.swift */,
 				A22BA9EC2888E0C100A84BCC /* DayButtonView.swift */,
 				A22BA9EE2888E12100A84BCC /* DayButtonStackView.swift */,
 				A22BA9FD288A03B300A84BCC /* SelectCycleDaysView.swift */,
+				A266138B288F88CC00732F8E /* CycleSegmentedControlView.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -435,7 +435,7 @@
 				AED2E1C5288E979100B32FF7 /* UITextField+underlined.swift in Sources */,
 				A28DEF7728854EEF004014DE /* ViewController.swift in Sources */,
 				A22BA9FE288A03B300A84BCC /* SelectCycleDaysView.swift in Sources */,
-				A22BA9EB28880BCD00A84BCC /* CyclePickerView.swift in Sources */,
+				A266138C288F88CC00732F8E /* CycleSegmentedControlView.swift in Sources */,
 				A28DEF9B28855248004014DE /* WriteNicknameViewController.swift in Sources */,
 				AED2E1BE2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift in Sources */,
 				A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */,

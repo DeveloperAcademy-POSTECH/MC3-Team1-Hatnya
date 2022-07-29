@@ -8,7 +8,7 @@
 import UIKit
 
 final class SelectCycleDaysView: UIView {
-    private lazy var cyclePickerView = CyclePickerView()
+    private lazy var cycleSegmentedControlView = CycleSegmentedControlView()
     private lazy var dayButtonStackView = DayButtonStackView()
     
     override init(frame: CGRect) {
@@ -22,22 +22,21 @@ final class SelectCycleDaysView: UIView {
     }
     
     private func render() {
-        cyclePickerView.backgroundColor = .systemGray6
-        cyclePickerView.layer.cornerRadius = 10
-        addSubview(cyclePickerView)
-        cyclePickerView.translatesAutoresizingMaskIntoConstraints = false
+        [cycleSegmentedControlView, dayButtonStackView].forEach { view in
+            addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
         NSLayoutConstraint.activate([
-            cyclePickerView.topAnchor.constraint(equalTo: self.topAnchor),
-            cyclePickerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            cyclePickerView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            cycleSegmentedControlView.topAnchor.constraint(equalTo: self.topAnchor),
+            cycleSegmentedControlView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            cycleSegmentedControlView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
         
-        addSubview(dayButtonStackView)
-        dayButtonStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dayButtonStackView.topAnchor.constraint(equalTo: cyclePickerView.bottomAnchor, constant: 20),
-            dayButtonStackView.leadingAnchor.constraint(equalTo: cyclePickerView.leadingAnchor),
-            dayButtonStackView.centerXAnchor.constraint(equalTo: cyclePickerView.centerXAnchor),
+            dayButtonStackView.topAnchor.constraint(equalTo: cycleSegmentedControlView.bottomAnchor, constant: 20),
+            dayButtonStackView.leadingAnchor.constraint(equalTo: cycleSegmentedControlView.leadingAnchor),
+            dayButtonStackView.centerXAnchor.constraint(equalTo: cycleSegmentedControlView.centerXAnchor),
             dayButtonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }

@@ -78,7 +78,6 @@ final class StudyListViewController: UIViewController {
     /// 기기의 UUID를 유저의 uid로 UserDefaults에 저장
     func addUid() {
         let uuid = UIDevice.current.identifierForVendor!.uuidString
-        print("addUid: \(uuid)")
         UserDefaults.standard.set(uuid, forKey: "User")
     }
     
@@ -108,6 +107,7 @@ final class StudyListViewController: UIViewController {
                                                              createdAt: Date(), uid: studyGroupId))
                                 // firebase에서 데이터를 가져왔으므로 reload
                                 tableView.reloadData()
+                                emptyStudyLabel.text = ""
                             } else {
                                 print("StudyGroup document does not exist (failed to get study groups list)")
                             }
