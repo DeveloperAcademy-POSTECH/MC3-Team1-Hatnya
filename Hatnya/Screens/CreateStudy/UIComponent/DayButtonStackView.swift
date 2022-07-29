@@ -32,13 +32,13 @@ class DayButtonStackView: UIStackView {
         self.alignment = .center
         self.distribution = .equalSpacing
         self.spacing = 0
+        tuesdayBtn.isSelected = true
+        tuesdayBtn.buttonColorToBlue()
     }
     
     private func render() {
         sundayBtn.setName(title: "일")
         mondayBtn.setName(title: "월")
-        tuesdayBtn.isSelected = true
-        tuesdayBtn.buttonColorToBlue()
         tuesdayBtn.setName(title: "화")
         wednesdayBtn.setName(title: "수")
         thursdayBtn.setName(title: "목")
