@@ -43,7 +43,7 @@ final class StudyListViewController: UIViewController {
     }
     
     private func render() {
-        if StudyGroup.sampleData.isEmpty {
+        if studyGroup.isEmpty {
             view.addSubview(emptyStudyLabel)
             let safeArea = view.safeAreaLayoutGuide
             
@@ -104,6 +104,7 @@ final class StudyListViewController: UIViewController {
                                                              cycle: StudyCycle(cycle: 0, weekDay: []), createdAt: Date()))
                                 // firebase에서 데이터를 가져왔으므로 reload
                                 tableView.reloadData()
+                                emptyStudyLabel.text = ""
                             } else {
                                 print("StudyGroup document does not exist (failed to get study groups list)")
                             }
