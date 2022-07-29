@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseFirestore
 
 class JoinStudyViewController: UIViewController {
+    
+    let database = Firestore.firestore()
+    var studyInfo = [StudyInfo]()
     
     @IBOutlet private var codeTextField: UITextField!
     @IBOutlet private var searchResultView: UIView!
@@ -52,18 +57,27 @@ extension JoinStudyViewController: UITextFieldDelegate {
         nextButton.setBackgroundColor(.systemGray6, for: .disabled)
     }
     
+    func getGroupWithSameCode(completion: @escaping (Result<StudyInfo, Error>) -> Void) {
+        database.collection("StudyGroup").whereField("code", isEqualTo: codeTextField.text as Any)
+            .getDocuments { querySnapshot, err in
+                if let err = err {
+                    print("err: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        do {
+                            let data = document.data()
+                            guard let name = data["name"] as? String,
+                                  let description = data["description"] as? String else { return }
+                            
+                            completion(.success(StudyInfo(name: name, description: description)))
+                        }
+                    }
+                }
+            }
+    }
+    
     private func searchStudyGroup() {
-// TODO: 추후 Firebase 데이터 연동 후 sampleData 변수에 Firebase의 StudyGroup 데이터 넣으면 됨
-//        for studyGroup in StudyGroup.sampleData {
-//            if codeTextField.text == studyGroup.code {
-//                searchResultView.backgroundColor = .systemGray6
-//                studyGroupName.text = studyGroup.studyName
-//                studyGroupDescription.text = studyGroup.description
-//                return
-//            } else {
-//                studyGroupName.text = "해당하는 스터디가 없습니다."
-//            }
-//        }
+        
     }
     
     private func checkMaxLength(textField: UITextField!, maxLength: Int) {
