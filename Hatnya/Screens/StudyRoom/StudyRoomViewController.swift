@@ -11,12 +11,54 @@ import UIKit
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
-
+    
+    private enum Menu {
+        case inviteTeam
+        case editDate
+        case editNickname(action: (() -> Void))
+        case leaveStudy(action: (() -> Void))
+        
+        var menuTitle: String {
+            switch self {
+            case .inviteTeam:
+                return "팀원 초대하기"
+            case .editDate:
+                return "기간 수정하기"
+            case .editNickname:
+                return "닉네임 수정하기"
+            case .leaveStudy:
+                return "스터디 탈퇴하기"
+            }
+        }
+        
+        var action: UIAction {
+            switch self {
+            case .inviteTeam:
+                return UIAction(title: self.menuTitle, handler: { _ in
+                    // TODO: toast 추가
+                    UIPasteboard.general.string = "초대코드"
+                })
+            case .editDate:
+                return UIAction(title: self.menuTitle, handler: { _ in
+                })
+            case .editNickname(let action):
+                return UIAction(title: self.menuTitle, handler: { _ in
+                    action()
+                })
+            case .leaveStudy(let action):
+                return UIAction(title: self.menuTitle, attributes: .destructive, handler: { _ in
+                    action()
+                })
+            }
+        }
+    }
+    
     // MARK: - property
 
     private lazy var navigationBarRightItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
+        item.menu = setupNavigationRightButton()
         return item
     }()
     private lazy var taskBackgroundView: UIView = {
@@ -156,6 +198,27 @@ extension StudyRoomViewController {
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
+    }
+
+    private func setupNavigationRightButton() -> UIMenu {
+        let menu = UIMenu(options: [], children: [
+            Menu.inviteTeam.action,
+            Menu.editDate.action,
+            Menu.editNickname(action: { [weak self] in
+                let viewController = WriteNicknameViewController()
+                viewController.mode = .edit
+                self?.present(viewController, animated: true)
+            }).action,
+            Menu.leaveStudy(action: { [weak self] in
+                let alert = UIAlertController(title: "스터디 탈퇴", message: "정말 스터디를 탈퇴하시겠습니까??", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "취소", style: .default))
+                alert.addAction(UIAlertAction(title: "나가기", style: .destructive) { _ in
+                    print("스터디 탈퇴")
+                })
+                self?.present(alert, animated: true, completion: nil)
+            }).action
+        ])
+        return menu
     }
 }
 
