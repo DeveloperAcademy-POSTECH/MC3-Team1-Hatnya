@@ -56,11 +56,18 @@ final class StudyListViewController: UIViewController {
     private func showActionSheet() {
         let actionSheet = UIAlertController(title: .none, message: .none, preferredStyle: .actionSheet)
         
-        let enterStudyButton = UIAlertAction(title: "스터디 참여하기", style: .default) { _ in
-            //TODO: 스터디 코드 입력 창으로 연결
+        let enterStudyButton = UIAlertAction(title: "스터디 참여하기", style: .default) { [weak self] _ in
+            let joinStudystoryboard = UIStoryboard(name: "JoinStudyView", bundle: nil)
+            let joinStudyViewController = joinStudystoryboard.instantiateViewController(identifier: "JoinStudyView")
+            let navigationController = UINavigationController(rootViewController: joinStudyViewController)
+            navigationController.navigationBar.topItem?.title = ""
+            self?.present(navigationController, animated: true, completion: nil)
         }
-        let createStudyButton = UIAlertAction(title: "스터디 생성하기", style: .default) { _ in
-            //TODO: 스터디 생성 창으로 연결
+        let createStudyButton = UIAlertAction(title: "스터디 생성하기", style: .default) { [weak self] _ in
+            let createViewVontroller = CreateStudyViewController()
+            let navigationController = UINavigationController(rootViewController: createViewVontroller)
+            navigationController.navigationBar.topItem?.title = ""
+            self?.present(navigationController, animated: true, completion: nil)
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel) { _ in
             
