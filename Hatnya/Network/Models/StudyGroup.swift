@@ -26,5 +26,3 @@ extension StudyGroup {
                    createdAt: Date())
     ]
 }
-
-
