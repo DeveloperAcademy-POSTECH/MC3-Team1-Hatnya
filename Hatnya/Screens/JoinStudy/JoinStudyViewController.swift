@@ -5,9 +5,9 @@
 //  Created by Eve on 2022/07/19.
 //
 
-import UIKit
 import FirebaseCore
 import FirebaseFirestore
+import UIKit
 
 class JoinStudyViewController: UIViewController {
     
