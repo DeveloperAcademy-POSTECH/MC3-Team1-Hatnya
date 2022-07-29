@@ -10,13 +10,6 @@ import UIKit
 
 final class WriteNicknameViewController: UIViewController {
 
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(systemName: "xmark")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "스터디에서 사용할 닉네임을 입력하세요"
@@ -49,7 +42,7 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
-        print("button click")
+        self.presentingViewController?.dismiss(animated: true)
     }
     
     override func viewDidLoad() {
@@ -80,7 +73,7 @@ extension WriteNicknameViewController {
     private func configureAddSubviews() {
         guard let view = self.view else { return }
         
-        [backButton, titleLabel, inputTextField, deleteButton, nextButton].forEach { subView in
+        [titleLabel, inputTextField, deleteButton, nextButton].forEach { subView in
             view.addSubview(subView)
         }
     }
@@ -88,17 +81,9 @@ extension WriteNicknameViewController {
     private func configureConstraints() {
         guard let view = self.view else { return }
         
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 43),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)
         ])

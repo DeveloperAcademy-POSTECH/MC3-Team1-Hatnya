@@ -95,10 +95,13 @@
                     <navigationItem key="navigationItem" title="스터디 리스트" id="ZG4-yD-gzO">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1N2-Me-KKM">
                             <connections>
-                                <action selector="showASBtn:" destination="Y6W-OH-hqX" id="BsK-rR-pzg"/>
+                                <action selector="showActionSheetButton:" destination="Y6W-OH-hqX" id="Xqp-TF-mtd"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="bph-Ru-wbm" id="ZXz-Pp-9d7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
