@@ -5,14 +5,18 @@
 //  Created by kelly on 2022/07/18.
 //
 
+import FirebaseCore
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
-//    let studyListViewController = StudyListViewController()
+    //    let studyListViewController = StudyListViewController()
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
+    var studyCount: Int = 1
     
+    private let firestore = Firestore.firestore()
     private let selectedStudyGroup: StudyGroup
     
     init(selectedStudyGroup: StudyGroup) {
@@ -23,9 +27,9 @@ final class StudyRoomViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - property
-
+    
     private let navigationBarRightItem: UIBarButtonItem = {
         let item = UIBarButtonItem()
         item.image = UIImage(systemName: "ellipsis")
@@ -69,7 +73,7 @@ final class StudyRoomViewController: UIViewController {
     enum HomeworkSection {
         case main
     }
-
+    
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
     
@@ -79,7 +83,7 @@ final class StudyRoomViewController: UIViewController {
     
 }
 
-    // MARK: - life cycle
+// MARK: - life cycle
 
 extension StudyRoomViewController {
     
@@ -91,12 +95,12 @@ extension StudyRoomViewController {
         configureDatasource()
         applySnapShot()
     }
-
+    
     private func configUI() {
         view.backgroundColor = .white
         setupNavigationBar()
     }
-
+    
     private func render() {
         view.addSubview(everyTaskLabel)
         everyTaskLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -104,21 +108,21 @@ extension StudyRoomViewController {
             everyTaskLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 38),
             everyTaskLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)]
         )
-
+        
         view.addSubview(deadLineLabel)
         deadLineLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             deadLineLabel.topAnchor.constraint(equalTo: everyTaskLabel.bottomAnchor, constant: 4),
             deadLineLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20)]
         )
-
+        
         view.addSubview(dDayLabel)
         dDayLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             dDayLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 39),
             dDayLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
-
+        
         view.addSubview(chartView)
         chartView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -127,7 +131,7 @@ extension StudyRoomViewController {
             chartView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             chartView.heightAnchor.constraint(equalToConstant: 237)]
         )
-
+        
         view.addSubview(codeCopyButton)
         codeCopyButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -135,14 +139,14 @@ extension StudyRoomViewController {
             codeCopyButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20)]
         )
     }
-
+    
     // MARK: - func
-
+    
     private func setupNavigationBar() {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
-
+    
     private func getDateDifference() -> Int {
         guard let date = deadLineString.stringToDate else { return 0 }
         let distance = date.distance(to: Date())
@@ -150,22 +154,43 @@ extension StudyRoomViewController {
         let result = abs(Int(resultToDouble))
         return result
     }
-
+    
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
+    }
+    
+    private func fetchDeadLine() {
+        firestore.collection("StudyGroup").document(selectedStudyGroup.uid)
+            .collection("Members").whereField("uid", isEqualTo:  UserDefaults.standard.string(forKey: "User") ?? "")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        document.reference.collection("\(self.studyCount)회차")
+                            .getDocuments() { (querySnapshot, err) in
+                                if let err = err {
+                                    print("Error getting documents: \(err)")
+                                } else {
+                                    
+                                }
+                            }
+                    }
+                }
+            }
     }
 }
 
 // MARK: - Homework List View
 
 extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
-
+    
     func editButtonTapped() {
         let newViewController = UINavigationController(rootViewController: EditTaskViewController())
         present(newViewController, animated: true)
     }
-
+    
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -228,11 +253,6 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
         datasource.apply(snapshot)
     }
-    
-    private func fetchDeadline() {
-        
-    }
-    
 }
 
 //struct StudyRoomViewControllerPreview: PreviewProvider {

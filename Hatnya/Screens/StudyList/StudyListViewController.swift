@@ -104,7 +104,8 @@ final class StudyListViewController: UIViewController {
                                 // 기존 "StudyGroup" 객체에 append
                                 studyGroup.append(StudyGroup(members: [],
                                                              name: studyGroupName, code: "", description: studyGroupDescription,
-                                                             cycle: StudyCycle(cycle: 0, weekDay: []), createdAt: Date()))
+                                                             cycle: StudyCycle(cycle: 0, weekDay: []),
+                                                             createdAt: Date(), uid: studyGroupId))
                                 // firebase에서 데이터를 가져왔으므로 reload
                                 tableView.reloadData()
                             } else {
@@ -144,7 +145,8 @@ extension StudyListViewController: UITableViewDataSource {
                                     code: studyGroup[indexPath.row].code,
                                     description: studyGroup[indexPath.row].description,
                                     cycle: studyGroup[indexPath.row].cycle,
-                                    createdAt: studyGroup[indexPath.row].createdAt)
+                                    createdAt: studyGroup[indexPath.row].createdAt,
+                                    uid: studyGroup[indexPath.row].uid)
         cell.configure(with: dataSource)
         
         return cell
