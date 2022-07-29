@@ -11,12 +11,9 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
-    //    let studyListViewController = StudyListViewController()
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
-    var studyCount: Int = 1
     
-    private let firestore = Firestore.firestore()
     private let selectedStudyGroup: StudyGroup
     
     init(selectedStudyGroup: StudyGroup) {
@@ -143,7 +140,8 @@ extension StudyRoomViewController {
     // MARK: - func
     
     private func setupNavigationBar() {
-        title = "Swift Study"
+        title = selectedStudyGroup.name
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
     
@@ -158,27 +156,6 @@ extension StudyRoomViewController {
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
-    }
-    
-    private func fetchDeadLine() {
-        firestore.collection("StudyGroup").document(selectedStudyGroup.uid)
-            .collection("Members").whereField("uid", isEqualTo:  UserDefaults.standard.string(forKey: "User") ?? "")
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        document.reference.collection("\(self.studyCount)회차")
-                            .getDocuments() { (querySnapshot, err) in
-                                if let err = err {
-                                    print("Error getting documents: \(err)")
-                                } else {
-                                    
-                                }
-                            }
-                    }
-                }
-            }
     }
 }
 
@@ -255,10 +232,10 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
     }
 }
 
-//struct StudyRoomViewControllerPreview: PreviewProvider {
-//    
-//    static var previews: some View {
-//        StudyRoomViewController().toPreview()
-//    }
-//
-//}
+struct StudyRoomViewControllerPreview: PreviewProvider {
+    
+    static var previews: some View {
+        StudyRoomViewController(selectedStudyGroup: StudyGroup(members: [], name: "스위프트 스터디", code: "", description: "", cycle: StudyCycle(cycle: 1, weekDay: []), createdAt: Date(), uid: "")).toPreview()
+    }
+
+}
