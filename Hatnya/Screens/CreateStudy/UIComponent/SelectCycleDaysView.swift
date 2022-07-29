@@ -43,16 +43,14 @@ final class SelectCycleDaysView: UIView {
     
     func returnSelectedCycle() -> Int {
         switch cycleSegmentedControlView.selectedCycle {
-        case "1주":
+        case .one:
             return 1
-        case "2주":
+        case .two:
             return 2
-        case "3주":
+        case .three:
             return 3
-        case "4주":
+        case .four:
             return 4
-        default:
-            return 0
         }
     }
     
