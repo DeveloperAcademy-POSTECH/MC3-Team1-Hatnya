@@ -51,11 +51,7 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
-        studyGroup.members.append(Member(nickname: inputTextField.text ?? "이름 없음", homeworks: []))
-        
         let studyGroupUUID = UUID()
-        let cycleGroupUUID = UUID()
-        let membersGroupUUID = UUID()
         
         let studyGroupData: [String: Any] = [
             "code": studyGroup.code,
@@ -70,15 +66,15 @@ final class WriteNicknameViewController: UIViewController {
         ]
         
         let membersData: [String: Any] = [
-            "nickname": studyGroup.cycle.cycle,
+            "nickname": inputTextField.text ?? "이름 없음",
             "uid": UIDevice.current.identifierForVendor!.uuidString
         ]
     
         firestore.collection("StudyGroup").document(studyGroupUUID.uuidString).setData(studyGroupData)
         firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
-            .collection("Cycle").document(cycleGroupUUID.uuidString).setData(cycleData)
+            .collection("Cycle").addDocument(data: cycleData)
         firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
-            .collection("Members").document(membersGroupUUID.uuidString).setData(membersData)
+            .collection("Members").addDocument(data: membersData)
         
         self.presentingViewController?.dismiss(animated: true)
     }
