@@ -76,7 +76,6 @@ final class StudyListViewController: UIViewController {
     /// 기기의 UUID를 유저의 uid로 UserDefaults에 저장
     func addUid() {
         let uuid = UIDevice.current.identifierForVendor!.uuidString
-        print("addUid: \(uuid)")
         UserDefaults.standard.set(uuid, forKey: "User")
     }
     
