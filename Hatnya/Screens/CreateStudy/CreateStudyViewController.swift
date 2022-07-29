@@ -16,13 +16,6 @@ final class CreateStudyViewController: UIViewController {
     private lazy var getDescriptView = GetInfoView()
     private lazy var selectCycleDayView = SelectCycleDaysView()
     
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(systemName: "xmark")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
     private lazy var studyCycleLabel: UILabel = {
         let label = UILabel()
         label.text = "스터디 주기"
@@ -35,6 +28,7 @@ final class CreateStudyViewController: UIViewController {
         button.setTitle("다음", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(touchNextButton), for: .touchUpInside)
         return button
     }()
     
@@ -58,21 +52,14 @@ final class CreateStudyViewController: UIViewController {
     private func render() {
         let safeArea = view.safeAreaLayoutGuide
         
-        [backButton, getStudyNameView, getDescriptView, studyCycleLabel, selectCycleDayView, nextButton].forEach { component in
+        [getStudyNameView, getDescriptView, studyCycleLabel, selectCycleDayView, nextButton].forEach { component in
             view.addSubview(component)
             component.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            backButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 10),
-            backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
-        
         getStudyNameView.update(title: "스터디 이름", placeHolder: "스터디 이름을 입력해주세요.")
         NSLayoutConstraint.activate([
-            getStudyNameView.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 30),
+            getStudyNameView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 30),
             getStudyNameView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             getStudyNameView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
         ])
@@ -102,6 +89,12 @@ final class CreateStudyViewController: UIViewController {
             nextButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor, constant: -20),
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    @objc
+    private func touchNextButton() {
+        let nicknameViewController = WriteNicknameViewController()
+        self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
 }
 
