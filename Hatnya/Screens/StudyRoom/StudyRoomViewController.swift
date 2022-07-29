@@ -168,10 +168,7 @@ extension StudyRoomViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: StudyChartCollectionViewCell.className,
             for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
-        cell.userNameLabel.text = Member.testMemberList[indexPath.item].nickname
-        cell.setupChartStackView(Member.testMemberList[indexPath.item].homeworks.map {
-                $0.isCompleted
-            })
+        cell.setupCell(with: indexPath.item)
         return cell
     }
 }

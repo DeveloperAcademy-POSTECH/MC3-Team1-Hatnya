@@ -61,7 +61,14 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
     
     // MARK: - func
     
-    func setupChartStackView(_ list: [Bool]) {
+    func setupCell(with index: Int) {
+        userNameLabel.text = Member.testMemberList[index].nickname
+        setupChartStackView(Member.testMemberList[index].homeworks.map {
+            $0.isCompleted
+        })
+    }
+    
+    private func setupChartStackView(_ list: [Bool]) {
         if chartStackView.arrangedSubviews.count < homeworkCount {
             for index in 0..<homeworkCount {
                 let testView = UIView()
