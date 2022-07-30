@@ -11,6 +11,7 @@ import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
+    let database = Firestore.firestore()
     var studyGroupDocumentId: String = ""
 
     private lazy var titleLabel: UILabel = {
@@ -45,6 +46,7 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
+        storeMemberNickname()
         self.presentingViewController?.dismiss(animated: true)
     }
     
@@ -127,6 +129,24 @@ extension WriteNicknameViewController: UITextFieldDelegate {
         } else {
             nextButton.backgroundColor = .blue
             nextButton.isUserInteractionEnabled = true
+        }
+    }
+    
+    func storeMemberNickname() {
+        let membersRef = database.collection("StudyGroup").document(studyGroupDocumentId).collection("Members").document()
+        let uuid = UIDevice.current.identifierForVendor!.uuidString
+        
+        if let nickname = inputTextField.text {
+            membersRef.setData([
+                "uid": uuid,
+                "nickname": nickname
+            ]) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+            }
         }
     }
 }
