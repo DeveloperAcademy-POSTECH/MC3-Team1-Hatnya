@@ -29,18 +29,13 @@ final class StudyListViewController: UIViewController {
         
         return label
     }()
-        
-    override func loadView() {
-        super.loadView()
-        
-        addUid()
-        fetchStudyGroups()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         render()
+        addUid()
+        fetchStudyGroups()
         tableView.delegate = self
     }
     
@@ -92,7 +87,7 @@ final class StudyListViewController: UIViewController {
         // "Members" 컬렉션에서 (UserDefaults에 저장된 값 == uid)인 document만 필터링
         firestore.collectionGroup("Members")
             .whereField("uid", isEqualTo: UserDefaults.standard.string(forKey: "User") ?? "")
-            .getDocuments() { (querySnapshot, err) in
+            .getDocuments { querySnapshot, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -101,7 +96,7 @@ final class StudyListViewController: UIViewController {
                         let studyGroupId = memberDocument.reference.parent.parent?.documentID ?? ""
                         let docRef = self.firestore.collection("StudyGroup").document(studyGroupId)
                         
-                        docRef.getDocument { [self] (document, _) in
+                        docRef.getDocument { [self] document, _ in
                             if let document = document, document.exists {
                                 // "StudyGroup"의 document에서 "StudyGroup"의 이름과 설명 가져오기
                                 let studyGroupName = document.get("name") as? String ?? ""

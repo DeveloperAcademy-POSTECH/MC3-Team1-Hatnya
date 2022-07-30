@@ -60,7 +60,6 @@ opt_in_rules:
   - sorted_first_last
   - sorted_imports
   - static_operator
-  - strong_iboutlet
   - test_case_accessibility
   - toggle_bool
   - unavailable_function
@@ -71,6 +70,7 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 disabled_rules:
+  - strong_iboutlet
   - trailing_whitespace
 
 identifier_name:
@@ -94,14 +94,14 @@ custom_rules:
     message: Rule IDs must be all lowercase, snake case and not end with `rule`
     regex: identifier:\s*("\w+_rule"|"\S*[^a-z_]\S*")
     severity: error
-#  fatal_error:
-#    name: Fatal Error
-#    excluded: "Tests/*"
-#    message: Prefer using `queuedFatalError` over `fatalError` to avoid leaking compiler host machine paths.
-#    regex: \bfatalError\b
-#    match_kinds:
-#      - identifier
-#    severity: error
+  fatal_error:
+    name: Fatal Error
+    excluded: "Tests/*"
+    message: Prefer using `queuedFatalError` over `fatalError` to avoid leaking compiler host machine paths.
+    regex: \bfatalError\b
+    match_kinds:
+      - identifier
+    severity: error
   rule_test_function:
     included: Tests/SwiftLintFrameworkTests/RulesTests.swift
     name: Rule Test Function

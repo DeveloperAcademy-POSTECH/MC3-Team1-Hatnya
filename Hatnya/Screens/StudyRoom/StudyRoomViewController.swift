@@ -21,10 +21,10 @@ final class StudyRoomViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        preconditionFailure("init(coder:) has not been implemented")
     }
-    
     
     private enum Menu {
         case inviteTeam
@@ -325,7 +325,7 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
 struct StudyRoomViewControllerPreview: PreviewProvider {
 
     static var previews: some View {
-        StudyRoomViewController(selectedStudyGroup: StudyGroup(members: [], name: "스위프트 스터디", code: "", description: "", cycle: StudyCycle(cycle: 1, weekDay: []), createdAt: Date(), uid: "")).toPreview()
+        StudyRoomViewController(selectedStudyGroup: StudyGroup.sampleData[0]).toPreview()
     }
 
 }
