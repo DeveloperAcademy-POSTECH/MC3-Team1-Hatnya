@@ -27,4 +27,3 @@ extension StudyGroup {
                    createdAt: Date(), uid: "")
     ]
 }
-

@@ -9,10 +9,42 @@ import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
-
+    
+    var mode: Mode = .create
+    
+    enum Mode {
+        case edit
+        case create
+        
+        var titleText: String {
+            switch self {
+            case .create:
+                return "스터디에서 사용할 닉네임을 입력하세요"
+            case .edit:
+                return "수정할 닉네임을 입력해 주세요"
+            }
+        }
+        
+        var nextButtonText: String {
+            switch self {
+            case .create:
+                return "그룹 입장하기"
+            case .edit:
+                return "수정하기"
+            }
+        }
+    }
+    
+    private lazy var backButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "xmark")
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "스터디에서 사용할 닉네임을 입력하세요"
+        label.text = mode.titleText
         label.font = UIFont.systemFont(ofSize: 18.0, weight: .semibold)
         return label
     }()
@@ -32,7 +64,7 @@ final class WriteNicknameViewController: UIViewController {
     
     private lazy var nextButton: UIButton = {
         let button = UIButton()
-        button.setTitle("그룹 입장하기", for: .normal)
+        button.setTitle(mode.nextButtonText, for: .normal)
         button.isSelected = false
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
