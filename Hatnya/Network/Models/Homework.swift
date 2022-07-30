@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Homework: Hashable {
+struct Homework: Hashable, Codable {
     let id = UUID()
     let name: String
     let isCompleted: Bool

@@ -5,13 +5,16 @@
 //  Created by Mingwan Choi on 2022/07/18.
 //
 
+import Combine
 import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
-    
+
+    var viewModel = StudyRoomViewModel(studyUid: "w2sEujplXcqubgaYYUdZ")
+
     private enum Menu {
         case inviteTeam
         case editDate
