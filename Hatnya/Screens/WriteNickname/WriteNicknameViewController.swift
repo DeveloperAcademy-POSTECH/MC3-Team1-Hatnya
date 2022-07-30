@@ -5,10 +5,13 @@
 //  Created by 비트 on 2022/07/19.
 //
 
+import FirebaseCore
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
+    var studyGroupDocumentId: String = ""
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -126,7 +129,6 @@ extension WriteNicknameViewController: UITextFieldDelegate {
             nextButton.isUserInteractionEnabled = true
         }
     }
-    
 }
 
 struct WriteNicknameViewControllerPreview: PreviewProvider {

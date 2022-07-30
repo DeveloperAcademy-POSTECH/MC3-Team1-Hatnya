@@ -13,6 +13,7 @@ class JoinStudyViewController: UIViewController {
     
     let database = Firestore.firestore()
     var studyInfo = [StudyInfo]()
+    var studyGroupDocumentId = ""
     
     @IBOutlet private var codeTextField: UITextField!
     @IBOutlet private var searchResultView: UIView!
@@ -22,6 +23,7 @@ class JoinStudyViewController: UIViewController {
     
     @IBAction private func touchUpNextButton(_ sender: UIButton) {
         let nicknameViewController = WriteNicknameViewController()
+        nicknameViewController.studyGroupDocumentId = studyGroupDocumentId
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
@@ -71,6 +73,7 @@ extension JoinStudyViewController: UITextFieldDelegate {
                                   let description = data["description"] as? String else { return }
                             
                             completion(.success(StudyInfo(name: name, description: description)))
+                            self.studyGroupDocumentId = document.documentID
                         }
                     }
                 }
