@@ -10,18 +10,6 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct HomeworkTask: Codable {
-    var cycle: Int
-    var list: [Homework]
-}
-
-struct FirebaseStudyInfo: Codable {
-    let name: String
-    let code: String
-    let createdAt: Date
-    let description: String
-}
-
 class StudyRoomViewModel {
     @Published var currentCount: Int = 0
     @Published var userTaskList: [Member] = []
@@ -43,7 +31,6 @@ class StudyRoomViewModel {
             .getDocument(as: FirebaseStudyInfo.self, completion: { result in
             switch result {
             case .success(let info):
-//                self.currentCount = self.getCurrentStudyCount(to: info.createdAt)
                 self.currentCount = 3
                 self.fetchMemberList(studyUid: studyUid, cycle: 3)
             case .failure(let err):
