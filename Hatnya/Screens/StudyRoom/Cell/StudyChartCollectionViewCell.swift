@@ -8,7 +8,7 @@
 import UIKit
 
 final class StudyChartCollectionViewCell: UICollectionViewCell {
-    var homeworkCount = Member.testMemberList[0].homeworks.count
+    
     // MARK: - property
 
     lazy var userNameLabel: UILabel = {
@@ -16,7 +16,7 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 19)
         return label
     }()
-    private lazy var chartStackView: UIStackView = {
+    lazy var chartStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
@@ -61,16 +61,12 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
     
     // MARK: - func
     
-    func setupCell(with index: Int) {
-        userNameLabel.text = Member.testMemberList[index].nickname
-        setupChartStackView(Member.testMemberList[index].homeworks.map {
-            $0.isCompleted
-        })
-    }
-    
-    private func setupChartStackView(_ list: [Bool]) {
-        if chartStackView.arrangedSubviews.count < homeworkCount {
-            for index in 0..<homeworkCount {
+    func setupChartStackView(_ list: [Bool], count: Int) {
+        if chartStackView.arrangedSubviews.count < count {
+            chartStackView.arrangedSubviews.map {
+                chartStackView.removeArrangedSubview($0)
+            }
+            for index in 0..<count {
                 let testView = UIView()
                 if list[index] {
                     testView.backgroundColor = UIColor.colorPalette[index]

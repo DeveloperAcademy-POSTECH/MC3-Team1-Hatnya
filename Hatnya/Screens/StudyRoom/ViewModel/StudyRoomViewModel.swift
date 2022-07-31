@@ -25,6 +25,7 @@ struct FirebaseStudyInfo: Codable {
 class StudyRoomViewModel {
     @Published var currentCount: Int = 0
     @Published var userTaskList: [Member] = []
+    var cancelBag = Set<AnyCancellable>()
 
     init(studyUid: String) {
         fetchCurrentStudyCount(studyUid: studyUid)
@@ -42,8 +43,8 @@ class StudyRoomViewModel {
             .getDocument(as: FirebaseStudyInfo.self, completion: { result in
             switch result {
             case .success(let info):
-                self.currentCount = self.getCurrentStudyCount(to: info.createdAt)
-                print("self.currentCount = \(self.currentCount)")
+//                self.currentCount = self.getCurrentStudyCount(to: info.createdAt)
+                self.currentCount = 3
                 self.fetchMemberList(studyUid: studyUid, cycle: 3)
             case .failure(let err):
                 print(err)
@@ -60,6 +61,7 @@ class StudyRoomViewModel {
     }
 
     func fetchMemberList(studyUid: String, cycle: Int) {
+        self.clearUserTaskList()
         let firestoreDb = Firestore.firestore()
         firestoreDb
             .collection("StudyGroup")
@@ -75,7 +77,7 @@ class StudyRoomViewModel {
                     let uid = data["uid"] as? String ?? ""
                     let name = data["nickname"] as? String ?? ""
                     document.reference.collection("Homeworks")
-                        .whereField("cycle", isEqualTo: self.currentCount)
+                        .whereField("cycle", isEqualTo: cycle)
                         .getDocuments { querySnapshot, err in
                         if let err = err {
                             print("Error getting documents: \(err)")
