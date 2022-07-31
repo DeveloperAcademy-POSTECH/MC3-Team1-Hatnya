@@ -79,14 +79,12 @@ final class StudyRoomViewController: UIViewController {
     }()
     private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
         label.textColor = .grey001
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
     private lazy var dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-\(getDateDifference())"
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()
@@ -141,6 +139,7 @@ extension StudyRoomViewController {
     private func configUI() {
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
+        setDeadline()
     }
 
     private func render() {
@@ -202,6 +201,33 @@ extension StudyRoomViewController {
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
+    }
+    
+    private func setDeadline() {
+        let appStartDate = getStudyStartDate()
+        var offsetToDeadline: Int = 0
+        
+        if appStartDate < Date() {
+            let dateComponent = Calendar.current.dateComponents([.day], from: appStartDate, to: Date())
+            guard let offsetDay = dateComponent.day else { return }
+            let offsetWeek = offsetDay % 7
+            
+            offsetToDeadline = getClosestCycleOffset(cycle: cycleDay, startDay: Date())
+            
+            if offsetWeek.isMultiple(of: cycle) {
+                offsetToDeadline += 7 * (offsetWeek % cycle)
+            }
+        } else {
+            let dateComponent = Calendar.current.dateComponents([.day], from: Date(), to: appStartDate)
+            guard let offset = dateComponent.day else { return }
+            offsetToDeadline = offset
+        }
+        let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "YYYY.MM.dd"
+        let deadLineString = dataFormatter.string(from: deadlineDate)
+        dDayLabel.text = "D-\(offsetToDeadline)"
+        deadLineLabel.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
     }
 
     private func getStudyStartDate() -> Date {
