@@ -11,6 +11,10 @@ import UIKit
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
+    let cycle = 2
+    let cycleDay = ["수", "일"]
+    let appStartDate = Date(timeIntervalSinceNow: 0)
+    let dayOfWeekNum = ["월" : 0, "화" : 1, "수" : 2, "목" : 3, "금" : 4, "토" : 5, "일" : 6]
     
     private enum Menu {
         case inviteTeam
@@ -198,6 +202,20 @@ extension StudyRoomViewController {
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
+    }
+    
+    private func getStudyStartDate() -> Date {
+        let firstDayofCycle = cycleDay[0]
+        let appStartDayOfWeek = appStartDate.getDayOfWeek
+        var offset: Int = dayOfWeekNum[appStartDayOfWeek]! - dayOfWeekNum[firstDayofCycle]!
+        if offset > 0 {
+            offset = 7 - offset
+        } else {
+            offset *= -1
+        }
+        let studyStartDate = Date(timeInterval: 60 * 60 * 24 * Double(offset), since: appStartDate)
+        
+        return studyStartDate
     }
 
     private func setupNavigationRightButton() -> UIMenu {
