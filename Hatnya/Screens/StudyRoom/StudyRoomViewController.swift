@@ -75,7 +75,6 @@ final class StudyRoomViewController: UIViewController {
                 self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
             }
         }
-        print("currentCount = \(viewModel.currentCount)")
         button.setImage(UIImage(systemName: "arrowtriangle.backward.fill"), for: .normal)
         button.setPreferredSymbolConfiguration(.init(pointSize: 15), forImageIn: .normal)
         button.tintColor = .black
