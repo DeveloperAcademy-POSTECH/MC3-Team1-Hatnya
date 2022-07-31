@@ -119,6 +119,7 @@ final class StudyRoomViewController: UIViewController {
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
     
+    private var networkManager = NetworkManager()
     private var viewModel = HomeworkViewModel()
     private var collectionView: UICollectionView!
     private var datasource: Datasource!
@@ -207,35 +208,11 @@ extension StudyRoomViewController {
     }
     
     private func fetch() {
-        let database = Firestore.firestore()
         let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
         
-        database.document(path)
-            .addSnapshotListener { [weak self] snapshot, error in
-                guard let document = snapshot else { return }
-                do {
-                    let data = try document.data(as: Homeworks.self)
-                    print(data)
-                    
-                    self?.applySnapShot(with: data.list)
-                    self?.cycle = data.cycle
-                } catch {
-                    print("🚨", error)
-                }
-            }
-    }
-
-    private func post<T: Encodable>(with data: T) {
-        let database = Firestore.firestore()
-        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
-        do {
-            let encodeData = try Firestore.Encoder().encode(data)
-            database.document(path)
-                .setData(encodeData) { error in
-                    print("🚨", error as Any)
-                }
-        } catch {
-            print("🚨", error)
+        networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
+            self?.applySnapShot(with: homeworks.list)
+            self?.cycle = homeworks.cycle
         }
     }
 
@@ -296,7 +273,8 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         let updatedItems = snapshot.itemIdentifiers
         
         let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
-        post(with: updatedHomeworks)
+        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
+        networkManager.post(with: updatedHomeworks, path: path)
     }
     
 }

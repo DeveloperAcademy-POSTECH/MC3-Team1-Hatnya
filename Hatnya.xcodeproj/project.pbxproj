@@ -43,6 +43,7 @@
 		A7D23173288D93EF00A59A85 /* StudyList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D23172288D93EF00A59A85 /* StudyList.storyboard */; };
 		AE3B22E92896932900416FC2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */; };
 		AE3B22EB2896ACFF00416FC2 /* HomeworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE3B22EA2896ACFF00416FC2 /* HomeworkViewModel.swift */; };
+		AEACD78428972F89009BC352 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEACD78328972F89009BC352 /* NetworkManager.swift */; };
 		AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AEC29DA428858DE700DA24B8 /* .swiftlint.yml */; };
 		AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */; };
 		AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */; };
@@ -91,6 +92,7 @@
 		A7D23170288D93DE00A59A85 /* StudyGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
 		A7D23172288D93EF00A59A85 /* StudyList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StudyList.storyboard; sourceTree = "<group>"; };
 		AE3B22EA2896ACFF00416FC2 /* HomeworkViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeworkViewModel.swift; sourceTree = "<group>"; };
+		AEACD78328972F89009BC352 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AEC29DA428858DE700DA24B8 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Preview.swift"; sourceTree = "<group>"; };
 		AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeworkListTitleView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		A28DEF862885506F004014DE /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				AEACD78228972F46009BC352 /* Manager */,
 				A28DEF88288550AA004014DE /* Models */,
 			);
 			path = Network;
@@ -317,6 +320,14 @@
 				3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		AEACD78228972F46009BC352 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				AEACD78328972F89009BC352 /* NetworkManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		AED2E1BA2888DE5E00B32FF7 /* Utility */ = {
@@ -460,6 +471,7 @@
 				A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */,
 				39823671288D281B00F6B004 /* Date+Extension.swift in Sources */,
 				A28DEF7328854EEF004014DE /* AppDelegate.swift in Sources */,
+				AEACD78428972F89009BC352 /* NetworkManager.swift in Sources */,
 				3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */,
 				A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */,
 				3DD9E7BF288F90AC00C3BEC0 /* StudyCycle.swift in Sources */,

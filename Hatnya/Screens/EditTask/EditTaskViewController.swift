@@ -14,6 +14,7 @@ import UIKit
 
 final class EditTaskViewController: UIViewController {
     
+    private var networkManager = NetworkManager()
     private typealias Snapshot = NSDiffableDataSourceSnapshot<EditTaskSection, Homework>
     private var taskDataSource: UITableViewDiffableDataSource<EditTaskSection, Homework>!
     private var snapshot = Snapshot()
@@ -46,7 +47,8 @@ extension EditTaskViewController {
     func completeButtonTouched() {
         snapshot = taskDataSource.snapshot()
         let updatedData = Homeworks(cycle: cycle, list: snapshot.itemIdentifiers)
-        post(with: updatedData)
+        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
+        networkManager.post(with: updatedData, path: path)
         dismiss(animated: true)
     }
     
@@ -93,33 +95,11 @@ extension EditTaskViewController {
     }
     
     private func fetch() {
-        let database = Firestore.firestore()
         let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
         
-        database.document(path)
-            .addSnapshotListener { snapshot, error in
-                guard let document = snapshot else { return }
-                do {
-                    let data = try document.data(as: Homeworks.self)
-                    self.applySnapshot(with: data.list)
-                    self.cycle = data.cycle
-                } catch {
-                    print("🚨", error)
-                }
-            }
-    }
-    
-    private func post<T: Encodable>(with data: T) {
-        let database = Firestore.firestore()
-        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
-        do {
-            let encodeData = try Firestore.Encoder().encode(data)
-            database.document(path)
-                .setData(encodeData) { error in
-                    print("🚨", error as Any)
-                }
-        } catch {
-            print("🚨", error)
+        networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
+            self?.applySnapshot(with: homeworks.list)
+            self?.cycle = homeworks.cycle
         }
     }
     
