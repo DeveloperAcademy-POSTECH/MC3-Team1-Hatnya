@@ -21,33 +21,32 @@ final class DayButtonView: UIButton {
     }
     
     private func configUI() {
-        self.backgroundColor = .systemBackground
-        self.setTitleColor(UIColor.systemBlue, for: .normal)
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        self.layer.cornerRadius = 16
-        self.addTarget(self, action: #selector(dayButtonTouch), for: .touchUpInside)
-        self.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 32, height: 32))
+        backgroundColor = .systemBackground
+        setTitleColor(UIColor.systemBlue, for: .normal)
+        titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        layer.cornerRadius = 16
+        addTarget(self, action: #selector(dayButtonTouch), for: .touchUpInside)
+        frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 32, height: 32))
     }
     
     private func render() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: 32).isActive = true
+        heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
     
     @objc
     private func dayButtonTouch() {
-        if self.isSelected {
-            self.backgroundColor = .systemBackground
-            self.setTitleColor(UIColor.systemBlue, for: .normal)
-            self.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        if isSelected {
+            backgroundColor = .systemBackground
+            setTitleColor(UIColor.systemBlue, for: .normal)
+            titleLabel?.font = UIFont.systemFont(ofSize: 20)
         } else {
-            self.backgroundColor = .systemBlue
-            self.setTitleColor(UIColor.white, for: .normal)
-            self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+            backgroundColor = .systemBlue
+            setTitleColor(UIColor.white, for: .normal)
+            titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         }
-        self.isSelected.toggle()
-        print(self.title(for: .selected) ?? "")
+        isSelected.toggle()
     }
     
     func setName(title: String) {

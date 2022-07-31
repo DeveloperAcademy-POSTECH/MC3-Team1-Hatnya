@@ -8,12 +8,23 @@
 import UIKit
 
 extension UIColor {
-    
+        
     // MARK: - grey
-    
+
     static var grey001: UIColor {
         return UIColor(hex: "#979797")
     }
+    
+    static var grey002: UIColor {
+        return UIColor(hex: "F5F5F5")
+    }
+    
+    static var backgroundGrey: UIColor {
+        return UIColor(hex: "F8F8F8")
+    }
+    
+    // MARK: - tagColor
+    
     static var tagPink: UIColor {
         return UIColor(hex: "#FDC3B1")
     }
@@ -30,4 +41,5 @@ extension UIColor {
         return UIColor(hex: "#D3C9EF")
     }
 
+    static let colorPalette: [UIColor] = [.tagPink, .tagYellow, .tagGreen, .tagLightBlue, .tagPurple, .tagPink, .tagYellow, .tagGreen]
 }

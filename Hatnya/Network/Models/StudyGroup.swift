@@ -9,9 +9,9 @@ import Foundation
 
 struct StudyGroup: Codable {
     var members: [Member]
-    let name: String
+    var name: String
     let code: String
-    let description: String
+    var description: String
     let cycle: StudyCycle
     let createdAt: Date
 }

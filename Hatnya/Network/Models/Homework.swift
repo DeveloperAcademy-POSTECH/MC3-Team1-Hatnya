@@ -10,10 +10,9 @@ import Foundation
 struct Homework: Hashable, Codable {
     let id = UUID()
     let name: String
-    let count: Int
     let isCompleted: Bool
 }
 
 extension Homework {
-    static let mock = Homework(name: "", count: 1, isCompleted: false)
+    static let mock = Homework(name: "", isCompleted: false)
 }
