@@ -6,6 +6,9 @@
 //
 
 import Combine
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 import SwiftUI
 import UIKit
 
@@ -16,13 +19,14 @@ final class EditTaskViewController: UIViewController {
     private var snapshot = Snapshot()
     private var tableView: UITableView!
     private var cancelable = Set<AnyCancellable>()
+    private var cycle = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavi()
         configureLayout()
         configureDatasource()
-        applySnapshot()
+        fetch()
     }
     
 }
@@ -40,6 +44,9 @@ extension EditTaskViewController {
     
     @objc
     func completeButtonTouched() {
+        snapshot = taskDataSource.snapshot()
+        let updatedData = Homeworks(cycle: cycle, list: snapshot.itemIdentifiers)
+        post(with: updatedData)
         dismiss(animated: true)
     }
     
@@ -77,10 +84,43 @@ extension EditTaskViewController {
         })
     }
     
-    private func applySnapshot() {
+    private func applySnapshot(with items: [Homework]) {
+        var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems([Homework.mock], toSection: .main)
+        snapshot.appendItems(items, toSection: .main)
+        self.snapshot = snapshot
         taskDataSource.apply(snapshot)
+    }
+    
+    private func fetch() {
+        let database = Firestore.firestore()
+        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
+        
+        database.document(path)
+            .addSnapshotListener { snapshot, error in
+                guard let document = snapshot else { return }
+                do {
+                    let data = try document.data(as: Homeworks.self)
+                    self.applySnapshot(with: data.list)
+                    self.cycle = data.cycle
+                } catch {
+                    print("🚨", error)
+                }
+            }
+    }
+    
+    private func post<T: Encodable>(with data: T) {
+        let database = Firestore.firestore()
+        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
+        do {
+            let encodeData = try Firestore.Encoder().encode(data)
+            database.document(path)
+                .setData(encodeData) { error in
+                    print("🚨", error as Any)
+                }
+        } catch {
+            print("🚨", error)
+        }
     }
     
 }

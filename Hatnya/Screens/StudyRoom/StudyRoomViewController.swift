@@ -211,18 +211,14 @@ extension StudyRoomViewController {
         let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
         
         database.document(path)
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { [weak self] snapshot, error in
                 guard let document = snapshot else { return }
                 do {
                     let data = try document.data(as: Homeworks.self)
-                    self.viewModel.update(with: data)
                     print(data)
                     
-                    self.snapshot.deleteAllItems()
-                    self.snapshot.appendSections([.main])
-                    self.snapshot.appendItems(data.list, toSection: .main)
-                    self.datasource.apply(self.snapshot)
-                    self.cycle = data.cycle
+                    self?.applySnapShot(with: data.list)
+                    self?.cycle = data.cycle
                 } catch {
                     print("🚨", error)
                 }
@@ -363,9 +359,11 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         }
     }
 
-    private func applySnapShot() {
+    private func applySnapShot(with item: [Homework] = []) {
+        var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems([Homework.mock], toSection: .main)
+        snapshot.appendItems(item, toSection: .main)
+        self.snapshot = snapshot
         datasource.apply(snapshot)
     }
     
