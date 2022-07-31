@@ -8,6 +8,7 @@
 import Combine
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import SwiftUI
 import UIKit
 
@@ -117,14 +118,15 @@ final class StudyRoomViewController: UIViewController {
 
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
-
+    
+    private var viewModel = HomeworkViewModel()
     private var collectionView: UICollectionView!
     private var datasource: Datasource!
     private var snapshot = Snapshot()
-
+    private var cycle = 1
 }
 
-// MARK: - life cycle
+    // MARK: - life cycle
 
 extension StudyRoomViewController {
 
@@ -206,46 +208,39 @@ extension StudyRoomViewController {
     
     private func fetch() {
         let database = Firestore.firestore()
-        let path = "/StudyGroup/MNkcDnEVFRBAfLre6YzG/Member/GWb0hAwcHujkGixvGNEO/Homework"
-        database.collection(path)
-            .addSnapshotListener { snapShot, error in
-                guard let document = snapShot else {
-                    print(error as Any)
-                    return
+        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
+        
+        database.document(path)
+            .addSnapshotListener { snapshot, error in
+                guard let document = snapshot else { return }
+                do {
+                    let data = try document.data(as: Homeworks.self)
+                    self.viewModel.update(with: data)
+                    print(data)
+                    
+                    self.snapshot.deleteAllItems()
+                    self.snapshot.appendSections([.main])
+                    self.snapshot.appendItems(data.list, toSection: .main)
+                    self.datasource.apply(self.snapshot)
+                    self.cycle = data.cycle
+                } catch {
+                    print("🚨", error)
                 }
-                let homeworks = document.documents.map { snapshot -> Homework in
-                    if let homework = self.decode(with: snapshot.data(), as: Homework.self) {
-                        return homework
-                    }
-                    return Homework.mock
-                }
-                self.snapshot.deleteAllItems()
-                self.snapshot.appendSections([.main])
-                self.snapshot.appendItems(homeworks, toSection: .main)
-                self.datasource.apply(self.snapshot)
             }
     }
 
-    private func decode<T: Decodable>(with documentData: [String: Any], as type: T.Type) -> T? {
-        var data = documentData
-        data.forEach { (key: String, value: Any) in
-            switch value {
-            case _ as DocumentReference:
-                data.removeValue(forKey: key)
-            case let timeData as Timestamp:
-                let date = timeData.dateValue()
-                let jsonDate = Int((date.timeIntervalSince1970 * 1000).rounded())
-                data[key] = jsonDate
-            default:
-                break
-            }
+    private func post<T: Encodable>(with data: T) {
+        let database = Firestore.firestore()
+        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
+        do {
+            let encodeData = try Firestore.Encoder().encode(data)
+            database.document(path)
+                .setData(encodeData) { error in
+                    print("🚨", error as Any)
+                }
+        } catch {
+            print("🚨", error)
         }
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: data) else { return nil }
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .millisecondsSince1970
-        
-        let object = try? decoder.decode(T.self, from: jsonData)
-        return object
     }
 
     private func setupNavigationRightButton() -> UIMenu {
@@ -288,12 +283,29 @@ extension StudyRoomViewController: UICollectionViewDataSource {
 
 // MARK: - Homework List View
 
-extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
+extension StudyRoomViewController: EditDelegate, CheckDelegate {
 
     func editButtonTapped() {
         let newViewController = UINavigationController(rootViewController: EditTaskViewController())
         present(newViewController, animated: true)
     }
+    
+    func checkDelegateButton(with indexPath: IndexPath) {
+        guard let beforeItem = datasource.itemIdentifier(for: indexPath) else { return }
+        var newItem = beforeItem
+        newItem.isCompleted.toggle()
+        
+        snapshot.insertItems([newItem], afterItem: beforeItem)
+        snapshot.deleteItems([beforeItem])
+        let updatedItems = snapshot.itemIdentifiers
+        
+        let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
+        post(with: updatedHomeworks)
+    }
+    
+}
+    
+extension StudyRoomViewController: UICollectionViewDelegate {
 
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -333,7 +345,8 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
 
     private func configureDatasource() {
         let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { cell, indexPath, item in
-            cell.configureContent(item: item, index: indexPath.row)
+            cell.checkDelegate = self
+            cell.configureUI(with: item, index: indexPath)
         }
 
         datasource = Datasource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
@@ -355,6 +368,7 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         snapshot.appendItems([Homework.mock], toSection: .main)
         datasource.apply(snapshot)
     }
+    
 }
 
 struct StudyRoomViewControllerPreview: PreviewProvider {

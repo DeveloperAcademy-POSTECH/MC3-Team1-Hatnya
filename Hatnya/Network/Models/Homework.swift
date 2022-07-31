@@ -8,11 +8,19 @@
 import Foundation
 
 struct Homework: Hashable, Codable {
-    let id = UUID()
-    let name: String
-    let isCompleted: Bool
+    var name: String
+    var isCompleted: Bool
 }
 
 extension Homework {
     static let mock = Homework(name: "", isCompleted: false)
+}
+
+struct Homeworks: Codable {
+    let cycle: Int
+    var list: [Homework]
+}
+
+extension Homeworks {
+    static let mock = Homeworks(cycle: 1, list: [Homework.mock])
 }
