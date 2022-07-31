@@ -14,7 +14,7 @@ final class StudyRoomViewController: UIViewController {
     let cycle = 2
     let cycleDay = ["수", "일"]
     let appStartDate = Date(timeIntervalSinceNow: 0)
-    let dayOfWeekNum = ["월" : 0, "화" : 1, "수" : 2, "목" : 3, "금" : 4, "토" : 5, "일" : 6]
+    let dayOfWeekNum = ["월": 0, "화": 1, "수": 2, "목": 3, "금": 4, "토": 5, "일": 6]
     
     private enum Menu {
         case inviteTeam
@@ -203,19 +203,29 @@ extension StudyRoomViewController {
         guard let date = day else { return "" }
         return date.getDayOfWeek
     }
-    
+
     private func getStudyStartDate() -> Date {
-        let firstDayofCycle = cycleDay[0]
-        let appStartDayOfWeek = appStartDate.getDayOfWeek
-        var offset: Int = dayOfWeekNum[appStartDayOfWeek]! - dayOfWeekNum[firstDayofCycle]!
-        if offset > 0 {
-            offset = 7 - offset
-        } else {
-            offset *= -1
-        }
-        let studyStartDate = Date(timeInterval: 60 * 60 * 24 * Double(offset), since: appStartDate)
+        let offset = getClosestCycleOffset(cycle: [cycleDay[0]], startDay: appStartDate)
+        let stusyStartDate = Date(timeInterval: 60 * 60 * 24 * Double(offset), since: appStartDate)
         
-        return studyStartDate
+        return stusyStartDate
+    }
+
+    private func getClosestCycleOffset(cycle: [String], startDay: Date) -> Int {
+        let startDayOfWeek = startDay.getDayOfWeek
+        var offset = -1
+        
+        for day in cycle {
+            if dayOfWeekNum[day]! >= dayOfWeekNum[startDayOfWeek]! {
+                offset = dayOfWeekNum[day]! - dayOfWeekNum[startDayOfWeek]!
+                break
+            }
+        }
+        if offset == -1 {
+            offset = 7 - (dayOfWeekNum[startDayOfWeek]! - dayOfWeekNum[cycle[0]]!)
+        }
+        
+        return offset
     }
 
     private func setupNavigationRightButton() -> UIMenu {
