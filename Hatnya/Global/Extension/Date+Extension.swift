@@ -14,4 +14,10 @@ extension Date {
         formatter.locale = Locale(identifier: "ko_KR")
         return formatter.string(from: self)
     }
+    
+    var toString: String {
+        let dataFormatter = DateFormatter()
+        dataFormatter.dateFormat = "YYYY.MM.dd"
+        return dataFormatter.string(from: self)
+    }
 }

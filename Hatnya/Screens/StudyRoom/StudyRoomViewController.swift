@@ -223,11 +223,8 @@ extension StudyRoomViewController {
             offsetToDeadline = offset
         }
         let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
-        let dataFormatter = DateFormatter()
-        dataFormatter.dateFormat = "YYYY.MM.dd"
-        let deadLineString = dataFormatter.string(from: deadlineDate)
         dDayLabel.text = "D-\(offsetToDeadline)"
-        deadLineLabel.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
+        deadLineLabel.text = "\(deadlineDate.toString)(\(setDayOfWeek(deadlineDate))) 까지"
     }
 
     private func getStudyStartDate() -> Date {
