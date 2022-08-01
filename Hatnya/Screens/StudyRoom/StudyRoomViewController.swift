@@ -12,7 +12,6 @@ final class StudyRoomViewController: UIViewController {
     let cycle = 3
     let cycleDay = ["수", "일"]
     let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
-    let dayOfWeekNum = ["월": 0, "화": 1, "수": 2, "목": 3, "금": 4, "토": 5, "일": 6]
     
     private enum Menu {
         case inviteTeam
@@ -194,54 +193,11 @@ extension StudyRoomViewController {
     }
     
     private func setDeadlineLabels() {
-        let studyStartDate = getStudyStartDate()
-        var offsetToDeadline: Int = 0
-        
-        if studyStartDate < Date() {
-            offsetToDeadline = getClosestCycleOffset(cycle: cycleDay, startDay: Date())
-            let nearestCycleDate = Date(timeIntervalSinceNow: 60 * 60 * 24 * Double(offsetToDeadline))
-            
-            let dateComponent = Calendar.current.dateComponents([.day], from: studyStartDate, to: nearestCycleDate)
-            guard let offsetDay = dateComponent.day else { return }
-            let offsetWeek = offsetDay / 7
-            
-            if !offsetWeek.isMultiple(of: cycle) {
-                offsetToDeadline += 7 * (cycle - (offsetWeek % cycle))
-            }
-            offsetToDeadline -= (dayOfWeekNum[nearestCycleDate.getDayOfWeek]! - dayOfWeekNum[cycleDay[0]]!)
-        } else {
-            let dateComponent = Calendar.current.dateComponents([.day], from: Date(), to: studyStartDate)
-            guard let offset = dateComponent.day else { return }
-            offsetToDeadline = offset
-        }
-        
+        let deadlineManager = DeadlineManager()
+        let offsetToDeadline = deadlineManager.getOffsetToDeadline(appStartDate: appStartDate, cycle: cycle, cycleDay: cycleDay)
         let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
         dDayLabel.text = "D-\(offsetToDeadline)"
         deadLineLabel.text = "\(deadlineDate.toString)(\(setDayOfWeek(deadlineDate))) 까지"
-    }
-
-    private func getStudyStartDate() -> Date {
-        let offset = getClosestCycleOffset(cycle: [cycleDay[0]], startDay: appStartDate)
-        let studyStartDate = Date(timeInterval: 60 * 60 * 24 * Double(offset), since: appStartDate)
-        
-        return studyStartDate
-    }
-
-    private func getClosestCycleOffset(cycle: [String], startDay: Date) -> Int {
-        let startDayOfWeek = startDay.getDayOfWeek
-        var offset = -1
-        
-        for day in cycle {
-            if dayOfWeekNum[day]! >= dayOfWeekNum[startDayOfWeek]! {
-                offset = dayOfWeekNum[day]! - dayOfWeekNum[startDayOfWeek]!
-                break
-            }
-        }
-        if offset == -1 {
-            offset = 7 - (dayOfWeekNum[startDayOfWeek]! - dayOfWeekNum[cycle[0]]!)
-        }
-        
-        return offset
     }
 
     private func setupNavigationRightButton() -> UIMenu {
