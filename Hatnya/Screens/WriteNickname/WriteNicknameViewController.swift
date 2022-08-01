@@ -10,40 +10,9 @@ import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
-    let firestore = Firestore.firestore()
-    var studyGroup = StudyGroup(members: [],
-                                name: "이름 없음",
-                                code: "no code",
-                                description: "설명 없음",
-                                cycle: StudyCycle(cycle: 1, weekDay: ["화"]),
-                                createdAt: nil,
-                                uid: "no uid")
-    
-    var mode: Mode = .create
-    
-    enum Mode {
-        case edit
-        case create
-        
-        var titleText: String {
-            switch self {
-            case .create:
-                return "스터디에서 사용할 닉네임을 입력하세요"
-            case .edit:
-                return "수정할 닉네임을 입력해 주세요"
-            }
-        }
-        
-        var nextButtonText: String {
-            switch self {
-            case .create:
-                return "그룹 입장하기"
-            case .edit:
-                return "수정하기"
-            }
-        }
-    }
-    
+    private let firestore = Firestore.firestore()
+    var studyGroupDocumentId: String = ""
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = mode.titleText
@@ -77,6 +46,7 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
+        storeMemberNickname()
         let studyGroupUUID = UUID()
         
         let studyGroupData: [String: Any] = [
@@ -119,7 +89,6 @@ final class WriteNicknameViewController: UIViewController {
         
         setTextField()
     }
-    
 }
 
 extension WriteNicknameViewController {
@@ -194,6 +163,23 @@ extension WriteNicknameViewController: UITextFieldDelegate {
         }
     }
     
+    private func storeMemberNickname() {
+        let membersRef = firestore.collection("StudyGroup").document(studyGroupDocumentId).collection("Members").document()
+        let uuid = UIDevice.current.identifierForVendor!.uuidString
+        
+        if let nickname = inputTextField.text {
+            membersRef.setData([
+                "uid": uuid,
+                "nickname": nickname
+            ]) { err in
+                if let err = err {
+                    print("Error writing document: \(err)")
+                } else {
+                    print("Document successfully written!")
+                }
+            }
+        }
+    }
 }
 
 struct WriteNicknameViewControllerPreview: PreviewProvider {
