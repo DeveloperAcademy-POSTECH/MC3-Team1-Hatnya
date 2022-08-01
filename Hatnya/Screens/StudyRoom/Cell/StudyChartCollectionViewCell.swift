@@ -62,20 +62,18 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
     // MARK: - func
     
     func setupChartStackView(_ list: [Bool], count: Int) {
-        if chartStackView.arrangedSubviews.count < count {
-            chartStackView.arrangedSubviews.forEach {
-                chartStackView.removeArrangedSubview($0)
+        chartStackView.arrangedSubviews.forEach {
+            chartStackView.removeArrangedSubview($0)
+        }
+        for index in 0..<count {
+            let testView = UIView()
+            if list[index] {
+                testView.backgroundColor = UIColor.colorPalette[index]
+            } else {
+                testView.backgroundColor = .grey002
             }
-            for index in 0..<count {
-                let testView = UIView()
-                if list[index] {
-                    testView.backgroundColor = UIColor.colorPalette[index]
-                } else {
-                    testView.backgroundColor = .grey002
-                }
-                testView.layer.cornerRadius = 5
-                chartStackView.addArrangedSubview(testView)
-            }
+            testView.layer.cornerRadius = 5
+            chartStackView.addArrangedSubview(testView)
         }
     }
 }
