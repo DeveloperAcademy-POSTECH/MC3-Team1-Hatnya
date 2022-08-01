@@ -8,7 +8,6 @@
 import Combine
 import FirebaseCore
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 import SwiftUI
 import UIKit
 
@@ -47,8 +46,9 @@ extension EditTaskViewController {
     func completeButtonTouched() {
         snapshot = taskDataSource.snapshot()
         let updatedData = Homeworks(cycle: cycle, list: snapshot.itemIdentifiers)
-        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
-        networkManager.post(with: updatedData, path: path)
+        networkManager.homeworkPath(cycle: 1) { path in
+            self.networkManager.post(with: updatedData, path: path)
+        }
         dismiss(animated: true)
     }
     
@@ -95,11 +95,11 @@ extension EditTaskViewController {
     }
     
     private func fetch() {
-        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
-        
-        networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
-            self?.applySnapshot(with: homeworks.list)
-            self?.cycle = homeworks.cycle
+        networkManager.homeworkPath(cycle: 1) { path in
+            self.networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
+                self?.applySnapshot(with: homeworks.list)
+                self?.cycle = homeworks.cycle
+            }
         }
     }
     

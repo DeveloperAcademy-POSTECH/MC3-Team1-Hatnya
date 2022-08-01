@@ -8,7 +8,6 @@
 import Combine
 import FirebaseCore
 import FirebaseFirestore
-import FirebaseFirestoreSwift
 import SwiftUI
 import UIKit
 
@@ -208,11 +207,11 @@ extension StudyRoomViewController {
     }
     
     private func fetch() {
-        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
-        
-        networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
-            self?.applySnapShot(with: homeworks.list)
-            self?.cycle = homeworks.cycle
+        networkManager.homeworkPath(cycle: 1) { path in
+            self.networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
+                self?.applySnapShot(with: homeworks.list)
+                self?.cycle = homeworks.cycle
+            }
         }
     }
 
@@ -273,8 +272,9 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         let updatedItems = snapshot.itemIdentifiers
         
         let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
-        let path = "/StudyGroup/w2sEujplXcqubgaYYUdZ/Members/R2kwDarTzaudc5JnGpL5/Homeworks/0mo72FPYAitcvpwnKQEI"
-        networkManager.post(with: updatedHomeworks, path: path)
+        networkManager.homeworkPath(cycle: 1) { path in
+            self.networkManager.post(with: updatedHomeworks, path: path)
+        }
     }
     
 }
