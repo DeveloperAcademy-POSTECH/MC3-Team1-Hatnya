@@ -21,6 +21,13 @@ final class WriteNicknameViewController: UIViewController {
                                 createdAt: nil,
                                 uid: "no uid")
     
+    var beforeView: BeforeView = .createStudy
+    
+    enum BeforeView {
+        case createStudy
+        case joinStudy
+    }
+    
     var mode: Mode = .create
     
     enum Mode {
@@ -79,31 +86,11 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
-        storeMemberNickname()
-        let studyGroupUUID = UUID()
-        
-        let studyGroupData: [String: Any] = [
-            "code": studyGroup.code,
-            "createdAt": Timestamp(date: Date()),
-            "description": studyGroup.description,
-            "name": studyGroup.name
-        ]
-        
-        let cycleData: [String: Any] = [
-            "cycle": studyGroup.cycle.cycle,
-            "weekday": studyGroup.cycle.weekDay
-        ]
-        
-        let membersData: [String: Any] = [
-            "nickname": inputTextField.text ?? "이름 없음",
-            "uid": UIDevice.current.identifierForVendor!.uuidString
-        ]
-    
-        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString).setData(studyGroupData)
-        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
-            .collection("Cycle").addDocument(data: cycleData)
-        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
-            .collection("Members").addDocument(data: membersData)
+        if beforeView == BeforeView.createStudy {
+            createNewStudy()
+        } else {
+            storeMemberNickname()
+        }
         
         self.presentingViewController?.dismiss(animated: true)
     }
@@ -194,6 +181,33 @@ extension WriteNicknameViewController: UITextFieldDelegate {
             nextButton.backgroundColor = .systemBlue
             nextButton.isEnabled = true
         }
+    }
+    
+    private func createNewStudy() {
+        let studyGroupUUID = UUID()
+        
+        let studyGroupData: [String: Any] = [
+            "code": studyGroup.code,
+            "createdAt": Timestamp(date: Date()),
+            "description": studyGroup.description,
+            "name": studyGroup.name
+        ]
+        
+        let cycleData: [String: Any] = [
+            "cycle": studyGroup.cycle.cycle,
+            "weekday": studyGroup.cycle.weekDay
+        ]
+        
+        let membersData: [String: Any] = [
+            "nickname": inputTextField.text ?? "이름 없음",
+            "uid": UIDevice.current.identifierForVendor!.uuidString
+        ]
+    
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString).setData(studyGroupData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Cycle").addDocument(data: cycleData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Members").addDocument(data: membersData)
     }
     
     private func storeMemberNickname() {
