@@ -8,13 +8,13 @@
 import UIKit
 
 class DayButtonStackView: UIStackView {
-    private lazy var mondayBtn = DayButtonView()
-    private lazy var tuesdayBtn = DayButtonView()
-    private lazy var wednesdayBtn = DayButtonView()
-    private lazy var thursdayBtn = DayButtonView()
-    private lazy var fridayBtn = DayButtonView()
-    private lazy var saturdayBtn = DayButtonView()
-    private lazy var sundayBtn = DayButtonView()
+    private lazy var mondayButton = DayButtonView()
+    private lazy var tuesdayButton = DayButtonView()
+    private lazy var wednesdayButton = DayButtonView()
+    private lazy var thursdayButton = DayButtonView()
+    private lazy var fridayButton = DayButtonView()
+    private lazy var saturdayButton = DayButtonView()
+    private lazy var sundayButton = DayButtonView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,17 +31,17 @@ class DayButtonStackView: UIStackView {
         self.alignment = .center
         self.distribution = .equalSpacing
         self.spacing = 0
-        sundayBtn.setName(title: "일")
-        mondayBtn.setName(title: "월")
-        tuesdayBtn.isSelected = true
-        tuesdayBtn.changeButtonColorToBlue()
-        tuesdayBtn.setName(title: "화")
-        wednesdayBtn.setName(title: "수")
-        thursdayBtn.setName(title: "목")
-        fridayBtn.setName(title: "금")
-        saturdayBtn.setName(title: "토")
+        sundayButton.setName(title: "일")
+        mondayButton.setName(title: "월")
+        tuesdayButton.isSelected = true
+        tuesdayButton.changeButtonColorToBlue()
+        tuesdayButton.setName(title: "화")
+        wednesdayButton.setName(title: "수")
+        thursdayButton.setName(title: "목")
+        fridayButton.setName(title: "금")
+        saturdayButton.setName(title: "토")
         
-        [sundayBtn, mondayBtn, tuesdayBtn, wednesdayBtn, thursdayBtn, fridayBtn, saturdayBtn].forEach { btn in
+        [sundayButton, mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton].forEach { btn in
             addArrangedSubview(btn)
         }
     }
