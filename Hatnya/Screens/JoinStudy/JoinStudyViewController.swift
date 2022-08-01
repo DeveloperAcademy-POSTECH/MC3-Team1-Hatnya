@@ -11,8 +11,9 @@ import UIKit
 
 class JoinStudyViewController: UIViewController {
     
-    let firestore = Firestore.firestore()
-    var studyInfo = [StudyInfo]()
+    private let firestore = Firestore.firestore()
+    private var studyInfo = [StudyInfo]()
+    private var studyGroupDocumentId = ""
     
     @IBOutlet private var codeTextField: UITextField!
     @IBOutlet private var searchResultView: UIView!
@@ -21,7 +22,9 @@ class JoinStudyViewController: UIViewController {
     @IBOutlet private var nextButton: UIButton!
     
     @IBAction private func touchUpNextButton(_ sender: UIButton) {
-        
+        let nicknameViewController = WriteNicknameViewController()
+        nicknameViewController.studyGroupDocumentId = studyGroupDocumentId
+        self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
     @IBAction private func touchUpDismissButton(_ sender: UIButton) {
@@ -57,11 +60,11 @@ extension JoinStudyViewController: UITextFieldDelegate {
         nextButton.setBackgroundColor(.systemGray6, for: .disabled)
     }
     
-    func groupWithSameCode(completion: @escaping (Result<StudyInfo, Error>) -> Void) {
-        firestore.collection("StudyGroup").whereField("code", isEqualTo: codeTextField.text as Any)
+    func groupWithSameCode(code: String, completion: @escaping (Result<StudyInfo, Error>) -> Void) {
+        firestore.collection("StudyGroup").whereField("code", isEqualTo: code)
             .getDocuments { querySnapshot, err in
                 if let err = err {
-                    print("err: \(err)")
+                    completion(.failure(err))
                 } else {
                     for document in querySnapshot!.documents {
                         let data = document.data()
@@ -69,6 +72,7 @@ extension JoinStudyViewController: UITextFieldDelegate {
                               let description = data["description"] as? String else { return }
                         
                         completion(.success(StudyInfo(name: name, description: description)))
+                        self.studyGroupDocumentId = document.documentID
                     }
                 }
             }
@@ -76,7 +80,8 @@ extension JoinStudyViewController: UITextFieldDelegate {
     
     private func searchStudyGroup() {
         studyGroupName.text = "해당하는 스터디가 없습니다."
-        groupWithSameCode { [weak self] results in
+        guard let code = codeTextField.text else { return }
+        groupWithSameCode(code: code) { [weak self] results in
             switch results {
             case .success(let info):
                 self?.searchResultView.backgroundColor = .systemGray6
