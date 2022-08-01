@@ -72,7 +72,7 @@ class StudyRoomViewModel {
                     let uid = data["uid"] as? String ?? ""
                     let name = data["nickname"] as? String ?? ""
                     document.reference.collection("Homeworks")
-                        .whereField("cycle", isEqualTo: cycle)
+                        .whereField("count", isEqualTo: cycle)
                         .getDocuments { querySnapshot, err in
                         if let err = err {
                             print("Error getting documents: \(err)")
