@@ -92,6 +92,7 @@ final class WriteNicknameViewController: UIViewController {
             storeMemberNickname()
         }
         
+        self.presentingViewController?.viewWillAppear(true)
         self.presentingViewController?.dismiss(animated: true)
     }
     
@@ -185,6 +186,7 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     
     private func createNewStudy() {
         let studyGroupUUID = UUID()
+        let memberUUID = UUID()
         
         let studyGroupData: [String: Any] = [
             "code": studyGroup.code,
@@ -202,12 +204,19 @@ extension WriteNicknameViewController: UITextFieldDelegate {
             "nickname": inputTextField.text ?? "이름 없음",
             "uid": UIDevice.current.identifierForVendor!.uuidString
         ]
+        
+        let homeworksData: [String: Any] = [
+            "list": [],
+            "count": 1
+        ]
     
         firestore.collection("StudyGroup").document(studyGroupUUID.uuidString).setData(studyGroupData)
         firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
             .collection("Cycle").addDocument(data: cycleData)
         firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
-            .collection("Members").addDocument(data: membersData)
+            .collection("Members").document(memberUUID.uuidString).setData(membersData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Members").document(memberUUID.uuidString).collection("Homeworks").addDocument(data: homeworksData)
     }
     
     private func storeMemberNickname() {

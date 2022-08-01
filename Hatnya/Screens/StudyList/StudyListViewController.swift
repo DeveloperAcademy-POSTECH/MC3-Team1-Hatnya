@@ -35,8 +35,11 @@ final class StudyListViewController: UIViewController {
         
         render()
         addUid()
-        fetchStudyGroups()
         tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchStudyGroups()
     }
     
     private func render() {
@@ -83,7 +86,8 @@ final class StudyListViewController: UIViewController {
         UserDefaults.standard.set(uuid, forKey: "User")
     }
     
-    private func fetchStudyGroups() {
+    func fetchStudyGroups() {
+        studyGroup = [StudyGroup]()
         // "Members" 컬렉션에서 (UserDefaults에 저장된 값 == uid)인 document만 필터링
         firestore.collectionGroup("Members")
             .whereField("uid", isEqualTo: UserDefaults.standard.string(forKey: "User") ?? "")
