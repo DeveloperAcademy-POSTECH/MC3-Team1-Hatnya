@@ -12,7 +12,7 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
-    let cycle = 3
+    var cycle = 3
     let cycleDay = ["수", "일"]
     let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
     
@@ -134,7 +134,7 @@ final class StudyRoomViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var datasource: Datasource!
     private var snapshot = Snapshot()
-    private var cycle = 1
+    private var count = 1
 }
 
     // MARK: - life cycle
@@ -217,12 +217,13 @@ extension StudyRoomViewController {
         let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
         dDayLabel.text = "D-\(offsetToDeadline)"
         deadLineLabel.text = "\(deadlineDate.toString)(\(setDayOfWeek(deadlineDate))) 까지"
+    }
 
     private func fetch() {
-        networkManager.getHomeworkPath(cycle: 1) { path in
+        networkManager.getHomeworkPath(count: 1) { path in
             self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
                 self?.applySnapshot(with: homeworks.list)
-                self?.cycle = homeworks.cycle
+                self?.count = homeworks.count
             }
         }
 
@@ -284,8 +285,8 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         snapshot.deleteItems([beforeItem])
         let updatedItems = snapshot.itemIdentifiers
         
-        let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
-        networkManager.getHomeworkPath(cycle: 1) { [weak self] path in
+        let updatedHomeworks = Homeworks(count: count, list: updatedItems)
+        networkManager.getHomeworkPath(count: 1) { [weak self] path in
             self?.networkManager.post(with: updatedHomeworks, path: path)
         }
     }
