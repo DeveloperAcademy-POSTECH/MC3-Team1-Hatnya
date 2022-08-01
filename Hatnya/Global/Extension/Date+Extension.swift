@@ -16,8 +16,8 @@ extension Date {
     }
     
     var toString: String {
-        let dataFormatter = DateFormatter()
-        dataFormatter.dateFormat = "YYYY.MM.dd"
-        return dataFormatter.string(from: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY.MM.dd"
+        return dateFormatter.string(from: self)
     }
 }
