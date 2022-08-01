@@ -6,6 +6,8 @@
 //
 
 import Combine
+import FirebaseCore
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
@@ -17,6 +19,20 @@ final class StudyRoomViewController: UIViewController {
     var viewModel = StudyRoomViewModel(studyUid: "w2sEujplXcqubgaYYUdZ")
     var cancelBag = Set<AnyCancellable>()
 
+    
+    private let selectedStudyGroup: StudyGroup
+    
+    init(selectedStudyGroup: StudyGroup) {
+        self.selectedStudyGroup = selectedStudyGroup
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        self.selectedStudyGroup = StudyGroup.sampleData[0]
+        super.init(coder: coder)
+    }
+    
     private enum Menu {
         case inviteTeam
         case editDate
@@ -151,7 +167,7 @@ final class StudyRoomViewController: UIViewController {
     enum HomeworkSection {
         case main
     }
-
+    
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
 
@@ -174,12 +190,12 @@ extension StudyRoomViewController {
         applySnapShot()
         bind()
     }
-
+    
     private func configUI() {
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
     }
-
+    
     private func render() {
         view.addSubview(currentCountLabel)
         currentCountLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -245,14 +261,15 @@ extension StudyRoomViewController {
             chartCollectionView.bottomAnchor.constraint(equalTo: taskBackgroundView.bottomAnchor, constant: -10)]
         )
     }
-
+    
     // MARK: - func
-
+    
     private func setupNavigationBar() {
-        title = "Swift Study"
+        title = selectedStudyGroup.name
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
-
+    
     private func getDateDifference() -> Int {
         guard let date = deadLineString.stringToDate else { return 0 }
         let distance = date.distance(to: Date())
@@ -260,7 +277,7 @@ extension StudyRoomViewController {
         let result = abs(Int(resultToDouble))
         return result
     }
-
+    
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
@@ -323,12 +340,12 @@ extension StudyRoomViewController: UICollectionViewDataSource {
 // MARK: - Homework List View
 
 extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
-
+    
     func editButtonTapped() {
         let newViewController = UINavigationController(rootViewController: EditTaskViewController())
         present(newViewController, animated: true)
     }
-
+    
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -394,7 +411,7 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
 struct StudyRoomViewControllerPreview: PreviewProvider {
 
     static var previews: some View {
-        StudyRoomViewController().toPreview()
+        StudyRoomViewController(selectedStudyGroup: StudyGroup.sampleData[0]).toPreview()
     }
 
 }
