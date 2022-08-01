@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StudyCycle {
+struct StudyCycle: Codable {
     let cycle: Int
     let weekDay: [String]
 }

@@ -6,23 +6,27 @@
 //
 
 import Combine
+import FirebaseCore
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
 final class EditTaskViewController: UIViewController {
     
+    private var networkManager = NetworkManager()
     private typealias Snapshot = NSDiffableDataSourceSnapshot<EditTaskSection, Homework>
     private var taskDataSource: UITableViewDiffableDataSource<EditTaskSection, Homework>!
     private var snapshot = Snapshot()
     private var tableView: UITableView!
     private var cancelable = Set<AnyCancellable>()
+    private var cycle = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavi()
         configureLayout()
         configureDatasource()
-        applySnapshot()
+        fetch()
     }
     
 }
@@ -40,6 +44,11 @@ extension EditTaskViewController {
     
     @objc
     func completeButtonTouched() {
+        snapshot = taskDataSource.snapshot()
+        let updatedData = Homeworks(cycle: cycle, list: snapshot.itemIdentifiers)
+        networkManager.getHomeworkPath(cycle: 1) { path in
+            self.networkManager.post(with: updatedData, path: path)
+        }
         dismiss(animated: true)
     }
     
@@ -77,10 +86,21 @@ extension EditTaskViewController {
         })
     }
     
-    private func applySnapshot() {
+    private func applySnapshot(with items: [Homework]) {
+        var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.list, toSection: .main)
+        snapshot.appendItems(items, toSection: .main)
+        self.snapshot = snapshot
         taskDataSource.apply(snapshot)
+    }
+    
+    private func fetch() {
+        networkManager.getHomeworkPath(cycle: 1) { path in
+            self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
+                self?.applySnapshot(with: homeworks.list)
+                self?.cycle = homeworks.cycle
+            }
+        }
     }
     
 }
