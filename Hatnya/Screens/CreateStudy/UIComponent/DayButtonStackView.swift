@@ -49,25 +49,25 @@ class DayButtonStackView: UIStackView {
     func getSelectedDays() -> [String] {
         var selectedDays: [String] = []
         
-        if mondayBtn.isSelected {
+        if mondayButton.isSelected {
             selectedDays.append("월")
         }
-        if tuesdayBtn.isSelected {
+        if tuesdayButton.isSelected {
             selectedDays.append("화")
         }
-        if wednesdayBtn.isSelected {
+        if wednesdayButton.isSelected {
             selectedDays.append("수")
         }
-        if thursdayBtn.isSelected {
+        if thursdayButton.isSelected {
             selectedDays.append("목")
         }
-        if fridayBtn.isSelected {
+        if fridayButton.isSelected {
             selectedDays.append("금")
         }
-        if saturdayBtn.isSelected {
+        if saturdayButton.isSelected {
             selectedDays.append("토")
         }
-        if sundayBtn.isSelected {
+        if sundayButton.isSelected {
             selectedDays.append("일")
         }
         
