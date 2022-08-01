@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StudyGroup {
+struct StudyGroup: Codable {
     var members: [Member]
     var name: String
     let code: String

@@ -11,7 +11,7 @@ import UIKit
 
 final class EditTaskSupplementaryView: UITableViewHeaderFooterView {
     
-    @Published var newTask = Homework(name: "", isCompleted: false)
+    @Published var newTask = Homework.mock
     
     private lazy var plusButton: UIButton = {
         var config = UIImage.SymbolConfiguration(paletteColors: [.systemGreen])
@@ -78,7 +78,7 @@ extension EditTaskSupplementaryView {
     @objc
     func plusButtonTouched() {
         guard let text = textField.text else { return }
-        newTask = Homework(name: text, isCompleted: false)
+        newTask = Homework(id: "\(UUID())", name: text, isCompleted: false)
         textField.text = ""
     }
     
