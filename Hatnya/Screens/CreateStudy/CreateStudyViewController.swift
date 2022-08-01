@@ -112,7 +112,8 @@ final class CreateStudyViewController: UIViewController {
                                     description: getStudyDescription(),
                                     cycle: StudyCycle(cycle: selectCycleDayView.getSelectedCycle(),
                                                       weekDay: selectCycleDayView.getSelectedDays()),
-                                    createdAt: nil)
+                                    createdAt: nil,
+                                    uid: "no uid")
         nicknameViewController.studyGroup = studyGroup
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }

@@ -16,7 +16,8 @@ final class WriteNicknameViewController: UIViewController {
                                 code: "no code",
                                 description: "설명 없음",
                                 cycle: StudyCycle(cycle: 1, weekDay: ["화"]),
-                                createdAt: nil)
+                                createdAt: nil,
+                                uid: "no uid")
     
     var mode: Mode = .create
     
