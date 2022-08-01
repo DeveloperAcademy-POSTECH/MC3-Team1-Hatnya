@@ -22,7 +22,7 @@ final class NetworkManager {
         case unknown
     }
 
-    func getHomeworkPath(cycle: Int, completionHandler: @escaping (String) -> Void) {
+    func getHomeworkPath(count: Int, completionHandler: @escaping (String) -> Void) {
         // TODO: study id UserDefaults 저장 또는 뷰컨트롤러로부터 데이터 전달하여 하드 코딩 제거
         let studyId = "w2sEujplXcqubgaYYUdZ"
         let uid = UserDefaults.standard.string(forKey: "User") ?? ""
@@ -42,8 +42,8 @@ final class NetworkManager {
                             .getDocuments { querySnapshot, _ in
                                 guard let documents = querySnapshot?.documents else { return }
                                 documents.forEach { snapshot in
-                                    guard let cycleData = snapshot.data()["cycle"] as? Int else { return }
-                                    if cycle == cycleData {
+                                    guard let countData = snapshot.data()["count"] as? Int else { return }
+                                    if count == countData {
                                         homeworkId = snapshot.documentID
                                         completionHandler("StudyGroup/\(studyId)/Members/\(userId)/Homeworks/\(homeworkId)")
                                     }

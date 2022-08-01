@@ -18,10 +18,10 @@ extension Homework {
 }
 
 struct Homeworks: Codable {
-    let cycle: Int
+    let count: Int
     var list: [Homework]
 }
 
 extension Homeworks {
-    static let mock = Homeworks(cycle: 1, list: [Homework.mock])
+    static let mock = Homeworks(count: 1, list: [Homework.mock])
 }

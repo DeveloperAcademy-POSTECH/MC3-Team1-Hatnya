@@ -19,6 +19,9 @@ final class StudyRoomViewController: UIViewController {
     var viewModel = StudyRoomViewModel(studyUid: "w2sEujplXcqubgaYYUdZ")
     var cancelBag = Set<AnyCancellable>()
 
+    var cycle = 3
+    let cycleDay = ["수", "일"]
+    let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
     
     private let selectedStudyGroup: StudyGroup
     
@@ -131,14 +134,12 @@ final class StudyRoomViewController: UIViewController {
     }()
     private lazy var deadLineLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(deadLineString)(\(setDayOfWeek(deadLineString.stringToDate))) 까지"
         label.textColor = .grey001
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
     private lazy var dDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "D-\(getDateDifference())"
         label.font = UIFont.boldSystemFont(ofSize: 34)
         return label
     }()
@@ -175,7 +176,7 @@ final class StudyRoomViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var datasource: Datasource!
     private var snapshot = Snapshot()
-    private var cycle = 1
+    private var count = 1
 }
 
     // MARK: - life cycle
@@ -196,6 +197,7 @@ extension StudyRoomViewController {
     private func configUI() {
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
+        setDeadlineLabels()
     }
     
     private func render() {
@@ -271,27 +273,28 @@ extension StudyRoomViewController {
         navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
-    
-    private func getDateDifference() -> Int {
-        guard let date = deadLineString.stringToDate else { return 0 }
-        let distance = date.distance(to: Date())
-        let resultToDouble = Double(distance) / oneDayTimeInterval
-        let result = abs(Int(resultToDouble))
-        return result
-    }
-    
+
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
     }
     
+    private func setDeadlineLabels() {
+        let deadlineManager = DeadlineManager()
+        let offsetToDeadline = deadlineManager.getOffsetToDeadline(appStartDate: appStartDate, cycle: cycle, cycleDay: cycleDay)
+        let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
+        dDayLabel.text = "D-\(offsetToDeadline)"
+        deadLineLabel.text = "\(deadlineDate.toString)(\(setDayOfWeek(deadlineDate))) 까지"
+    }
+
     private func fetch() {
-        networkManager.getHomeworkPath(cycle: 1) { path in
+        networkManager.getHomeworkPath(count: 1) { path in
             self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
                 self?.applySnapshot(with: homeworks.list)
-                self?.cycle = homeworks.cycle
+                self?.count = homeworks.count
             }
         }
+
     }
 
     private func setupNavigationRightButton() -> UIMenu {
@@ -368,8 +371,8 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         snapshot.deleteItems([beforeItem])
         let updatedItems = snapshot.itemIdentifiers
         
-        let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
-        networkManager.getHomeworkPath(cycle: 1) { [weak self] path in
+        let updatedHomeworks = Homeworks(count: count, list: updatedItems)
+        networkManager.getHomeworkPath(count: 1) { [weak self] path in
             self?.networkManager.post(with: updatedHomeworks, path: path)
         }
     }
