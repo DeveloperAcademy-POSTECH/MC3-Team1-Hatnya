@@ -12,6 +12,39 @@ import UIKit
 final class WriteNicknameViewController: UIViewController {
     private let firestore = Firestore.firestore()
     var studyGroupDocumentId: String = ""
+    
+    var studyGroup = StudyGroup(members: [],
+                                name: "이름 없음",
+                                code: "no code",
+                                description: "설명 없음",
+                                cycle: StudyCycle(cycle: 1, weekDay: ["화"]),
+                                createdAt: nil,
+                                uid: "no uid")
+    
+    var mode: Mode = .create
+    
+    enum Mode {
+        case edit
+        case create
+        
+        var titleText: String {
+            switch self {
+            case .create:
+                return "스터디에서 사용할 닉네임을 입력하세요"
+            case .edit:
+                return "수정할 닉네임을 입력해 주세요"
+            }
+        }
+        
+        var nextButtonText: String {
+            switch self {
+            case .create:
+                return "그룹 입장하기"
+            case .edit:
+                return "수정하기"
+            }
+        }
+    }
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
