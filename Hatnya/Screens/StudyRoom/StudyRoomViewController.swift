@@ -9,11 +9,11 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
-    var deadLineString = "2022.08.01"
-    var oneDayTimeInterval: Double = 86_400
-    let cycle = 2
+//    var deadLineString = "2022.08.01"
+//    var oneDayTimeInterval: Double = 86_400
+    let cycle = 3
     let cycleDay = ["수", "일"]
-    let appStartDate = Date(timeIntervalSinceNow: 0)
+    let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
     let dayOfWeekNum = ["월": 0, "화": 1, "수": 2, "목": 3, "금": 4, "토": 5, "일": 6]
     
     private enum Menu {
@@ -139,7 +139,8 @@ extension StudyRoomViewController {
     private func configUI() {
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
-        setDeadline()
+        setDeadlineLabels()
+        print("app ---- ", appStartDate)
     }
 
     private func render() {
@@ -190,38 +191,43 @@ extension StudyRoomViewController {
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
 
-    private func getDateDifference() -> Int {
-        guard let date = deadLineString.stringToDate else { return 0 }
-        let distance = date.distance(to: Date())
-        let resultToDouble = Double(distance) / oneDayTimeInterval
-        let result = abs(Int(resultToDouble))
-        return result
-    }
+//    private func getDateDifference() -> Int {
+//        guard let date = deadLineString.stringToDate else { return 0 }
+//        let distance = date.distance(to: Date())
+//        let resultToDouble = Double(distance) / oneDayTimeInterval
+//        let result = abs(Int(resultToDouble))
+//        return result
+//    }
 
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
         return date.getDayOfWeek
     }
     
-    private func setDeadline() {
-        let appStartDate = getStudyStartDate()
+    private func setDeadlineLabels() {
+        let studyStartDate = getStudyStartDate()
         var offsetToDeadline: Int = 0
         
-        if appStartDate < Date() {
-            let dateComponent = Calendar.current.dateComponents([.day], from: appStartDate, to: Date())
-            guard let offsetDay = dateComponent.day else { return }
-            let offsetWeek = offsetDay % 7
-            
+        if studyStartDate < Date() {
             offsetToDeadline = getClosestCycleOffset(cycle: cycleDay, startDay: Date())
+            let nearestCycleDate = Date(timeIntervalSinceNow: 60 * 60 * 24 * Double(offsetToDeadline))
             
-            if offsetWeek.isMultiple(of: cycle) {
-                offsetToDeadline += 7 * (offsetWeek % cycle)
+            let dateComponent = Calendar.current.dateComponents([.day], from: studyStartDate, to: nearestCycleDate)
+            guard let offsetDay = dateComponent.day else { return }
+            let offsetWeek = offsetDay / 7
+            
+            if !offsetWeek.isMultiple(of: cycle) {
+                print("not fit", offsetWeek % cycle)
+                offsetToDeadline += 7 * (cycle - (offsetWeek % cycle))
+                print("not fittt", offsetToDeadline)
             }
+            offsetToDeadline -= (dayOfWeekNum[nearestCycleDate.getDayOfWeek]! - dayOfWeekNum[cycleDay[0]]!)
         } else {
-            let dateComponent = Calendar.current.dateComponents([.day], from: Date(), to: appStartDate)
+            let dateComponent = Calendar.current.dateComponents([.day], from: Date(), to: studyStartDate)
             guard let offset = dateComponent.day else { return }
             offsetToDeadline = offset
         }
+        
         let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
         dDayLabel.text = "D-\(offsetToDeadline)"
         deadLineLabel.text = "\(deadlineDate.toString)(\(setDayOfWeek(deadlineDate))) 까지"
@@ -229,9 +235,9 @@ extension StudyRoomViewController {
 
     private func getStudyStartDate() -> Date {
         let offset = getClosestCycleOffset(cycle: [cycleDay[0]], startDay: appStartDate)
-        let stusyStartDate = Date(timeInterval: 60 * 60 * 24 * Double(offset), since: appStartDate)
+        let studyStartDate = Date(timeInterval: 60 * 60 * 24 * Double(offset), since: appStartDate)
         
-        return stusyStartDate
+        return studyStartDate
     }
 
     private func getClosestCycleOffset(cycle: [String], startDay: Date) -> Int {
