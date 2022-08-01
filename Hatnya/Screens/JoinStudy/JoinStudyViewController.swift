@@ -11,9 +11,9 @@ import UIKit
 
 class JoinStudyViewController: UIViewController {
     
-    let firestore = Firestore.firestore()
-    var studyInfo = [StudyInfo]()
-    var studyGroupDocumentId = ""
+    private let firestore = Firestore.firestore()
+    private var studyInfo = [StudyInfo]()
+    private var studyGroupDocumentId = ""
     
     @IBOutlet private var codeTextField: UITextField!
     @IBOutlet private var searchResultView: UIView!
@@ -41,6 +41,7 @@ class JoinStudyViewController: UIViewController {
         codeTextField.delegate = self
         initSearchResultView()
         initNextButton()
+        codeTextField.underlined(viewSize: codeTextField.bounds.width, color: .systemGray)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,20 +52,28 @@ class JoinStudyViewController: UIViewController {
 }
 
 extension JoinStudyViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemBlue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
+    }
+    
     private func initSearchResultView() {
         searchResultView.layer.cornerRadius = 5
     }
     
     private func initNextButton() {
         nextButton.isEnabled = false
-        nextButton.setBackgroundColor(.systemGray6, for: .disabled)
+        nextButton.setBackgroundColor(.systemGray4, for: .disabled)
     }
     
-    func groupWithSameCode(completion: @escaping (Result<StudyInfo, Error>) -> Void) {
-        firestore.collection("StudyGroup").whereField("code", isEqualTo: codeTextField.text as Any)
+    func groupWithSameCode(code: String, completion: @escaping (Result<StudyInfo, Error>) -> Void) {
+        firestore.collection("StudyGroup").whereField("code", isEqualTo: code)
             .getDocuments { querySnapshot, err in
                 if let err = err {
-                    print("err: \(err)")
+                    completion(.failure(err))
                 } else {
                     for document in querySnapshot!.documents {
                         let data = document.data()
@@ -80,7 +89,8 @@ extension JoinStudyViewController: UITextFieldDelegate {
     
     private func searchStudyGroup() {
         studyGroupName.text = "해당하는 스터디가 없습니다."
-        groupWithSameCode { [weak self] results in
+        guard let code = codeTextField.text else { return }
+        groupWithSameCode(code: code) { [weak self] results in
             switch results {
             case .success(let info):
                 self?.searchResultView.backgroundColor = .systemGray6
