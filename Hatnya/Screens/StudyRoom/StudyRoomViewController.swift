@@ -119,7 +119,6 @@ final class StudyRoomViewController: UIViewController {
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
     
     private var networkManager = NetworkManager()
-    private var viewModel = HomeworkViewModel()
     private var collectionView: UICollectionView!
     private var datasource: Datasource!
     private var snapshot = Snapshot()
