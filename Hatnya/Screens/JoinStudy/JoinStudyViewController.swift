@@ -11,7 +11,7 @@ import UIKit
 
 class JoinStudyViewController: UIViewController {
     
-    let database = Firestore.firestore()
+    let firestore = Firestore.firestore()
     var studyInfo = [StudyInfo]()
     var studyGroupDocumentId = ""
     
@@ -61,29 +61,25 @@ extension JoinStudyViewController: UITextFieldDelegate {
     }
     
     func groupWithSameCode(completion: @escaping (Result<StudyInfo, Error>) -> Void) {
-        database.collection("StudyGroup").whereField("code", isEqualTo: codeTextField.text as Any)
+        firestore.collection("StudyGroup").whereField("code", isEqualTo: codeTextField.text as Any)
             .getDocuments { querySnapshot, err in
                 if let err = err {
                     print("err: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
-                        do {
-                            let data = document.data()
-                            guard let name = data["name"] as? String,
-                                  let description = data["description"] as? String else { return }
-                            
-                            completion(.success(StudyInfo(name: name, description: description)))
-                            self.studyGroupDocumentId = document.documentID
-                        }
+                        let data = document.data()
+                        guard let name = data["name"] as? String,
+                              let description = data["description"] as? String else { return }
+                        
+                        completion(.success(StudyInfo(name: name, description: description)))
+                        self.studyGroupDocumentId = document.documentID
                     }
                 }
             }
     }
     
     private func searchStudyGroup() {
-        
         studyGroupName.text = "해당하는 스터디가 없습니다."
-        
         groupWithSameCode { [weak self] results in
             switch results {
             case .success(let info):
