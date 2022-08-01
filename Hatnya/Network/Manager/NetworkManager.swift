@@ -13,7 +13,7 @@ import Foundation
 
 final class NetworkManager {
     
-    private let database = Firestore.firestore()
+    private let firestore = Firestore.firestore()
     
     enum NetworkError: Error {
         case encodingError(Error)
@@ -29,7 +29,7 @@ final class NetworkManager {
         var userId = ""
         var homeworkId = ""
         
-        database.collection("StudyGroup/\(studyId)/Members")
+        firestore.collection("StudyGroup/\(studyId)/Members")
             .getDocuments { querySnapshot, _ in
                 guard let documents = querySnapshot?.documents else { return }
 
@@ -58,7 +58,7 @@ final class NetworkManager {
         do {
             let encodeData = try Firestore.Encoder().encode(data)
             
-            database.document(path)
+            firestore.document(path)
                 .setData(encodeData) { error in
                     if let error = error {
                         print(NetworkError.badURL(error))
@@ -70,7 +70,7 @@ final class NetworkManager {
     }
     
     func fetch<T: Decodable>(for type: T.Type, path: String, completionHandler: @escaping (T) -> Void) {
-        database.document(path)
+        firestore.document(path)
             .addSnapshotListener { snapshot, error in
                 guard let document = snapshot else { return }
                 do {
