@@ -16,7 +16,7 @@ final class SelectCycleDaysView: UIView {
         
         render()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -40,4 +40,22 @@ final class SelectCycleDaysView: UIView {
             dayButtonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
+    
+    func getSelectedCycle() -> Int {
+        switch cycleSegmentedControlView.selectedCycle {
+        case .one:
+            return 1
+        case .two:
+            return 2
+        case .three:
+            return 3
+        case .four:
+            return 4
+        }
+    }
+    
+    func getSelectedDays() -> [String] {
+        return dayButtonStackView.getSelectedDays()
+    }
+    
 }
