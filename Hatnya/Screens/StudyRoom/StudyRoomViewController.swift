@@ -9,8 +9,6 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
-//    var deadLineString = "2022.08.01"
-//    var oneDayTimeInterval: Double = 86_400
     let cycle = 3
     let cycleDay = ["수", "일"]
     let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
@@ -190,14 +188,6 @@ extension StudyRoomViewController {
         title = "Swift Study"
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
-
-//    private func getDateDifference() -> Int {
-//        guard let date = deadLineString.stringToDate else { return 0 }
-//        let distance = date.distance(to: Date())
-//        let resultToDouble = Double(distance) / oneDayTimeInterval
-//        let result = abs(Int(resultToDouble))
-//        return result
-//    }
 
     private func setDayOfWeek(_ day: Date?) -> String {
         guard let date = day else { return "" }
