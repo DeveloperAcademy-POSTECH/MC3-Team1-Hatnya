@@ -271,8 +271,8 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         let updatedItems = snapshot.itemIdentifiers
         
         let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
-        networkManager.homeworkPath(cycle: 1) { path in
-            self.networkManager.post(with: updatedHomeworks, path: path)
+        networkManager.homeworkPath(cycle: 1) { [weak self] path in
+            self?.networkManager.post(with: updatedHomeworks, path: path)
         }
     }
     
@@ -317,7 +317,7 @@ extension StudyRoomViewController: UICollectionViewDelegate {
     }
 
     private func configureDatasource() {
-        let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { cell, indexPath, item in
+        let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { [weak self] cell, indexPath, item in
             cell.checkDelegate = self
             cell.configureUI(with: item, index: indexPath)
         }
@@ -327,12 +327,12 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         })
 
         let headerRegisteration = UICollectionView.SupplementaryRegistration
-        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { supplymentaryView, _, _ in
+        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { [weak self] supplymentaryView, _, _ in
             supplymentaryView.delegate = self
         }
 
-        datasource.supplementaryViewProvider = { _, _, index in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
+            return self?.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
         }
     }
 
