@@ -135,7 +135,7 @@ extension StudyRoomViewController {
         render()
         configureHierachy()
         configureDatasource()
-        applySnapShot()
+        applySnapshot()
         fetch()
     }
 
@@ -208,7 +208,7 @@ extension StudyRoomViewController {
     private func fetch() {
         networkManager.homeworkPath(cycle: 1) { path in
             self.networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
-                self?.applySnapShot(with: homeworks.list)
+                self?.applySnapshot(with: homeworks.list)
                 self?.cycle = homeworks.cycle
             }
         }
@@ -336,7 +336,7 @@ extension StudyRoomViewController: UICollectionViewDelegate {
         }
     }
 
-    private func applySnapShot(with item: [Homework] = []) {
+    private func applySnapshot(with item: [Homework] = []) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(item, toSection: .main)
