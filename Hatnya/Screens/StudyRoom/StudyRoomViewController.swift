@@ -206,8 +206,8 @@ extension StudyRoomViewController {
     }
     
     private func fetch() {
-        networkManager.homeworkPath(cycle: 1) { path in
-            self.networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
+        networkManager.getHomeworkPath(cycle: 1) { path in
+            self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
                 self?.applySnapshot(with: homeworks.list)
                 self?.cycle = homeworks.cycle
             }
@@ -271,7 +271,7 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         let updatedItems = snapshot.itemIdentifiers
         
         let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
-        networkManager.homeworkPath(cycle: 1) { [weak self] path in
+        networkManager.getHomeworkPath(cycle: 1) { [weak self] path in
             self?.networkManager.post(with: updatedHomeworks, path: path)
         }
     }

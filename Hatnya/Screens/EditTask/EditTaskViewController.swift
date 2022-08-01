@@ -46,7 +46,7 @@ extension EditTaskViewController {
     func completeButtonTouched() {
         snapshot = taskDataSource.snapshot()
         let updatedData = Homeworks(cycle: cycle, list: snapshot.itemIdentifiers)
-        networkManager.homeworkPath(cycle: 1) { path in
+        networkManager.getHomeworkPath(cycle: 1) { path in
             self.networkManager.post(with: updatedData, path: path)
         }
         dismiss(animated: true)
@@ -95,8 +95,8 @@ extension EditTaskViewController {
     }
     
     private func fetch() {
-        networkManager.homeworkPath(cycle: 1) { path in
-            self.networkManager.fetch(for: Homeworks.self, path: path) { [weak self] homeworks in
+        networkManager.getHomeworkPath(cycle: 1) { path in
+            self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
                 self?.applySnapshot(with: homeworks.list)
                 self?.cycle = homeworks.cycle
             }

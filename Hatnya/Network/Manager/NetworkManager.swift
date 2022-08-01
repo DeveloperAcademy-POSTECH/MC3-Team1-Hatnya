@@ -22,7 +22,7 @@ final class NetworkManager {
         case unknown
     }
 
-    func homeworkPath(cycle: Int, completionHandler: @escaping (String) -> Void) {
+    func getHomeworkPath(cycle: Int, completionHandler: @escaping (String) -> Void) {
         // TODO: study id UserDefaults 저장 또는 뷰컨트롤러로부터 데이터 전달하여 하드 코딩 제거
         let studyId = "w2sEujplXcqubgaYYUdZ"
         let uid = UserDefaults.standard.string(forKey: "User") ?? ""
@@ -69,7 +69,7 @@ final class NetworkManager {
         }
     }
     
-    func fetch<T: Decodable>(for type: T.Type, path: String, completionHandler: @escaping (T) -> Void) {
+    func get<T: Decodable>(for type: T.Type, path: String, completionHandler: @escaping (T) -> Void) {
         firestore.document(path)
             .addSnapshotListener { snapshot, error in
                 guard let document = snapshot else { return }
