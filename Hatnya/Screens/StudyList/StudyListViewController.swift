@@ -125,8 +125,7 @@ extension StudyListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedStudyGroup = studyGroup[indexPath.row]
-        let studyRoomViewController = StudyRoomViewController()
-        studyRoomViewController.selectedStudyGroup = selectedStudyGroup
+        let studyRoomViewController = StudyRoomViewController(selectedStudyGroup: selectedStudyGroup)
         navigationController?.pushViewController(studyRoomViewController, animated: true)
     }
 }

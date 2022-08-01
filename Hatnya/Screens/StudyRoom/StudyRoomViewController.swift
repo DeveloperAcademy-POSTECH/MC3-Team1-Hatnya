@@ -13,7 +13,19 @@ import UIKit
 final class StudyRoomViewController: UIViewController {
     var deadLineString = "2022.08.01"
     var oneDayTimeInterval: Double = 86_400
-    var selectedStudyGroup: StudyGroup!
+    
+    private let selectedStudyGroup: StudyGroup
+    
+    init(selectedStudyGroup: StudyGroup) {
+        self.selectedStudyGroup = selectedStudyGroup
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        self.selectedStudyGroup = StudyGroup.sampleData[0]
+        super.init(coder: coder)
+    }
     
     private enum Menu {
         case inviteTeam
@@ -314,7 +326,7 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
 struct StudyRoomViewControllerPreview: PreviewProvider {
 
     static var previews: some View {
-        StudyRoomViewController().toPreview()
+        StudyRoomViewController(selectedStudyGroup: StudyGroup.sampleData[0]).toPreview()
     }
 
 }
