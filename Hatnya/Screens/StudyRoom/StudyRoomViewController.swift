@@ -12,6 +12,13 @@ import SwiftUI
 import UIKit
 
 final class StudyRoomViewController: UIViewController {
+    var currentStudyUid = "w2sEujplXcqubgaYYUdZ"
+    var deadLineString = "2022.08.01"
+    var oneDayTimeInterval: Double = 86_400
+
+    var viewModel = StudyRoomViewModel(studyUid: "w2sEujplXcqubgaYYUdZ")
+    var cancelBag = Set<AnyCancellable>()
+
     var cycle = 3
     let cycleDay = ["수", "일"]
     let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
@@ -34,7 +41,7 @@ final class StudyRoomViewController: UIViewController {
         case editDate
         case editNickname(action: (() -> Void))
         case leaveStudy(action: (() -> Void))
-        
+
         var menuTitle: String {
             switch self {
             case .inviteTeam:
@@ -47,7 +54,7 @@ final class StudyRoomViewController: UIViewController {
                 return "스터디 탈퇴하기"
             }
         }
-        
+
         var action: UIAction {
             switch self {
             case .inviteTeam:
@@ -69,7 +76,7 @@ final class StudyRoomViewController: UIViewController {
             }
         }
     }
-    
+
     // MARK: - property
 
     private lazy var navigationBarRightItem: UIBarButtonItem = {
@@ -77,6 +84,41 @@ final class StudyRoomViewController: UIViewController {
         item.image = UIImage(systemName: "ellipsis")
         item.menu = setupNavigationRightButton()
         return item
+    }()
+    private lazy var preButton: UIButton = {
+        let button = UIButton(type: .system)
+        let action = UIAction { [weak self] _ in
+            guard let cycle = self?.viewModel.currentCount else { return }
+            if cycle > 1 {
+                self?.viewModel.decreaseCurrentCount()
+                self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
+            }
+        }
+        button.setImage(UIImage(systemName: "arrowtriangle.backward.fill"), for: .normal)
+        button.setPreferredSymbolConfiguration(.init(pointSize: 15), forImageIn: .normal)
+        button.tintColor = .black
+        button.addAction(action, for: .touchUpInside)
+        return button
+    }()
+    private lazy var currentCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    private lazy var nextButton: UIButton = {
+        let button = UIButton(type: .system)
+        let action = UIAction { [weak self] _ in
+            guard let cycle = self?.viewModel.currentCount else { return }
+            if cycle < 3 {
+                self?.viewModel.increaseCurrentCount()
+                self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
+            }
+        }
+        button.setImage(UIImage(systemName: "arrowtriangle.right.fill"), for: .normal)
+        button.setPreferredSymbolConfiguration(.init(pointSize: 15), forImageIn: .normal)
+        button.tintColor = .black
+        button.addAction(action, for: .touchUpInside)
+        return button
     }()
     private lazy var taskBackgroundView: UIView = {
         let view = UIView()
@@ -149,6 +191,7 @@ extension StudyRoomViewController {
         configureDatasource()
         applySnapshot()
         fetch()
+        bind()
     }
     
     private func configUI() {
@@ -158,6 +201,31 @@ extension StudyRoomViewController {
     }
     
     private func render() {
+        view.addSubview(currentCountLabel)
+        currentCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            currentCountLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            currentCountLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 23)]
+        )
+
+        view.addSubview(preButton)
+        preButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            preButton.centerYAnchor.constraint(equalTo: currentCountLabel.centerYAnchor),
+            preButton.trailingAnchor.constraint(equalTo: currentCountLabel.leadingAnchor, constant: -20),
+            preButton.widthAnchor.constraint(equalToConstant: 44),
+            preButton.heightAnchor.constraint(equalToConstant: 44)]
+        )
+
+        view.addSubview(nextButton)
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nextButton.centerYAnchor.constraint(equalTo: currentCountLabel.centerYAnchor),
+            nextButton.leadingAnchor.constraint(equalTo: currentCountLabel.trailingAnchor, constant: 20),
+            nextButton.widthAnchor.constraint(equalToConstant: 44),
+            nextButton.heightAnchor.constraint(equalToConstant: 44)]
+        )
+
         view.addSubview(taskBackgroundView)
         taskBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -249,19 +317,37 @@ extension StudyRoomViewController {
         ])
         return menu
     }
+
+    private func bind() {
+        self.viewModel.$userTaskList
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+            self?.chartCollectionView.reloadData()
+        })
+            .store(in: &cancelBag)
+
+        self.viewModel.$currentCount
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+            guard let text = self?.viewModel.currentCount else { return }
+            self?.currentCountLabel.text = "\(text)회차"
+        })
+            .store(in: &cancelBag)
+    }
 }
 
 extension StudyRoomViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Member.testMemberList.count
+        return viewModel.userTaskList.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: StudyChartCollectionViewCell.className,
             for: indexPath) as? StudyChartCollectionViewCell else { assert(false, "do not have reusable view") }
-        cell.setupCell(with: indexPath.item)
+        cell.userNameLabel.text = viewModel.userTaskList[indexPath.item].nickname
+        cell.setupChartStackView(viewModel.userTaskList[indexPath.item].homeworks.map { $0.isCompleted }, count: viewModel.userTaskList[indexPath.item].homeworks.count)
         return cell
     }
     
