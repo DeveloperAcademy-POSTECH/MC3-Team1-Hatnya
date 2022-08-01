@@ -14,6 +14,13 @@ import Foundation
 final class NetworkManager {
     
     private let database = Firestore.firestore()
+    
+    enum NetworkError: Error {
+        case encodingError(Error)
+        case decodingError(Error)
+        case badURL(Error)
+        case unknown
+    }
 
     func homeworkPath(cycle: Int, completionHandler: @escaping (String) -> Void) {
         // TODO: study id UserDefaults 저장 또는 뷰컨트롤러로부터 데이터 전달하여 하드 코딩 제거
@@ -25,6 +32,7 @@ final class NetworkManager {
         database.collection("StudyGroup/\(studyId)/Members")
             .getDocuments { querySnapshot, _ in
                 guard let documents = querySnapshot?.documents else { return }
+
                 documents.forEach { snapshot in
                     guard let idData = snapshot.data()["uid"] as? String else { return }
                     if uid == idData {
@@ -52,10 +60,12 @@ final class NetworkManager {
             
             database.document(path)
                 .setData(encodeData) { error in
-                    print("🚨", error as Any)
+                    if let error = error {
+                        print(NetworkError.badURL(error))
+                    }
                 }
         } catch {
-            print("🚨", error)
+            print(NetworkError.encodingError(error))
         }
     }
     
@@ -67,7 +77,7 @@ final class NetworkManager {
                     let data = try document.data(as: type)
                     completionHandler(data)
                 } catch {
-                    print("🚨", error)
+                    print(NetworkError.decodingError(error))
                 }
             }
     }
