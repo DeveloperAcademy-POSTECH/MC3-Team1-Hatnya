@@ -10,7 +10,7 @@ import Foundation
 struct Homework: Hashable {
     let id = UUID()
     let name: String
-    let due: Date
+    let due: Date?
     let isCompleted: Bool
 }
 

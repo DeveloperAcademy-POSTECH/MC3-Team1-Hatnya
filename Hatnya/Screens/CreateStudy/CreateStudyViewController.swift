@@ -30,7 +30,7 @@ final class CreateStudyViewController: UIViewController {
         button.titleLabel?.font = .boldSystemFont(ofSize: 17)
         button.isEnabled = false
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(nextButtonTouch), for: .touchUpInside)
+        button.addTarget(self, action: #selector(touchNextButton), for: .touchUpInside)
         return button
     }()
     
@@ -104,7 +104,7 @@ final class CreateStudyViewController: UIViewController {
     }
     
     @objc
-    private func nextButtonTouch() {
+    private func touchNextButton() {
         let nicknameViewController = WriteNicknameViewController()
         let studyGroup = StudyGroup(members: [],
                                     name: getStudyName(),
@@ -117,10 +117,16 @@ final class CreateStudyViewController: UIViewController {
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
+    private func configureTextField() {
+        getStudyNameView.valueTextField.delegate = self
+        getDescriptView.valueTextField.delegate = self
+    }
+    
     private func checkNoEmptyInput() {
-        if (getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == "")
-            || (getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == "")
-            || selectedDays.isEmpty {
+        let isEmptyGetDescriptView = getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == ""
+        let isEmptyGetStudyNameView = getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == ""
+        
+        if isEmptyGetDescriptView || isEmptyGetStudyNameView || selectedDays.isEmpty {
             nextButton.backgroundColor = .systemGray4
             nextButton.isEnabled = false
         } else {
@@ -140,15 +146,9 @@ extension CreateStudyViewController: UITextFieldDelegate {
         textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
     }
     
-    private func configureTextField() {
-        getStudyNameView.valueTextField.delegate = self
-        getDescriptView.valueTextField.delegate = self
-    }
-    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         checkNoEmptyInput()
     }
-    
 }
 
 struct CreateStudyViewControllerPreview: PreviewProvider {

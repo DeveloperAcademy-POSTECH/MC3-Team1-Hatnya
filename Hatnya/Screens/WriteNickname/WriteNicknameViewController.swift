@@ -141,6 +141,13 @@ extension WriteNicknameViewController {
 }
 
 extension WriteNicknameViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemBlue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
+    }
     
     private func configureTextField() {
         inputTextField.delegate = self

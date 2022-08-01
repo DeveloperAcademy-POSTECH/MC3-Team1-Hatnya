@@ -10,7 +10,8 @@
 		3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3982366C2886EF0400F6B004 /* ColorLiteral.swift */; };
 		3982366F288D228300F6B004 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3982366E288D228300F6B004 /* String+Extension.swift */; };
 		39823671288D281B00F6B004 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39823670288D281B00F6B004 /* Date+Extension.swift */; };
-		39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F3F8E52886778900256D56 /* StudyChartView.swift */; };
+		39823676288F718900F6B004 /* StudyChartCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39823675288F718900F6B004 /* StudyChartCollectionViewCell.swift */; };
+		39823678288F724100F6B004 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39823677288F724000F6B004 /* NSObject+Extension.swift */; };
 		3DA86DF828878F4000F34D69 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */; };
 		3DD9E7BB288F717700C3BEC0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9E7BA288F717700C3BEC0 /* FirebaseAnalytics */; };
 		3DD9E7BD288F717700C3BEC0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9E7BC288F717700C3BEC0 /* FirebaseFirestore */; };
@@ -40,6 +41,7 @@
 		A7D2316F288D93C700A59A85 /* StudyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2316E288D93C700A59A85 /* StudyListTableViewCell.swift */; };
 		A7D23171288D93DE00A59A85 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D23170288D93DE00A59A85 /* StudyGroup.swift */; };
 		A7D23173288D93EF00A59A85 /* StudyList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D23172288D93EF00A59A85 /* StudyList.storyboard */; };
+		AE3B22E92896932900416FC2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */; };
 		AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AEC29DA428858DE700DA24B8 /* .swiftlint.yml */; };
 		AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */; };
 		AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */; };
@@ -56,7 +58,8 @@
 		3982366C2886EF0400F6B004 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
 		3982366E288D228300F6B004 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		39823670288D281B00F6B004 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		39F3F8E52886778900256D56 /* StudyChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyChartView.swift; sourceTree = "<group>"; };
+		39823675288F718900F6B004 /* StudyChartCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyChartCollectionViewCell.swift; sourceTree = "<group>"; };
+		39823677288F724000F6B004 /* NSObject+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
 		3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		3DD9E7BE288F90AC00C3BEC0 /* StudyCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyCycle.swift; sourceTree = "<group>"; };
 		3DD9E7C0288F90CB00C3BEC0 /* Member.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
@@ -105,16 +108,24 @@
 			files = (
 				3DD9E7BB288F717700C3BEC0 /* FirebaseAnalytics in Frameworks */,
 				3DD9E7BD288F717700C3BEC0 /* FirebaseFirestore in Frameworks */,
+				AE3B22E92896932900416FC2 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39823674288F715800F6B004 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				39823675288F718900F6B004 /* StudyChartCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		39F3F8E42886777600256D56 /* UIComponent */ = {
 			isa = PBXGroup;
 			children = (
-				39F3F8E52886778900256D56 /* StudyChartView.swift */,
 				AED2E1B62887B4DF00B32FF7 /* HomeworkListCell.swift */,
 				AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */,
 			);
@@ -256,6 +267,7 @@
 		A28DEF91288551AF004014DE /* StudyRoom */ = {
 			isa = PBXGroup;
 			children = (
+				39823674288F715800F6B004 /* Cell */,
 				39F3F8E42886777600256D56 /* UIComponent */,
 				A28DEF9828855239004014DE /* StudyRoomViewController.swift */,
 			);
@@ -296,6 +308,7 @@
 				AED2E1BD2888DF2D00B32FF7 /* UILabel+StrikeThrough.swift */,
 				AED2E1C4288E979100B32FF7 /* UITextField+underlined.swift */,
 				AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */,
+				39823677288F724000F6B004 /* NSObject+Extension.swift */,
 				3982366E288D228300F6B004 /* String+Extension.swift */,
 				39823670288D281B00F6B004 /* Date+Extension.swift */,
 				3DA86DF728878F3F00F34D69 /* UIButton+Extension.swift */,
@@ -340,6 +353,7 @@
 			packageProductDependencies = (
 				3DD9E7BA288F717700C3BEC0 /* FirebaseAnalytics */,
 				3DD9E7BC288F717700C3BEC0 /* FirebaseFirestore */,
+				AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */,
 			);
 			productName = Hatnya;
 			productReference = A28DEF6F28854EEF004014DE /* Hatnya.app */;
@@ -371,6 +385,7 @@
 			mainGroup = A28DEF6628854EEF004014DE;
 			packageReferences = (
 				3DD9E7B9288F717700C3BEC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AE3B22E72896932900416FC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = A28DEF7028854EEF004014DE /* Products */;
 			projectDirPath = "";
@@ -425,7 +440,6 @@
 			files = (
 				A22BA9E52887A04900A84BCC /* GetInfoView.swift in Sources */,
 				3982366F288D228300F6B004 /* String+Extension.swift in Sources */,
-				39F3F8E62886778900256D56 /* StudyChartView.swift in Sources */,
 				AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */,
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
@@ -451,7 +465,9 @@
 				AED2E1BC2888DE6E00B32FF7 /* TagColor.swift in Sources */,
 				AED2E1C2288C3A6000B32FF7 /* EditTaskTableViewCell.swift in Sources */,
 				AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */,
+				39823676288F718900F6B004 /* StudyChartCollectionViewCell.swift in Sources */,
 				A28DEF9728855228004014DE /* EditTaskViewController.swift in Sources */,
+				39823678288F724100F6B004 /* NSObject+Extension.swift in Sources */,
 				A28DEF9528855209004014DE /* CreateStudyViewController.swift in Sources */,
 				A28DEF7528854EEF004014DE /* SceneDelegate.swift in Sources */,
 				A22BA9EF2888E12100A84BCC /* DayButtonStackView.swift in Sources */,
@@ -684,6 +700,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		AE3B22E72896932900416FC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -696,6 +720,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3DD9E7B9288F717700C3BEC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE3B22E72896932900416FC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
