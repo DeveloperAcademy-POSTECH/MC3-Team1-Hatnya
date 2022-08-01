@@ -8,6 +8,6 @@
 import Foundation
 
 struct HomeworkTask: Codable {
-    var cycle: Int
+    var count: Int
     var list: [Homework]
 }
