@@ -57,9 +57,6 @@ final class SelectCycleDaysView: UIView {
     func getSelectedDays() -> [String] {
         var selectedDays: [String] = []
         
-        if dayButtonStackView.sundayBtn.isSelected {
-            selectedDays.append("일")
-        }
         if dayButtonStackView.mondayBtn.isSelected {
             selectedDays.append("월")
         }
@@ -77,6 +74,9 @@ final class SelectCycleDaysView: UIView {
         }
         if dayButtonStackView.saturdayBtn.isSelected {
             selectedDays.append("토")
+        }
+        if dayButtonStackView.sundayBtn.isSelected {
+            selectedDays.append("일")
         }
         
         return selectedDays
