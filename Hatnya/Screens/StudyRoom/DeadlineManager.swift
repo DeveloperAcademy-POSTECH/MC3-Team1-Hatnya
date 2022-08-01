@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DeadlineManager {
+final class DeadlineManager {
     let dayOfWeekNum = ["월": 0, "화": 1, "수": 2, "목": 3, "금": 4, "토": 5, "일": 6]
     
     func getOffsetToDeadline(appStartDate: Date, cycle: Int, cycleDay: [String]) -> Int {
