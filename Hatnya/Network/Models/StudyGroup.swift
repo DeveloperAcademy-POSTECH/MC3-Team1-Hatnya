@@ -13,7 +13,7 @@ struct StudyGroup {
     let code: String
     var description: String
     let cycle: StudyCycle
-    let createdAt: Date
+    var createdAt: Date?
     let uid: String
 }
 

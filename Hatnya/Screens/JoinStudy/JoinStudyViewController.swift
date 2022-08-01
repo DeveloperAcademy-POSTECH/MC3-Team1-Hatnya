@@ -34,6 +34,7 @@ class JoinStudyViewController: UIViewController {
         codeTextField.delegate = self
         initSearchResultView()
         initNextButton()
+        codeTextField.underlined(viewSize: codeTextField.bounds.width, color: .systemGray)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,13 +45,21 @@ class JoinStudyViewController: UIViewController {
 }
 
 extension JoinStudyViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemBlue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
+    }
+    
     private func initSearchResultView() {
         searchResultView.layer.cornerRadius = 5
     }
     
     private func initNextButton() {
         nextButton.isEnabled = false
-        nextButton.setBackgroundColor(.systemGray6, for: .disabled)
+        nextButton.setBackgroundColor(.systemGray4, for: .disabled)
     }
     
     private func searchStudyGroup() {

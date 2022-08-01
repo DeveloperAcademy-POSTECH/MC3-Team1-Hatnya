@@ -5,10 +5,18 @@
 //  Created by 비트 on 2022/07/19.
 //
 
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
 final class WriteNicknameViewController: UIViewController {
+    let firestore = Firestore.firestore()
+    var studyGroup = StudyGroup(members: [],
+                                name: "이름 없음",
+                                code: "no code",
+                                description: "설명 없음",
+                                cycle: StudyCycle(cycle: 1, weekDay: ["화"]),
+                                createdAt: nil)
     
     var mode: Mode = .create
     
@@ -35,13 +43,6 @@ final class WriteNicknameViewController: UIViewController {
         }
     }
     
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(systemName: "xmark")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = mode.titleText
@@ -65,8 +66,9 @@ final class WriteNicknameViewController: UIViewController {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle(mode.nextButtonText, for: .normal)
-        button.isSelected = false
-        button.backgroundColor = .lightGray
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.isEnabled = false
+        button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(nextButtonTapHandler), for: .touchUpInside)
         return button
@@ -74,6 +76,31 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
+        let studyGroupUUID = UUID()
+        
+        let studyGroupData: [String: Any] = [
+            "code": studyGroup.code,
+            "createdAt": Timestamp(date: Date()),
+            "description": studyGroup.description,
+            "name": studyGroup.name
+        ]
+        
+        let cycleData: [String: Any] = [
+            "cycle": studyGroup.cycle.cycle,
+            "weekday": studyGroup.cycle.weekDay
+        ]
+        
+        let membersData: [String: Any] = [
+            "nickname": inputTextField.text ?? "이름 없음",
+            "uid": UIDevice.current.identifierForVendor!.uuidString
+        ]
+    
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString).setData(studyGroupData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Cycle").addDocument(data: cycleData)
+        firestore.collection("StudyGroup").document(studyGroupUUID.uuidString)
+            .collection("Members").addDocument(data: membersData)
+        
         self.presentingViewController?.dismiss(animated: true)
     }
     
@@ -139,6 +166,13 @@ extension WriteNicknameViewController {
 }
 
 extension WriteNicknameViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemBlue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
+    }
     
     private func configureTextField() {
         inputTextField.delegate = self
@@ -151,11 +185,11 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if textField.text == nil || textField.text == "" {
-            nextButton.backgroundColor = .lightGray
-            nextButton.isUserInteractionEnabled = false
+            nextButton.backgroundColor = .systemGray4
+            nextButton.isEnabled = false
         } else {
-            nextButton.backgroundColor = .blue
-            nextButton.isUserInteractionEnabled = true
+            nextButton.backgroundColor = .systemBlue
+            nextButton.isEnabled = true
         }
     }
     
