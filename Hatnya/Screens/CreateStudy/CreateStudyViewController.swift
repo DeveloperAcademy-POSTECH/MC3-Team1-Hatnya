@@ -10,7 +10,7 @@ import UIKit
 
 final class CreateStudyViewController: UIViewController {
 //    2차 스프린트 ToDo - 선택한 주기 실시간으로 업데이트해서 표시
-//    var selectedDays: [String] = [""]
+    var selectedDays: [String] = ["월"]
     
     private lazy var getStudyNameView = GetInfoView()
     private lazy var getDescriptView = GetInfoView()
@@ -26,7 +26,9 @@ final class CreateStudyViewController: UIViewController {
     private lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setTitle("다음", for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .systemGray4
+        button.titleLabel?.font = .boldSystemFont(ofSize: 17)
+        button.isEnabled = false
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(touchNextButton), for: .touchUpInside)
         return button
@@ -34,6 +36,7 @@ final class CreateStudyViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configUI()
         render()
     }
@@ -47,6 +50,7 @@ final class CreateStudyViewController: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .systemBackground
+        configureTextField()
     }
     
     private func render() {
@@ -91,10 +95,60 @@ final class CreateStudyViewController: UIViewController {
         ])
     }
     
+    private func getStudyName() -> String {
+        return getStudyNameView.valueTextField.text ?? "이름 없음"
+    }
+    
+    private func getStudyDescription() -> String {
+        return getDescriptView.valueTextField.text ?? "설명 없음"
+    }
+    
     @objc
     private func touchNextButton() {
         let nicknameViewController = WriteNicknameViewController()
+        let studyGroup = StudyGroup(members: [],
+                                    name: getStudyName(),
+                                    code: "no code",
+                                    description: getStudyDescription(),
+                                    cycle: StudyCycle(cycle: selectCycleDayView.getSelectedCycle(),
+                                                      weekDay: selectCycleDayView.getSelectedDays()),
+                                    createdAt: nil,
+                                    uid: "no uid")
+        nicknameViewController.studyGroup = studyGroup
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
+    }
+    
+    private func configureTextField() {
+        getStudyNameView.valueTextField.delegate = self
+        getDescriptView.valueTextField.delegate = self
+    }
+    
+    private func checkNoEmptyInput() {
+        let isEmptyGetDescriptView = getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == ""
+        let isEmptyGetStudyNameView = getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == ""
+        
+        if isEmptyGetDescriptView || isEmptyGetStudyNameView || selectedDays.isEmpty {
+            nextButton.backgroundColor = .systemGray4
+            nextButton.isEnabled = false
+        } else {
+            nextButton.backgroundColor = .systemBlue
+            nextButton.isEnabled = true
+        }
+    }
+}
+
+extension CreateStudyViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemBlue)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        checkNoEmptyInput()
     }
 }
 

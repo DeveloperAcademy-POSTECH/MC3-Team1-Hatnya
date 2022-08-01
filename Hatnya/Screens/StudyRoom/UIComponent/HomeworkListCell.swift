@@ -32,9 +32,10 @@ final class HomeworkListCell: UICollectionViewCell {
         return $0
     }(UIView())
     
-    private var isHomeworkComplished = false
+    weak var checkDelegate: CheckDelegate?
+    private var indexPath: IndexPath!
     private let tagSize: CGFloat = 24
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubviews()
@@ -53,19 +54,7 @@ extension HomeworkListCell {
     
     @objc
     func checkButtonTouched() {
-        let checkedImage = UIImage(systemName: "checkmark.square.fill")
-        let emptyImage = UIImage(systemName: "square")
-        
-        if isHomeworkComplished {
-            checkButton.setImage(emptyImage, for: .normal)
-            textLabel.textColor = .label
-        } else {
-            checkButton.setImage(checkedImage, for: .normal)
-            textLabel.textColor = .gray
-        }
-        
-        isHomeworkComplished.toggle()
-        textLabel.strikeThrough(isHomeworkComplished)
+        checkDelegate?.checkDelegateButton(with: indexPath)
     }
     
     private func configureSubviews() {
@@ -98,10 +87,23 @@ extension HomeworkListCell {
         ])
         
     }
-    
-    func configureContent(item: Homework, index: Int) {
-        textLabel.text = item.name
-        tagView.backgroundColor = TagColor.order(index: index)
+
+    func configureUI(with homework: Homework, index: IndexPath) {
+        let checkedImage = UIImage(systemName: "checkmark.square.fill")
+        let emptyImage = UIImage(systemName: "square")
+        
+        if homework.isCompleted {
+            checkButton.setImage(checkedImage, for: .normal)
+            textLabel.textColor = .gray
+        } else {
+            checkButton.setImage(emptyImage, for: .normal)
+            textLabel.textColor = .label
+        }
+        textLabel.text = homework.name
+        textLabel.strikeThrough(homework.isCompleted)
+        tagView.backgroundColor = TagColor.order(index: index.row)
+        
+        indexPath = index
     }
     
 }
@@ -112,4 +114,8 @@ struct HomeworkListCellPreview: PreviewProvider {
         HomeworkListCell().toPreview()
     }
 
+}
+
+protocol CheckDelegate: AnyObject {
+    func checkDelegateButton(with indexPath: IndexPath)
 }

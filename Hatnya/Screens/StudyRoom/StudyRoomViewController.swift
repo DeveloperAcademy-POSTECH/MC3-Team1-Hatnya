@@ -5,6 +5,9 @@
 //  Created by Mingwan Choi on 2022/07/18.
 //
 
+import Combine
+import FirebaseCore
+import FirebaseFirestore
 import SwiftUI
 import UIKit
 
@@ -12,6 +15,19 @@ final class StudyRoomViewController: UIViewController {
     let cycle = 3
     let cycleDay = ["수", "일"]
     let appStartDate = Date(timeIntervalSinceNow: (60 * 60 * 24 * 10 * -1))
+    
+    private let selectedStudyGroup: StudyGroup
+    
+    init(selectedStudyGroup: StudyGroup) {
+        self.selectedStudyGroup = selectedStudyGroup
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        self.selectedStudyGroup = StudyGroup.sampleData[0]
+        super.init(coder: coder)
+    }
     
     private enum Menu {
         case inviteTeam
@@ -110,17 +126,18 @@ final class StudyRoomViewController: UIViewController {
     enum HomeworkSection {
         case main
     }
-
+    
     typealias Datasource = UICollectionViewDiffableDataSource<HomeworkSection, Homework>
     typealias Snapshot = NSDiffableDataSourceSnapshot<HomeworkSection, Homework>
-
+    
+    private var networkManager = NetworkManager()
     private var collectionView: UICollectionView!
     private var datasource: Datasource!
     private var snapshot = Snapshot()
-
+    private var cycle = 1
 }
 
-// MARK: - life cycle
+    // MARK: - life cycle
 
 extension StudyRoomViewController {
 
@@ -130,15 +147,16 @@ extension StudyRoomViewController {
         render()
         configureHierachy()
         configureDatasource()
-        applySnapShot()
+        applySnapshot()
+        fetch()
     }
-
+    
     private func configUI() {
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
         setDeadlineLabels()
     }
-
+    
     private func render() {
         view.addSubview(taskBackgroundView)
         taskBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -179,11 +197,12 @@ extension StudyRoomViewController {
             chartCollectionView.bottomAnchor.constraint(equalTo: taskBackgroundView.bottomAnchor, constant: -10)]
         )
     }
-
+    
     // MARK: - func
-
+    
     private func setupNavigationBar() {
-        title = "Swift Study"
+        title = selectedStudyGroup.name
+        navigationItem.largeTitleDisplayMode = .never
         navigationItem.rightBarButtonItem = navigationBarRightItem
     }
 
@@ -198,6 +217,15 @@ extension StudyRoomViewController {
         let deadlineDate = Date(timeInterval: 60 * 60 * 24 * Double(offsetToDeadline), since: Date())
         dDayLabel.text = "D-\(offsetToDeadline)"
         deadLineLabel.text = "\(deadlineDate.toString)(\(setDayOfWeek(deadlineDate))) 까지"
+
+    private func fetch() {
+        networkManager.getHomeworkPath(cycle: 1) { path in
+            self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
+                self?.applySnapshot(with: homeworks.list)
+                self?.cycle = homeworks.cycle
+            }
+        }
+
     }
 
     private func setupNavigationRightButton() -> UIMenu {
@@ -223,6 +251,7 @@ extension StudyRoomViewController {
 }
 
 extension StudyRoomViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Member.testMemberList.count
     }
@@ -234,16 +263,36 @@ extension StudyRoomViewController: UICollectionViewDataSource {
         cell.setupCell(with: indexPath.item)
         return cell
     }
+    
 }
 
 // MARK: - Homework List View
 
-extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
-
+extension StudyRoomViewController: EditDelegate, CheckDelegate {
+    
     func editButtonTapped() {
         let newViewController = UINavigationController(rootViewController: EditTaskViewController())
         present(newViewController, animated: true)
     }
+    
+    func checkDelegateButton(with indexPath: IndexPath) {
+        guard let beforeItem = datasource.itemIdentifier(for: indexPath) else { return }
+        var newItem = beforeItem
+        newItem.isCompleted.toggle()
+        
+        snapshot.insertItems([newItem], afterItem: beforeItem)
+        snapshot.deleteItems([beforeItem])
+        let updatedItems = snapshot.itemIdentifiers
+        
+        let updatedHomeworks = Homeworks(cycle: cycle, list: updatedItems)
+        networkManager.getHomeworkPath(cycle: 1) { [weak self] path in
+            self?.networkManager.post(with: updatedHomeworks, path: path)
+        }
+    }
+    
+}
+    
+extension StudyRoomViewController: UICollectionViewDelegate {
 
     private func createHomeworkListViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -282,8 +331,9 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
     }
 
     private func configureDatasource() {
-        let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { cell, indexPath, item in
-            cell.configureContent(item: item, index: indexPath.row)
+        let cellRegisteration = UICollectionView.CellRegistration<HomeworkListCell, Homework> { [weak self] cell, indexPath, item in
+            cell.checkDelegate = self
+            cell.configureUI(with: item, index: indexPath)
         }
 
         datasource = Datasource(collectionView: collectionView, cellProvider: { collectionView, indexPath, item in
@@ -291,26 +341,29 @@ extension StudyRoomViewController: UICollectionViewDelegate, EditDelegate {
         })
 
         let headerRegisteration = UICollectionView.SupplementaryRegistration
-        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { supplymentaryView, _, _ in
+        <HomeworkListTitleView>(elementKind: sectionHeaderElementKind) { [weak self] supplymentaryView, _, _ in
             supplymentaryView.delegate = self
         }
 
-        datasource.supplementaryViewProvider = { _, _, index in
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
+            return self?.collectionView.dequeueConfiguredReusableSupplementary(using: headerRegisteration, for: index)
         }
     }
 
-    private func applySnapShot() {
+    private func applySnapshot(with item: [Homework] = []) {
+        var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(HomeworkMockData.longList, toSection: .main)
+        snapshot.appendItems(item, toSection: .main)
+        self.snapshot = snapshot
         datasource.apply(snapshot)
     }
+    
 }
 
 struct StudyRoomViewControllerPreview: PreviewProvider {
 
     static var previews: some View {
-        StudyRoomViewController().toPreview()
+        StudyRoomViewController(selectedStudyGroup: StudyGroup.sampleData[0]).toPreview()
     }
 
 }

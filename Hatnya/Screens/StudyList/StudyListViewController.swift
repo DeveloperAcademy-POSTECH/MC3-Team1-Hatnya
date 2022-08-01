@@ -17,6 +17,7 @@ final class StudyListViewController: UIViewController {
     }
     
     let firestore = Firestore.firestore()
+   
     var studyGroup = [StudyGroup]()
     
     private lazy var emptyStudyLabel: UILabel = {
@@ -28,18 +29,14 @@ final class StudyListViewController: UIViewController {
         
         return label
     }()
-        
-    override func loadView() {
-        super.loadView()
-        
-        addUid()
-        fetchStudyGroups()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         render()
+        addUid()
+        fetchStudyGroups()
+        tableView.delegate = self
     }
     
     private func render() {
@@ -90,7 +87,7 @@ final class StudyListViewController: UIViewController {
         // "Members" 컬렉션에서 (UserDefaults에 저장된 값 == uid)인 document만 필터링
         firestore.collectionGroup("Members")
             .whereField("uid", isEqualTo: UserDefaults.standard.string(forKey: "User") ?? "")
-            .getDocuments() { (querySnapshot, err) in
+            .getDocuments { querySnapshot, err in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -99,7 +96,7 @@ final class StudyListViewController: UIViewController {
                         let studyGroupId = memberDocument.reference.parent.parent?.documentID ?? ""
                         let docRef = self.firestore.collection("StudyGroup").document(studyGroupId)
                         
-                        docRef.getDocument { [self] (document, _) in
+                        docRef.getDocument { [self] document, _ in
                             if let document = document, document.exists {
                                 // "StudyGroup"의 document에서 "StudyGroup"의 이름과 설명 가져오기
                                 let studyGroupName = document.get("name") as? String ?? ""
@@ -108,7 +105,8 @@ final class StudyListViewController: UIViewController {
                                 // 기존 "StudyGroup" 객체에 append
                                 studyGroup.append(StudyGroup(members: [],
                                                              name: studyGroupName, code: "", description: studyGroupDescription,
-                                                             cycle: StudyCycle(cycle: 0, weekDay: []), createdAt: Date()))
+                                                             cycle: StudyCycle(cycle: 0, weekDay: []),
+                                                             createdAt: Date(), uid: studyGroupId))
                                 // firebase에서 데이터를 가져왔으므로 reload
                                 tableView.reloadData()
                                 emptyStudyLabel.text = ""
@@ -119,6 +117,16 @@ final class StudyListViewController: UIViewController {
                     }
                 }
             }
+    }
+}
+
+extension StudyListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedStudyGroup = studyGroup[indexPath.row]
+        let studyRoomViewController = StudyRoomViewController(selectedStudyGroup: selectedStudyGroup)
+        navigationController?.pushViewController(studyRoomViewController, animated: true)
     }
 }
 
@@ -139,7 +147,8 @@ extension StudyListViewController: UITableViewDataSource {
                                     code: studyGroup[indexPath.row].code,
                                     description: studyGroup[indexPath.row].description,
                                     cycle: studyGroup[indexPath.row].cycle,
-                                    createdAt: studyGroup[indexPath.row].createdAt)
+                                    createdAt: studyGroup[indexPath.row].createdAt,
+                                    uid: studyGroup[indexPath.row].uid)
         cell.configure(with: dataSource)
         
         return cell
