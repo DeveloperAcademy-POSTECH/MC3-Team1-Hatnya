@@ -63,7 +63,7 @@ final class StudyChartCollectionViewCell: UICollectionViewCell {
     
     func setupChartStackView(_ list: [Bool], count: Int) {
         if chartStackView.arrangedSubviews.count < count {
-            chartStackView.arrangedSubviews.map {
+            chartStackView.arrangedSubviews.forEach {
                 chartStackView.removeArrangedSubview($0)
             }
             for index in 0..<count {
