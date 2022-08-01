@@ -41,6 +41,7 @@
 		A7D2316F288D93C700A59A85 /* StudyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2316E288D93C700A59A85 /* StudyListTableViewCell.swift */; };
 		A7D23171288D93DE00A59A85 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D23170288D93DE00A59A85 /* StudyGroup.swift */; };
 		A7D23173288D93EF00A59A85 /* StudyList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7D23172288D93EF00A59A85 /* StudyList.storyboard */; };
+		AE3B22E92896932900416FC2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */; };
 		AEC29DA528858DE700DA24B8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = AEC29DA428858DE700DA24B8 /* .swiftlint.yml */; };
 		AEC29DA72886E63500DA24B8 /* ViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC29DA62886E63500DA24B8 /* ViewController+Preview.swift */; };
 		AED2E1B52887B4C700B32FF7 /* HomeworkListTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED2E1B42887B4C700B32FF7 /* HomeworkListTitleView.swift */; };
@@ -107,6 +108,7 @@
 			files = (
 				3DD9E7BB288F717700C3BEC0 /* FirebaseAnalytics in Frameworks */,
 				3DD9E7BD288F717700C3BEC0 /* FirebaseFirestore in Frameworks */,
+				AE3B22E92896932900416FC2 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +353,7 @@
 			packageProductDependencies = (
 				3DD9E7BA288F717700C3BEC0 /* FirebaseAnalytics */,
 				3DD9E7BC288F717700C3BEC0 /* FirebaseFirestore */,
+				AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */,
 			);
 			productName = Hatnya;
 			productReference = A28DEF6F28854EEF004014DE /* Hatnya.app */;
@@ -382,6 +385,7 @@
 			mainGroup = A28DEF6628854EEF004014DE;
 			packageReferences = (
 				3DD9E7B9288F717700C3BEC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AE3B22E72896932900416FC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = A28DEF7028854EEF004014DE /* Products */;
 			projectDirPath = "";
@@ -696,6 +700,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		AE3B22E72896932900416FC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -708,6 +720,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3DD9E7B9288F717700C3BEC0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		AE3B22E82896932900416FC2 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AE3B22E72896932900416FC2 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
