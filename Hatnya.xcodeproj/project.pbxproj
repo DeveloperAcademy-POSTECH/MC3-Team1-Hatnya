@@ -41,6 +41,7 @@
 		A28DEF9F28855299004014DE /* StudyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEF9E28855299004014DE /* StudyListViewController.swift */; };
 		A28DEFA528855325004014DE /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA428855325004014DE /* ImageLiteral.swift */; };
 		A28DEFA828855354004014DE /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DEFA728855354004014DE /* UIColor+Extension.swift */; };
+		A7AC777C289357D000352789 /* StudyInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AC777B289357D000352789 /* StudyInfo.swift */; };
 		A2A1FD842897C38E00EC765F /* DeadlineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A1FD832897C38E00EC765F /* DeadlineManager.swift */; };
 		A7D2316F288D93C700A59A85 /* StudyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D2316E288D93C700A59A85 /* StudyListTableViewCell.swift */; };
 		A7D23171288D93DE00A59A85 /* StudyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D23170288D93DE00A59A85 /* StudyGroup.swift */; };
@@ -94,6 +95,7 @@
 		A28DEF9E28855299004014DE /* StudyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListViewController.swift; sourceTree = "<group>"; };
 		A28DEFA428855325004014DE /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
 		A28DEFA728855354004014DE /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		A7AC777B289357D000352789 /* StudyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyInfo.swift; sourceTree = "<group>"; };
 		A2A1FD832897C38E00EC765F /* DeadlineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineManager.swift; sourceTree = "<group>"; };
 		A7D2316E288D93C700A59A85 /* StudyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyListTableViewCell.swift; sourceTree = "<group>"; };
 		A7D23170288D93DE00A59A85 /* StudyGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudyGroup.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				AED2E1B828880EDC00B32FF7 /* Homework.swift */,
 				3DD9E7BE288F90AC00C3BEC0 /* StudyCycle.swift */,
 				3DD9E7C0288F90CB00C3BEC0 /* Member.swift */,
+				A7AC777B289357D000352789 /* StudyInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				3982366F288D228300F6B004 /* String+Extension.swift in Sources */,
 				AED2E1C0288C3A3700B32FF7 /* EditTaskSupplementaryView.swift in Sources */,
 				3982366D2886EF0400F6B004 /* ColorLiteral.swift in Sources */,
+				A7AC777C289357D000352789 /* StudyInfo.swift in Sources */,
 				A28DEF9D28855285004014DE /* JoinStudyViewController.swift in Sources */,
 				A22BA9ED2888E0C100A84BCC /* DayButtonView.swift in Sources */,
 				398236832896BD4C00F6B004 /* HomeworkTask.swift in Sources */,

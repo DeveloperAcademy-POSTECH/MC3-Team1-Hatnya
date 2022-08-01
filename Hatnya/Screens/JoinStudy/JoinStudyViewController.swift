@@ -5,9 +5,15 @@
 //  Created by Eve on 2022/07/19.
 //
 
+import FirebaseCore
+import FirebaseFirestore
 import UIKit
 
 class JoinStudyViewController: UIViewController {
+    
+    private let firestore = Firestore.firestore()
+    private var studyInfo = [StudyInfo]()
+    private var studyGroupDocumentId = ""
     
     @IBOutlet private var codeTextField: UITextField!
     @IBOutlet private var searchResultView: UIView!
@@ -17,6 +23,7 @@ class JoinStudyViewController: UIViewController {
     
     @IBAction private func touchUpNextButton(_ sender: UIButton) {
         let nicknameViewController = WriteNicknameViewController()
+        nicknameViewController.studyGroupDocumentId = studyGroupDocumentId
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
@@ -62,18 +69,37 @@ extension JoinStudyViewController: UITextFieldDelegate {
         nextButton.setBackgroundColor(.systemGray4, for: .disabled)
     }
     
+    func groupWithSameCode(code: String, completion: @escaping (Result<StudyInfo, Error>) -> Void) {
+        firestore.collection("StudyGroup").whereField("code", isEqualTo: code)
+            .getDocuments { querySnapshot, err in
+                if let err = err {
+                    completion(.failure(err))
+                } else {
+                    for document in querySnapshot!.documents {
+                        let data = document.data()
+                        guard let name = data["name"] as? String,
+                              let description = data["description"] as? String else { return }
+                        
+                        completion(.success(StudyInfo(name: name, description: description)))
+                        self.studyGroupDocumentId = document.documentID
+                    }
+                }
+            }
+    }
+    
     private func searchStudyGroup() {
-// TODO: 추후 Firebase 데이터 연동 후 sampleData 변수에 Firebase의 StudyGroup 데이터 넣으면 됨
-//        for studyGroup in StudyGroup.sampleData {
-//            if codeTextField.text == studyGroup.code {
-//                searchResultView.backgroundColor = .systemGray6
-//                studyGroupName.text = studyGroup.studyName
-//                studyGroupDescription.text = studyGroup.description
-//                return
-//            } else {
-//                studyGroupName.text = "해당하는 스터디가 없습니다."
-//            }
-//        }
+        studyGroupName.text = "해당하는 스터디가 없습니다."
+        guard let code = codeTextField.text else { return }
+        groupWithSameCode(code: code) { [weak self] results in
+            switch results {
+            case .success(let info):
+                self?.searchResultView.backgroundColor = .systemGray6
+                self?.studyGroupName.text = info.name
+                self?.studyGroupDescription.text = info.description
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func checkMaxLength(textField: UITextField!, maxLength: Int) {
