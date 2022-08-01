@@ -55,31 +55,7 @@ final class SelectCycleDaysView: UIView {
     }
     
     func getSelectedDays() -> [String] {
-        var selectedDays: [String] = []
-        
-        if dayButtonStackView.mondayBtn.isSelected {
-            selectedDays.append("월")
-        }
-        if dayButtonStackView.tuesdayBtn.isSelected {
-            selectedDays.append("화")
-        }
-        if dayButtonStackView.wednesdayBtn.isSelected {
-            selectedDays.append("수")
-        }
-        if dayButtonStackView.thursdayBtn.isSelected {
-            selectedDays.append("목")
-        }
-        if dayButtonStackView.fridayBtn.isSelected {
-            selectedDays.append("금")
-        }
-        if dayButtonStackView.saturdayBtn.isSelected {
-            selectedDays.append("토")
-        }
-        if dayButtonStackView.sundayBtn.isSelected {
-            selectedDays.append("일")
-        }
-        
-        return selectedDays
+        return dayButtonStackView.getSelectedDays()
     }
     
 }

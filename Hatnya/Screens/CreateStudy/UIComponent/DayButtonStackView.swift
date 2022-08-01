@@ -8,13 +8,13 @@
 import UIKit
 
 class DayButtonStackView: UIStackView {
-    lazy var mondayBtn = DayButtonView()
-    lazy var tuesdayBtn = DayButtonView()
-    lazy var wednesdayBtn = DayButtonView()
-    lazy var thursdayBtn = DayButtonView()
-    lazy var fridayBtn = DayButtonView()
-    lazy var saturdayBtn = DayButtonView()
-    lazy var sundayBtn = DayButtonView()
+    private lazy var mondayBtn = DayButtonView()
+    private lazy var tuesdayBtn = DayButtonView()
+    private lazy var wednesdayBtn = DayButtonView()
+    private lazy var thursdayBtn = DayButtonView()
+    private lazy var fridayBtn = DayButtonView()
+    private lazy var saturdayBtn = DayButtonView()
+    private lazy var sundayBtn = DayButtonView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,4 +50,31 @@ class DayButtonStackView: UIStackView {
         }
     }
     
+    func getSelectedDays() -> [String] {
+        var selectedDays: [String] = []
+        
+        if mondayBtn.isSelected {
+            selectedDays.append("월")
+        }
+        if tuesdayBtn.isSelected {
+            selectedDays.append("화")
+        }
+        if wednesdayBtn.isSelected {
+            selectedDays.append("수")
+        }
+        if thursdayBtn.isSelected {
+            selectedDays.append("목")
+        }
+        if fridayBtn.isSelected {
+            selectedDays.append("금")
+        }
+        if saturdayBtn.isSelected {
+            selectedDays.append("토")
+        }
+        if sundayBtn.isSelected {
+            selectedDays.append("일")
+        }
+        
+        return selectedDays
+    }
 }
