@@ -60,7 +60,6 @@ opt_in_rules:
   - sorted_first_last
   - sorted_imports
   - static_operator
-  - strong_iboutlet
   - test_case_accessibility
   - toggle_bool
   - unavailable_function
@@ -71,6 +70,7 @@ opt_in_rules:
   - xct_specific_matcher
   - yoda_condition
 disabled_rules:
+  - strong_iboutlet
   - trailing_whitespace
 
 identifier_name:
