@@ -99,6 +99,11 @@ final class CreateStudyViewController: UIViewController {
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
+    private func configureTextField() {
+        getStudyNameView.valueTextField.delegate = self
+        getDescriptView.valueTextField.delegate = self
+    }
+    
     private func checkNoEmptyInput() {
         if (getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == "")
             || (getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == "")
@@ -122,15 +127,9 @@ extension CreateStudyViewController: UITextFieldDelegate {
         textField.underlined(viewSize: textField.bounds.width, color: .systemGray)
     }
     
-    private func configureTextField() {
-        getStudyNameView.valueTextField.delegate = self
-        getDescriptView.valueTextField.delegate = self
-    }
-    
     func textFieldDidChangeSelection(_ textField: UITextField) {
         checkNoEmptyInput()
     }
-    
 }
 
 struct CreateStudyViewControllerPreview: PreviewProvider {
