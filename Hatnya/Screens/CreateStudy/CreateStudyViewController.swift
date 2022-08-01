@@ -105,9 +105,10 @@ final class CreateStudyViewController: UIViewController {
     }
     
     private func checkNoEmptyInput() {
-        if (getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == "")
-            || (getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == "")
-            || selectedDays.isEmpty {
+        let isEmptyGetDescriptView = getDescriptView.valueTextField.text == nil || getDescriptView.valueTextField.text == ""
+        let isEmptyGetStudyNameView = getStudyNameView.valueTextField.text == nil || getStudyNameView.valueTextField.text == ""
+        
+        if isEmptyGetDescriptView || isEmptyGetStudyNameView || selectedDays.isEmpty {
             nextButton.backgroundColor = .systemGray4
             nextButton.isUserInteractionEnabled = false
         } else {
