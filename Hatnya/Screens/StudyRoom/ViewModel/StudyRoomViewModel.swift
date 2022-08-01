@@ -11,8 +11,8 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class StudyRoomViewModel {
-    @Published var currentCount: Int = 0
-    @Published var userTaskList: [Member] = []
+    @Published private(set) var currentCount: Int = 0
+    @Published private(set) var userTaskList: [Member] = []
     var cancelBag = Set<AnyCancellable>()
 
     init(studyUid: String) {
@@ -21,6 +21,14 @@ class StudyRoomViewModel {
 
     func clearUserTaskList() {
         userTaskList.removeAll()
+    }
+    
+    func increaseCurrentCount() {
+        currentCount += 1
+    }
+    
+    func decreaseCurrentCount() {
+        currentCount -= 1
     }
 
     func fetchCurrentStudyCount(studyUid: String) {

@@ -71,7 +71,7 @@ final class StudyRoomViewController: UIViewController {
         let action = UIAction { [weak self] _ in
             guard let cycle = self?.viewModel.currentCount else { return }
             if cycle > 1 {
-                self?.viewModel.currentCount -= 1
+                self?.viewModel.decreaseCurrentCount()
                 self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
             }
         }
@@ -91,7 +91,7 @@ final class StudyRoomViewController: UIViewController {
         let action = UIAction { [weak self] _ in
             guard let cycle = self?.viewModel.currentCount else { return }
             if cycle < 3 {
-                self?.viewModel.currentCount += 1
+                self?.viewModel.increaseCurrentCount()
                 self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
             }
         }
