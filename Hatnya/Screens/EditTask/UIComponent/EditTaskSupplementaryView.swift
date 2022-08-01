@@ -78,7 +78,7 @@ extension EditTaskSupplementaryView {
     @objc
     func plusButtonTouched() {
         guard let text = textField.text else { return }
-        newTask = Homework(name: text, isCompleted: false)
+        newTask = Homework(id: "\(UUID())", name: text, isCompleted: false)
         textField.text = ""
     }
     

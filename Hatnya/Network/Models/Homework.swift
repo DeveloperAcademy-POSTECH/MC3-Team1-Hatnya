@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct Homework: Hashable, Codable {
+struct Homework: Codable, Hashable {
+    var id: String
     var name: String
     var isCompleted: Bool
 }
 
 extension Homework {
-    static let mock = Homework(name: "", isCompleted: false)
+    static let mock = Homework(id: "\(UUID())", name: "", isCompleted: false)
 }
 
 struct Homeworks: Codable {
