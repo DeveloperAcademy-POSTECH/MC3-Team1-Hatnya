@@ -95,13 +95,21 @@ final class CreateStudyViewController: UIViewController {
         ])
     }
     
+    private func getStudyName() -> String {
+        return getStudyNameView.valueTextField.text ?? "이름 없음"
+    }
+    
+    private func getStudyDescription() -> String {
+        return getDescriptView.valueTextField.text ?? "설명 없음"
+    }
+    
     @objc
     private func nextButtonTouch() {
         let nicknameViewController = WriteNicknameViewController()
         let studyGroup = StudyGroup(members: [],
-                                    name: getStudyNameView.valueTextField.text ?? "이름 없음",
+                                    name: getStudyName(),
                                     code: "no code",
-                                    description: getDescriptView.valueTextField.text ?? "설명 없음",
+                                    description: getStudyDescription(),
                                     cycle: StudyCycle(cycle: selectCycleDayView.getSelectedCycle(),
                                                       weekDay: selectCycleDayView.getSelectedDays()),
                                     createdAt: nil)
