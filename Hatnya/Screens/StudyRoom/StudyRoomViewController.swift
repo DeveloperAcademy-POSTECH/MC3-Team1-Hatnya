@@ -138,7 +138,6 @@ extension StudyRoomViewController {
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
         setDeadlineLabels()
-        print("app ---- ", appStartDate)
     }
 
     private func render() {
@@ -207,9 +206,7 @@ extension StudyRoomViewController {
             let offsetWeek = offsetDay / 7
             
             if !offsetWeek.isMultiple(of: cycle) {
-                print("not fit", offsetWeek % cycle)
                 offsetToDeadline += 7 * (cycle - (offsetWeek % cycle))
-                print("not fittt", offsetToDeadline)
             }
             offsetToDeadline -= (dayOfWeekNum[nearestCycleDate.getDayOfWeek]! - dayOfWeekNum[cycleDay[0]]!)
         } else {
