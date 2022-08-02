@@ -21,6 +21,8 @@ final class EditTaskViewController: UIViewController {
     private var cancelable = Set<AnyCancellable>()
     private var viewModel: StudyRoomViewModel!
     
+    private var
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavi()
