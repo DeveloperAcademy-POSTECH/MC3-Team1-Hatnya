@@ -6,6 +6,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 import SwiftUI
 import UIKit
 
@@ -20,6 +21,8 @@ final class WriteNicknameViewController: UIViewController {
                                 cycle: StudyCycle(cycle: 1, weekDay: ["화"]),
                                 createdAt: nil,
                                 uid: "no uid")
+    
+    var initialHomeworkList: [Homework] = []
     
     var beforeView: BeforeView = .createStudy
     
@@ -220,18 +223,78 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     }
     
     private func storeMemberNickname() {
-        let membersRef = firestore.collection("StudyGroup").document(studyGroupDocumentId).collection("Members").document()
+        let memberId = UUID()
         let uuid = UIDevice.current.identifierForVendor!.uuidString
+        let membersRef = firestore.collection("StudyGroup").document(studyGroupDocumentId)
+                    .collection("Members").document(memberId.uuidString)
+        let nickname = self.inputTextField.text
         
-        if let nickname = inputTextField.text {
+        self.initHomeworkList(studyUid: self.studyGroupDocumentId)
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
             membersRef.setData([
                 "uid": uuid,
-                "nickname": nickname
+                "nickname": nickname ?? ""
             ]) { err in
                 if let err = err {
                     print("Error writing document: \(err)")
                 } else {
                     print("Document successfully written!")
+                }
+            }
+            
+            do {
+                var initialList: [Homework] = []
+                self.initialHomeworkList.forEach { each in
+                    initialList.append(Homework(id: "", name: each.name, isCompleted: false))
+                }
+                let updatedData = Homeworks(count: 3, list: initialList)
+                let encodeData = try Firestore.Encoder().encode(updatedData)
+
+                membersRef.collection("Homeworks").document()
+                    .setData(encodeData) { error in
+                    if let error = error {
+                        print(error)
+                    }
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func initHomeworkList(studyUid: String) {
+        print("in")
+        let firestoreDb = Firestore.firestore()
+        firestoreDb
+            .collection("StudyGroup")
+            .document(studyUid)
+            .collection("Members")
+            .getDocuments { querySnapshot, err in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                print("in2")
+                guard let snapshot = querySnapshot else { return }
+                snapshot.documents.first?.reference.collection("Homeworks")
+                .whereField("count", isEqualTo: 3)
+                .getDocuments { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting documents: \(err)")
+                    } else {
+                        guard let snapshot = querySnapshot else { return }
+                        for document in snapshot.documents {
+                            document.reference.getDocument(as: HomeworkTask.self, completion: { result in
+                                switch result {
+                                case .success(let homework):
+                                    self.initialHomeworkList = homework.list
+                                    print("aaaaaa", self.initialHomeworkList)
+                                case .failure(let err):
+                                    print(err)
+                                }
+                            })
+                        }
+                    }
                 }
             }
         }
