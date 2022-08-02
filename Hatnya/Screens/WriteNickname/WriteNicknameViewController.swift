@@ -24,7 +24,7 @@ final class WriteNicknameViewController: UIViewController {
     
     var initialHomeworkList: [Homework] = []
     
-    var beforeView: BeforeView = .createStudy
+    var beforeWriteNicknameView: BeforeView = .createStudy
     
     enum BeforeView {
         case createStudy
@@ -89,7 +89,7 @@ final class WriteNicknameViewController: UIViewController {
     
     @objc
     func nextButtonTapHandler(sender: UIButton) {
-        if beforeView == BeforeView.createStudy {
+        if beforeWriteNicknameView == BeforeView.createStudy {
             createNewStudy()
         } else {
             storeMemberNickname()
