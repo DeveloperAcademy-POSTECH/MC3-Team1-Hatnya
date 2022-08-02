@@ -24,6 +24,7 @@ class JoinStudyViewController: UIViewController {
     @IBAction private func touchUpNextButton(_ sender: UIButton) {
         let nicknameViewController = WriteNicknameViewController()
         nicknameViewController.studyGroupDocumentId = studyGroupDocumentId
+        nicknameViewController.beforeWriteNicknameView = .joinStudy
         self.navigationController?.pushViewController(nicknameViewController, animated: true)
     }
     
