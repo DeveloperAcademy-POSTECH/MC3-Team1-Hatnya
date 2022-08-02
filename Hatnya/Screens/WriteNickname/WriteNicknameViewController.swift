@@ -264,7 +264,6 @@ extension WriteNicknameViewController: UITextFieldDelegate {
     }
     
     func initHomeworkList(studyUid: String) {
-        print("in")
         let firestoreDb = Firestore.firestore()
         firestoreDb
             .collection("StudyGroup")
@@ -274,7 +273,6 @@ extension WriteNicknameViewController: UITextFieldDelegate {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                print("in2")
                 guard let snapshot = querySnapshot else { return }
                 snapshot.documents.first?.reference.collection("Homeworks")
                 .whereField("count", isEqualTo: 3)
@@ -288,7 +286,6 @@ extension WriteNicknameViewController: UITextFieldDelegate {
                                 switch result {
                                 case .success(let homework):
                                     self.initialHomeworkList = homework.list
-                                    print("aaaaaa", self.initialHomeworkList)
                                 case .failure(let err):
                                     print(err)
                                 }
