@@ -93,7 +93,6 @@ final class StudyRoomViewController: UIViewController {
                 self?.viewModel.decreaseCurrentCount()
                 self?.viewModel.fetchSnapShotMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
             } else {
-                print("Fxxk reload")
                 self?.chartCollectionView.reloadData()
             }
         }
