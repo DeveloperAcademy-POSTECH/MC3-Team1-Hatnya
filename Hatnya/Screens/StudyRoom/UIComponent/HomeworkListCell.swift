@@ -66,23 +66,23 @@ extension HomeworkListCell {
         }
         
         NSLayoutConstraint.activate([
-            checkButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
-            checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            checkButton.widthAnchor.constraint(equalToConstant: 30),
-            checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
-        ])
-        
-        NSLayoutConstraint.activate([
-            tagView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
+            tagView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: margin),
             tagView.centerYAnchor.constraint(equalTo: centerYAnchor),
             tagView.widthAnchor.constraint(equalToConstant: tagSize),
             tagView.heightAnchor.constraint(equalToConstant: tagSize)
         ])
         
         NSLayoutConstraint.activate([
-            textLabel.leadingAnchor.constraint(equalTo: checkButton.trailingAnchor, constant: margin),
+            checkButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -margin),
+            checkButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkButton.widthAnchor.constraint(equalToConstant: 30),
+            checkButton.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
+        ])
+        
+        NSLayoutConstraint.activate([
+            textLabel.leadingAnchor.constraint(equalTo: tagView.trailingAnchor, constant: margin),
             textLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textLabel.trailingAnchor.constraint(equalTo: tagView.leadingAnchor, constant: -margin),
+            textLabel.trailingAnchor.constraint(equalTo: checkButton.leadingAnchor, constant: -margin),
             textLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: margin)
         ])
         
