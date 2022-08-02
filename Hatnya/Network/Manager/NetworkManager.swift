@@ -14,6 +14,8 @@ import Foundation
 final class NetworkManager {
 
     private let firestore = Firestore.firestore()
+    // TODO: study id UserDefaults 저장 또는 뷰컨트롤러로부터 데이터 전달하여 하드 코딩 제거
+    var studyId = "w2sEujplXcqubgaYYUdZ"
 
     enum NetworkError: Error {
         case encodingError(Error)
@@ -23,9 +25,8 @@ final class NetworkManager {
     }
 
     func getHomeworkPath(count: Int, completionHandler: @escaping (String) -> Void) {
-        // TODO: study id UserDefaults 저장 또는 뷰컨트롤러로부터 데이터 전달하여 하드 코딩 제거
-        let studyId = "w2sEujplXcqubgaYYUdZ"
         let uid = UserDefaults.standard.string(forKey: "User") ?? ""
+        let studyId = self.studyId
         var userId = ""
         var homeworkId = ""
 
@@ -54,6 +55,32 @@ final class NetworkManager {
         }
     }
 
+    func getAllMemeberPath(count: Int, completion: @escaping (String, [Homework]) -> Void) {
+        let studyId = self.studyId
+        
+        firestore.collection("StudyGroup/\(studyId)/Members")
+            .getDocuments { snapshot, _ in
+                guard let documents = snapshot?.documents else { return }
+                
+                documents.forEach { snapshot in
+                    let userId = snapshot.documentID
+                    
+                    snapshot.reference.collection("Homeworks")
+                        .getDocuments { querySnapshot, _ in
+                            guard let documents = querySnapshot?.documents else { return }
+                            documents.forEach { snapshot in
+                                guard let countData = snapshot.data()["count"] as? Int else { return }
+                                guard let homeworkListData = snapshot.data()["list"] as? [Homework] else { return }
+                                if count == countData {
+                                    let homeworkId = snapshot.documentID
+                                    completion("StudyGroup/\(studyId)/Members/\(userId)/Homeworks/\(homeworkId)", homeworkListData)
+                                }
+                            }
+                        }
+                }
+            }
+    }
+    
     func post<T: Encodable>(with data: T, path: String) {
         do {
             let encodeData = try Firestore.Encoder().encode(data)

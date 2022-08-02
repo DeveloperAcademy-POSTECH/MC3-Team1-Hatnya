@@ -19,14 +19,23 @@ final class EditTaskViewController: UIViewController {
     private var snapshot = Snapshot()
     private var tableView: UITableView!
     private var cancelable = Set<AnyCancellable>()
-    private var count = 1
-    
+    private var viewModel: StudyRoomViewModel!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavi()
         configureLayout()
         configureDatasource()
         fetch()
+    }
+    
+    init(viewModel: StudyRoomViewModel) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
 }
@@ -45,8 +54,8 @@ extension EditTaskViewController {
     @objc
     func completeButtonTouched() {
         snapshot = taskDataSource.snapshot()
-        let updatedData = Homeworks(count: count, list: snapshot.itemIdentifiers)
-        networkManager.getHomeworkPath(count: 1) { path in
+        let updatedData = Homeworks(count: viewModel.currentCount, list: snapshot.itemIdentifiers)
+        networkManager.getHomeworkPath(count: viewModel.currentCount) { path in
             self.networkManager.post(with: updatedData, path: path)
         }
         dismiss(animated: true)
@@ -95,10 +104,9 @@ extension EditTaskViewController {
     }
     
     private func fetch() {
-        networkManager.getHomeworkPath(count: 1) { path in
+        networkManager.getHomeworkPath(count: viewModel.currentCount) { path in
             self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
                 self?.applySnapshot(with: homeworks.list)
-                self?.count = homeworks.count
             }
         }
     }
@@ -154,7 +162,7 @@ private class EditTaskDatasource: UITableViewDiffableDataSource<EditTaskSection,
 struct EditTaskPreview: PreviewProvider {
     
     static var previews: some View {
-        EditTaskViewController().toPreview()
+        EditTaskViewController(viewModel: StudyRoomViewModel(studyUid: "dsfd")).toPreview()
     }
 
 }

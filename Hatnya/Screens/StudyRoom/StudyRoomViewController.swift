@@ -292,13 +292,15 @@ extension StudyRoomViewController {
     }
 
     private func fetch() {
-        networkManager.getHomeworkPath(count: 1) { path in
-            self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
-                self?.applySnapshot(with: homeworks.list)
-                self?.count = homeworks.count
-            }
-        }
-
+        viewModel.$currentCount
+            .receive(on: DispatchQueue.main)
+            .sink { count in
+                self.networkManager.getHomeworkPath(count: count) { path in
+                    self.networkManager.get(for: Homeworks.self, path: path) { [weak self] homeworks in
+                        self?.applySnapshot(with: homeworks.list)
+                    }
+                }
+            }.store(in: &cancelBag)
     }
 
     private func setupNavigationRightButton() -> UIMenu {
@@ -362,7 +364,7 @@ extension StudyRoomViewController: UICollectionViewDataSource {
 extension StudyRoomViewController: EditDelegate, CheckDelegate {
     
     func editButtonTapped() {
-        let newViewController = UINavigationController(rootViewController: EditTaskViewController())
+        let newViewController = UINavigationController(rootViewController: EditTaskViewController(viewModel: viewModel))
         present(newViewController, animated: true)
     }
     
@@ -375,8 +377,8 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         snapshot.deleteItems([beforeItem])
         let updatedItems = snapshot.itemIdentifiers
         
-        let updatedHomeworks = Homeworks(count: count, list: updatedItems)
-        networkManager.getHomeworkPath(count: 1) { [weak self] path in
+        let updatedHomeworks = Homeworks(count: viewModel.currentCount, list: updatedItems)
+        networkManager.getHomeworkPath(count: viewModel.currentCount) { [weak self] path in
             self?.networkManager.post(with: updatedHomeworks, path: path)
             guard let cycle = self?.viewModel.currentCount else { return }
             guard let studyUid = self?.currentStudyUid else { return }
