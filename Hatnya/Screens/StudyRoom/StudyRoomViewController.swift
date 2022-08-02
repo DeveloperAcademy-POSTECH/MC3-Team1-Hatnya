@@ -91,7 +91,10 @@ final class StudyRoomViewController: UIViewController {
             guard let cycle = self?.viewModel.currentCount else { return }
             if cycle > 1 {
                 self?.viewModel.decreaseCurrentCount()
-                self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
+                self?.viewModel.fetchSnapShotMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
+            } else {
+                print("Fxxk reload")
+                self?.chartCollectionView.reloadData()
             }
         }
         button.setImage(UIImage(systemName: "arrowtriangle.backward.fill"), for: .normal)
@@ -111,7 +114,7 @@ final class StudyRoomViewController: UIViewController {
             guard let cycle = self?.viewModel.currentCount else { return }
             if cycle < 3 {
                 self?.viewModel.increaseCurrentCount()
-                self?.viewModel.fetchMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
+                self?.viewModel.fetchSnapShotMemberList(studyUid: self?.currentStudyUid ?? "", cycle: self?.viewModel.currentCount ?? 1)
             }
         }
         button.setImage(UIImage(systemName: "arrowtriangle.right.fill"), for: .normal)
@@ -374,6 +377,9 @@ extension StudyRoomViewController: EditDelegate, CheckDelegate {
         let updatedHomeworks = Homeworks(count: count, list: updatedItems)
         networkManager.getHomeworkPath(count: 1) { [weak self] path in
             self?.networkManager.post(with: updatedHomeworks, path: path)
+            guard let cycle = self?.viewModel.currentCount else { return }
+            guard let studyUid = self?.currentStudyUid else { return }
+            self?.viewModel.fetchSnapShotMemberList(studyUid: studyUid, cycle: cycle)
         }
     }
     
