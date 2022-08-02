@@ -22,11 +22,11 @@ class StudyRoomViewModel {
     func clearUserTaskList() {
         userTaskList.removeAll()
     }
-    
+
     func increaseCurrentCount() {
         currentCount += 1
     }
-    
+
     func decreaseCurrentCount() {
         currentCount -= 1
     }
@@ -39,14 +39,15 @@ class StudyRoomViewModel {
             .getDocument(as: FirebaseStudyInfo.self, completion: { result in
             switch result {
             case .success(let info):
+                // FIXME: 현재날짜로 부터 계산하면 1주차라서 강제로 3주차를 주기 위해 currentCount를 3으로 대입함.
                 self.currentCount = 3
-                self.fetchMemberList(studyUid: studyUid, cycle: 3)
+                self.fetchSnapShotMemberList(studyUid: studyUid, cycle: 3)
             case .failure(let err):
                 print(err)
             }
         })
     }
-    
+
     func getCurrentStudyCount(to startDate: Date) -> Int {
         let oneDayTimeInterval: TimeInterval = 86_400
         let distance = startDate.distance(to: Date())
@@ -55,7 +56,7 @@ class StudyRoomViewModel {
         return count + 1
     }
 
-    func fetchMemberList(studyUid: String, cycle: Int) {
+    func fetchSnapShotMemberList(studyUid: String, cycle: Int) {
         self.clearUserTaskList()
         let firestoreDb = Firestore.firestore()
         firestoreDb
@@ -78,15 +79,20 @@ class StudyRoomViewModel {
                             print("Error getting documents: \(err)")
                         } else {
                             guard let snapshot = querySnapshot else { return }
-                            for document in snapshot.documents {
-                                document.reference.getDocument(as: HomeworkTask.self, completion: { result in
-                                    switch result {
-                                    case .success(let homework):
-                                        self.userTaskList.append(Member(uid: uid, nickname: name, homeworks: homework.list))
-                                    case .failure(let err):
-                                        print(err)
+                            for homeworkDocument in snapshot.documents {
+                                homeworkDocument.reference.addSnapshotListener { snapshot, err in
+                                    snapshot?.reference.getDocument(as: HomeworkTask.self) { result in
+                                        switch result {
+                                        case .success(let homework):
+                                            let isContain = self.userTaskList.contains { $0.uid == uid }
+                                            if !isContain {
+                                                self.userTaskList.append(Member(uid: uid, nickname: name, homeworks: homework.list))
+                                            }
+                                        case .failure(let err):
+                                            print(err)
+                                        }
                                     }
-                                })
+                                }
                             }
                         }
                     }
@@ -94,4 +100,5 @@ class StudyRoomViewModel {
             }
         }
     }
+
 }
