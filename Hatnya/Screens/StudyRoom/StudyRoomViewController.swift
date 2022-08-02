@@ -198,6 +198,8 @@ extension StudyRoomViewController {
     }
     
     private func configUI() {
+        currentStudyUid = selectedStudyGroup.uid
+        viewModel = StudyRoomViewModel(studyUid: currentStudyUid)
         view.backgroundColor = .backgroundGrey
         setupNavigationBar()
         setDeadlineLabels()
